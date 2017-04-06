@@ -13,6 +13,9 @@
 #define INPUT_TYPE_DRAWAREA		1
 #define BUTTON_REG 				2
 
+#define IMAGE_TYPE_RGB 4
+#define IMAGE_TYPE_GREYSCALE 5
+
 
 void display_callback( void );
 void render( int );
@@ -299,6 +302,8 @@ public:
 	int step_rate;
 	int curren_step;
 
+	int current_press_state;
+
 	void start_vals(){
 		R = 255;
 		G = 0;
@@ -310,6 +315,7 @@ public:
 		line_R = 0;
 		line_G = 0;
 		line_B = 0;
+		current_press_state = 0;
 	}
 
 	DRAW_AREA(){
@@ -362,7 +368,7 @@ public:
 		lines[ lines_len - 1 ] = LINE( _x, _y, _x2, _y2 );
 		lines[ lines_len - 1 ].set_width( line_width_create );
 		lines[ lines_len - 1 ].set_color( line_R, line_G, line_B );
-		std::cout << "added line to draw area \n";
+		//std::cout << "added line to draw area \n";
 
 	}
 
@@ -394,27 +400,27 @@ public:
 	}
 
 	void mouse_move_press( int _x, int _y ){
-		if( curren_step == step_rate ){
-			add_line( last_x, last_y, _x, _y );
-			last_x = _x;
-			last_y = _y;
-			curren_step = 0;
-		}else{
-			curren_step += 1;
+		if( current_press_state == 0 ){
+			if( curren_step == step_rate ){
+				add_line( last_x, last_y, _x, _y );
+				last_x = _x;
+				last_y = _y;
+				curren_step = 0;
+			}else{
+				curren_step += 1;
+			}
 		}
 	}
 
 	void mouse_press( int button, int state, int _x, int _y ){
 		last_x = _x;
 		last_y = _y;
-		std::cout << "DRAW_AREA_PRESS: button: " << button << " state: " << state << " x: " << x << " y: " << y << "\n";
+		current_press_state = state;
 	}
 
 };
 
 
-#define IMAGE_TYPE_RGB 1
-#define IMAGE_TYPE_GREYSCALE 2
 
 struct IMAGE_INFO{
 	int start;
@@ -1029,6 +1035,17 @@ void render( int a ){
 	glutTimerFunc( frame_delay, render, 0  );
 	window.render();
 }
+
+
+
+
+
+
+
+
+
+
+// **************************************************************************************************************************************************** //
 
 
 
