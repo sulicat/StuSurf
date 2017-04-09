@@ -612,15 +612,9 @@ public:
 
 			if( bits_per_pixel == 24 || bits_per_pixel == 32 ){ 
 				for( int i = 0; i < (image_width * image_height * 3); i++ ){
-
-					//std::cout << std::dec << (char)file[ pixel_offset + i ] << " 	| ";
-
 					image_data[ i ] 	= 	(unsigned char)file[ pixel_offset + i + 2 ] ;
 					image_data[ i+1 ] 	= 	(unsigned char)file[ pixel_offset + i + 1] ;
-					image_data[ i+2 ] 	= 	(unsigned char)file[ pixel_offset + i ] ;	
-					
-					//std::cout << std::hex << (int)file[ pixel_offset + i ] << " " << (int)file[pixel_offset + i + 1] << " " << (int)file[ pixel_offset + i + 2 ] << " " << std::dec <<  	i << "\n";
-				
+					image_data[ i+2 ] 	= 	(unsigned char)file[ pixel_offset + i ] ;					
 					i += 2;
 				}
 
@@ -638,6 +632,7 @@ public:
 		    glEnable(GL_TEXTURE_2D);
 	  
 
+		    std::cout << "the image is done loading";
 
 
 
