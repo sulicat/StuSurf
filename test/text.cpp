@@ -6,7 +6,8 @@
 #include <GL/glut.h>
 
 
-#define IMAGE_TYPE_RGB 1
+#define IMAGE_TYPE_RGB 24
+#define IMAGE_TYPE_RGBA 32
 #define IMAGE_TYPE_GREYSCALE 2
 
 struct IMAGE_INFO{
@@ -169,7 +170,7 @@ public:
 				for( int c = 0; c < other_data_len; c++ ){
 
 					if( i == other_data[ c ].start ){
-						std::copy( file + other_data[c].start, file + other_data[c].end + 4, temp );
+						std::copy( file + other_data[c].start, file + other_data[c].end, temp );
 						other_data[c].value = *(temp+3) << 24 | *(temp+2) << 16 | *(temp+1) << 8 | *temp;
 						
 						std::cout << std::dec << other_data[c].name << " : " << other_data[c].value << "\n";
@@ -210,7 +211,17 @@ public:
 					i += 2;
 				}
 
-			}else if( bits_per_pixel != 24 ){
+				glEnable(GL_BLEND);
+				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
+				glGenTextures(1, &tex);
+				glBindTexture(GL_TEXTURE_2D, tex);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			   	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat); 
+
+
+
+			}else if( bits_per_pixel == 32 ){
 				texDat = new unsigned char[ image_width * image_height * 4 ];
 				image_data = new unsigned char[ image_width * image_height * 4 ];
 
@@ -223,18 +234,23 @@ public:
 									
 					i += 3;
 				}
+
+				glEnable(GL_BLEND);
+				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
+				glGenTextures(1, &tex);
+				glBindTexture(GL_TEXTURE_2D, tex);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			   	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat);
+
+			}else{
+
+
+
 			}
 
 			texDat = image_data;
 
-			glEnable(GL_BLEND);
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
-			glGenTextures(1, &tex);
-			glBindTexture(GL_TEXTURE_2D, tex);
-		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		    //glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, image_width, image_height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, texDat);
-		   	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texDat); 
 		    glBindTexture(GL_TEXTURE_2D, 0);
 		    glEnable(GL_TEXTURE_2D);
 	  
@@ -253,8 +269,17 @@ public:
 
 	void draw(){
 
-			glEnable(GL_BLEND);
-			glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
+		if( bits_per_pixel == 24 ){
+
+			glBindTexture(GL_TEXTURE_2D, tex);
+		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat); 
+		    glBindTexture(GL_TEXTURE_2D, 0);
+
+		    glBindTexture(GL_TEXTURE_2D, tex);
+
+		}else if( bits_per_pixel == 32 ){
 			glBindTexture(GL_TEXTURE_2D, tex);
 		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -263,19 +288,25 @@ public:
 
 		    glBindTexture(GL_TEXTURE_2D, tex);
 
-		    
-		    glColor3f(1,1,1);
-		    glBegin(GL_QUADS);
-		    	glTexCoord2i(0, 0); glVertex2i(x, y);
-		    	glTexCoord2i(0, 1); glVertex2i(x, y + height);
-			    glTexCoord2i(1, 1); glVertex2i(x + width, y + height);
-			    glTexCoord2i(1, 0); glVertex2i(x + width, y);
-		    glEnd();
-
-
 		}
 
+
+		glColor3f(1,1,1);
+	    glBegin(GL_QUADS);
+	    	glTexCoord2i(0, 0); glVertex2i(x, y);
+	    	glTexCoord2i(0, 1); glVertex2i(x, y + height);
+		    glTexCoord2i(1, 1); glVertex2i(x + width, y + height);
+		    glTexCoord2i(1, 0); glVertex2i(x + width, y);
+	    glEnd();
+
+	}
+
 };
+
+
+
+
+
 
 
 // this is the class that will display text on the screen using the bitmap loader.
@@ -361,7 +392,7 @@ int main( int argc, char * * argv ){
     glMatrixMode(GL_MODELVIEW);
 
 
-    glColor3f( 255, 0, 0 );
+    glColor3f( 255, 255, 255 );
     glBegin(GL_QUADS);
      	glVertex3f(0, 0, 0);
      	glVertex3f(0, 1224, 0);
@@ -369,11 +400,21 @@ int main( int argc, char * * argv ){
      	glVertex3f(1224, 0, 0);
     glEnd();
 
+
+
+    IMAGE img2 = IMAGE( (char*) "test_3.bmp");
+    img2.set_pos( 400, 400 );
+    img2.set_size( 400, 400 );
+    img2.load();
+    img2.draw();
+
     IMAGE img = IMAGE( (char*) "alpha.bmp");
     img.set_pos( 100, 100 );
     img.set_size( 900, 900 );
     img.load();
     img.draw();
+
+
 
 /*    TEXT text = TEXT( (char *)"hello" );
     text.set_pos( 100, 100 );
