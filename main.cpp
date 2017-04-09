@@ -451,7 +451,6 @@ struct IMAGE_INFO{
 
 
 
-
 class IMAGE{
 public:
 	int x;
@@ -582,7 +581,7 @@ public:
 				for( int c = 0; c < other_data_len; c++ ){
 
 					if( i == other_data[ c ].start ){
-						std::copy( file + other_data[c].start, file + other_data[c].end + 4, temp );
+						std::copy( file + other_data[c].start, file + other_data[c].end, temp );
 						other_data[c].value = *(temp+3) << 24 | *(temp+2) << 16 | *(temp+1) << 8 | *temp;
 						
 						std::cout << std::dec << other_data[c].name << " : " << other_data[c].value << "\n";
@@ -605,34 +604,68 @@ public:
 			bits_per_pixel 	= (unsigned int) (other_data[ 8 ].value);
 			std::cout << "bpp: " << bits_per_pixel << "\n";
 
-			unsigned char * image_data = new unsigned char[ image_width * image_height * 3 ];
+			unsigned char * image_data;
 			texDat = new unsigned char[ image_width * image_height * 3 ];
 
 
 
-			if( bits_per_pixel == 24 || bits_per_pixel == 32 ){ 
+			if( bits_per_pixel == 24 ){ 
+				texDat = new unsigned char[ image_width * image_height * 3 ];
+				image_data = new unsigned char[ image_width * image_height * 3 ];
+
 				for( int i = 0; i < (image_width * image_height * 3); i++ ){
-					image_data[ i ] 	= 	(unsigned char)file[ pixel_offset + i + 2 ] ;
-					image_data[ i+1 ] 	= 	(unsigned char)file[ pixel_offset + i + 1] ;
-					image_data[ i+2 ] 	= 	(unsigned char)file[ pixel_offset + i ] ;					
+
+					image_data[ i ] 	= 	(unsigned char)file[ pixel_offset + i + 2 ] ;		// R
+					image_data[ i+1 ] 	= 	(unsigned char)file[ pixel_offset + i + 1] ;		// G
+					image_data[ i+2 ] 	= 	(unsigned char)file[ pixel_offset + i ] ;			// B
+									
 					i += 2;
 				}
+
+				glEnable(GL_BLEND);
+				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
+				glGenTextures(1, &tex);
+				glBindTexture(GL_TEXTURE_2D, tex);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			   	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat); 
+
+
+
+			}else if( bits_per_pixel == 32 ){
+				texDat = new unsigned char[ image_width * image_height * 4 ];
+				image_data = new unsigned char[ image_width * image_height * 4 ];
+
+				for( int i = 0; i < (image_width * image_height * 4); i++ ){					
+					
+					image_data[ i ] 	= 	(unsigned char)file[ pixel_offset + i + 3 ] ;		// R
+					image_data[ i+1 ] 	= 	(unsigned char)file[ pixel_offset + i + 2 ] ;		// G
+					image_data[ i+2 ] 	= 	(unsigned char)file[ pixel_offset + i + 1 ] ;		// B
+					image_data[ i+3 ] 	= 	(unsigned char)file[ pixel_offset + i  ] ;			// A
+									
+					i += 3;
+				}
+
+				glEnable(GL_BLEND);
+				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
+				glGenTextures(1, &tex);
+				glBindTexture(GL_TEXTURE_2D, tex);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			   	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat);
+
+			}else{
+
+
 
 			}
 
 			texDat = image_data;
-		
-			glGenTextures(1, &tex);
-			glBindTexture(GL_TEXTURE_2D, tex);
-		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		    //glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, image_width, image_height, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, texDat);
-		   	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat); 
+
 		    glBindTexture(GL_TEXTURE_2D, 0);
 		    glEnable(GL_TEXTURE_2D);
 	  
 
-		    std::cout << "the image is done loading";
 
 
 
@@ -647,6 +680,8 @@ public:
 
 	void draw(){
 
+		if( bits_per_pixel == 24 ){
+
 			glBindTexture(GL_TEXTURE_2D, tex);
 		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -655,19 +690,32 @@ public:
 
 		    glBindTexture(GL_TEXTURE_2D, tex);
 
-		    
-		    glColor3f(1,1,1);
-		    glBegin(GL_QUADS);
-		    	glTexCoord2i(0, 0); glVertex2i(x, y);
-		    	glTexCoord2i(0, 1); glVertex2i(x, y + height);
-			    glTexCoord2i(1, 1); glVertex2i(x + width, y + height);
-			    glTexCoord2i(1, 0); glVertex2i(x + width, y);
-		    glEnd();
+		}else if( bits_per_pixel == 32 ){
+			glBindTexture(GL_TEXTURE_2D, tex);
+		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texDat); 
+		    glBindTexture(GL_TEXTURE_2D, 0);
 
+		    glBindTexture(GL_TEXTURE_2D, tex);
 
 		}
 
+
+		glColor3f(1,1,1);
+	    glBegin(GL_QUADS);
+	    	glTexCoord2i(0, 0); glVertex2i(x, y);
+	    	glTexCoord2i(0, 1); glVertex2i(x, y + height);
+		    glTexCoord2i(1, 1); glVertex2i(x + width, y + height);
+		    glTexCoord2i(1, 0); glVertex2i(x + width, y);
+	    glEnd();
+
+	}
+
+
 	void render(){
+		if( bits_per_pixel == 24 ){
+
 			glBindTexture(GL_TEXTURE_2D, tex);
 		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -676,18 +724,30 @@ public:
 
 		    glBindTexture(GL_TEXTURE_2D, tex);
 
-		    
-		    glColor3f(1,1,1);
-		    glBegin(GL_QUADS);
-		    	glTexCoord2i(0, 1); glVertex2i(x, y);
-		    	glTexCoord2i(0, 0); glVertex2i(x, y + height);
-			    glTexCoord2i(1, 0); glVertex2i(x + width, y + height);
-			    glTexCoord2i(1, 1); glVertex2i(x + width, y);
-		    glEnd();		
+		}else if( bits_per_pixel == 32 ){
+			glBindTexture(GL_TEXTURE_2D, tex);
+		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texDat); 
+		    glBindTexture(GL_TEXTURE_2D, 0);
+
+		    glBindTexture(GL_TEXTURE_2D, tex);
+
+		}
+
+
+		glColor3f(1,1,1);
+	    glBegin(GL_QUADS);
+	    	glTexCoord2i(0, 0); glVertex2i(x, y);
+	    	glTexCoord2i(0, 1); glVertex2i(x, y + height);
+		    glTexCoord2i(1, 1); glVertex2i(x + width, y + height);
+		    glTexCoord2i(1, 0); glVertex2i(x + width, y);
+	    glEnd();
+		
 	}
 
-};
 
+};
 
 
 
