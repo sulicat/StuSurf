@@ -1,0 +1,817 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"le",
+				"letter_height"
+			],
+			[
+				"start",
+				"start_x"
+			],
+			[
+				"fon",
+				"font_map_upper"
+			],
+			[
+				"font_ma",
+				"font_map_upper"
+			],
+			[
+				"font",
+				"font_map_lower"
+			],
+			[
+				"IM",
+				"IMAGE"
+			],
+			[
+				"TIME",
+				"timer_b1"
+			],
+			[
+				"time",
+				"timer_b1"
+			],
+			[
+				"P1",
+				"P1OUT"
+			],
+			[
+				"cloc",
+				"CLOCK_CYCLE_PERIOD"
+			],
+			[
+				"set",
+				"SETUP_TIME"
+			],
+			[
+				"s",
+				"shift_matrix"
+			],
+			[
+				"cl",
+				"clock_count"
+			],
+			[
+				"clc",
+				"CLOCK_CYCLE_PERIOD"
+			],
+			[
+				"CLO",
+				"clock_count"
+			],
+			[
+				"GL_RGBA",
+				"GL_RGBA"
+			],
+			[
+				"curre",
+				"current_press_state"
+			],
+			[
+				"cur",
+				"current_state"
+			],
+			[
+				"ima",
+				"image_height"
+			],
+			[
+				"ia",
+				"image_height"
+			],
+			[
+				"oter",
+				"other_data_len"
+			],
+			[
+				"IMA",
+				"IMAGE_INFO"
+			],
+			[
+				"other",
+				"other_data"
+			],
+			[
+				"ote",
+				"other_data"
+			],
+			[
+				"ot",
+				"other_data"
+			],
+			[
+				"oth",
+				"other_data_len"
+			],
+			[
+				"im",
+				"image_height"
+			],
+			[
+				"h",
+				"height"
+			],
+			[
+				"IMAG",
+				"IMAGE"
+			],
+			[
+				"arr",
+				"arr_len"
+			],
+			[
+				"prin",
+				"print_arr"
+			],
+			[
+				"IMAGE",
+				"IMAGE_INFO"
+			],
+			[
+				"image",
+				"image_width"
+			],
+			[
+				"imag",
+				"image_height"
+			],
+			[
+				"imae",
+				"image_height"
+			],
+			[
+				"bit",
+				"bits_per_pixel"
+			],
+			[
+				"name",
+				"name_length"
+			],
+			[
+				"te",
+				"texDat"
+			],
+			[
+				"tex",
+				"texDat"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"pix",
+				"pixel_offset"
+			],
+			[
+				"import",
+				"import"
+			],
+			[
+				"temp",
+				"temp_import"
+			],
+			[
+				"impo",
+				"import_size"
+			],
+			[
+				"val",
+				"value"
+			],
+			[
+				"imp",
+				"import"
+			],
+			[
+				"size",
+				"sizeof"
+			],
+			[
+				"a",
+				"arg_3"
+			],
+			[
+				"num",
+				"number"
+			],
+			[
+				"ar",
+				"arg_1"
+			],
+			[
+				"mas",
+				"mask_1"
+			],
+			[
+				"uni",
+				"uint8_t"
+			],
+			[
+				"retu",
+				"return_binary"
+			],
+			[
+				"print",
+				"printf\tprintf …"
+			],
+			[
+				"CHI",
+				"CHILD_OWL"
+			],
+			[
+				"mouse",
+				"mouse_press"
+			],
+			[
+				"mous",
+				"mouse_move"
+			],
+			[
+				"mouse_",
+				"mouse_move"
+			],
+			[
+				"CHIl",
+				"CHILD_CAT"
+			],
+			[
+				"CHIL",
+				"CHILD_OWL"
+			],
+			[
+				"pr",
+				"print_dog"
+			],
+			[
+				"glC",
+				"glClear"
+			],
+			[
+				"line",
+				"lines_len"
+			],
+			[
+				"lines",
+				"lines_len"
+			],
+			[
+				"glut",
+				"glutInit"
+			],
+			[
+				"poi",
+				"point_two"
+			],
+			[
+				"wind",
+				"window_height"
+			],
+			[
+				"win",
+				"window"
+			],
+			[
+				"is",
+				"is_fullscreen"
+			],
+			[
+				"las",
+				"last_y"
+			],
+			[
+				"add",
+				"add_line"
+			],
+			[
+				"chec",
+				"check_inside"
+			],
+			[
+				"che",
+				"check_inside"
+			],
+			[
+				"draw",
+				"draw_areas"
+			],
+			[
+				"window",
+				"window_width"
+			],
+			[
+				"buttons",
+				"buttons_len"
+			],
+			[
+				"butt",
+				"buttons_len"
+			],
+			[
+				"mosu",
+				"mouse_move"
+			],
+			[
+				"but",
+				"buttons_len"
+			],
+			[
+				"dr",
+				"draw_areas_len"
+			],
+			[
+				"Dra",
+				"DRAW_AREA"
+			],
+			[
+				"scre",
+				"screen"
+			],
+			[
+				"sc",
+				"screens_len"
+			],
+			[
+				"FUNC",
+				"FUNCTIONALITY"
+			],
+			[
+				"has",
+				"has_middle_press"
+			],
+			[
+				"ste",
+				"current_step"
+			],
+			[
+				"Ba",
+				"background_R"
+			],
+			[
+				"wi",
+				"width"
+			],
+			[
+				"pot",
+				"point_one"
+			],
+			[
+				"po",
+				"point_one"
+			],
+			[
+				"poin",
+				"point_one"
+			],
+			[
+				"point",
+				"point_one"
+			],
+			[
+				"pont",
+				"point_one"
+			],
+			[
+				"GL_",
+				"GL_PROJECTION"
+			],
+			[
+				"textu",
+				"texture_ID"
+			],
+			[
+				"resh",
+				"reshape_callback"
+			],
+			[
+				"GL",
+				"GL_MODELVIEW"
+			],
+			[
+				"matri",
+				"glMatrixMode"
+			],
+			[
+				"text",
+				"texture"
+			],
+			[
+				"windo",
+				"window_width"
+			],
+			[
+				"glE",
+				"glEnable"
+			],
+			[
+				"glB",
+				"glBindTexture"
+			],
+			[
+				"r",
+				"loft_render"
+			],
+			[
+				"GL_TE",
+				"GL_TEXTURE_2D"
+			],
+			[
+				"F_",
+				"F_R"
+			],
+			[
+				"se",
+				"set_pos"
+			],
+			[
+				"lo",
+				"loft_display_callback"
+			],
+			[
+				"widge",
+				"widgets_len"
+			],
+			[
+				"lof",
+				"loft"
+			],
+			[
+				"Wid",
+				"WIDGET"
+			],
+			[
+				"wid",
+				"Widgets"
+			],
+			[
+				"glutI",
+				"glutInitWindowPosition"
+			],
+			[
+				"to",
+				"to_string"
+			],
+			[
+				"res",
+				"reshape_callback"
+			],
+			[
+				"displa",
+				"display_callback"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "test/makefile",
+			"settings":
+			{
+				"buffer_size": 39,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "// this is a script that tests our text class.\n#include <iostream>\n#include <stdio.h>\n#include <stdlib.h>\n#include <fstream>\n#include <GL/glut.h>\n\n\n#define IMAGE_TYPE_RGB 24\n#define IMAGE_TYPE_RGBA 32\n#define IMAGE_TYPE_GREYSCALE 2\n\nstruct IMAGE_INFO{\n\tint start;\n\tint end;\n\tchar * name;\n\tint value;\n\n\n\tIMAGE_INFO( ){\n\t\tstart = 0;\n\t\tend = 0;\n\t\tname = NULL;\n\t\tvalue = 0;\n\t}\t\n\n\tIMAGE_INFO( int s, int e, char * n, int val ){\n\t\tstart = s;\n\t\tend = e;\n\t\tname = ( char * )n;\n\t\tvalue = val;\n\t}\n};\n\n\n\n\n\n\n\n\n\nclass IMAGE{\npublic:\n\tint x;\n\tint y;\n\tint width;\n\tint height; \n\tint pixel_offset;\n\tint image_width;\n\tint image_height;\n\tint compression;\n\tint image_size;\n\tint bits_per_pixel;\n\tchar * image_path;\n\tsize_t size;\n\n\tunsigned char * texDat;\n\tGLuint tex;\n\tint type;\n\n\tIMAGE_INFO * other_data;\n\tint other_data_len;\n\n\tvoid setup_other_data(){\n\t\t\n\t\tIMAGE_INFO other_data_temp[] = { \tIMAGE_INFO( 0,   2, \t\t(char*) \"signature\",   \t\t\t\t-9999 ),\t//0\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 2,   6, \t\t(char*) \"file size\",   \t\t\t\t-9999 ),\t//1\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 6,   10, \t\t(char*) \"reserved\",   \t\t\t\t-9999 ),\t//2\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 10,  14, \t\t(char*) \"offset to array\", \t\t\t-9999 ),\t//3\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 14,  18, \t\t(char*) \"dip_header\",  \t\t\t\t-9999 ),\t//4\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 18,  22, \t\t(char*) \"width\",\t    \t\t\t-9999 ),\t//5\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 22,  26, \t\t(char*) \"height\", \t   \t\t\t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 26,  28, \t\t(char*) \"planes\", \t   \t\t\t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 28,  30, \t\t(char*) \"bits per pixel\", \t   \t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 30,  34, \t\t(char*) \"compression\",\t \t   \t\t-9999 ),\t\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 34,  38, \t\t(char*) \"image size\",\t \t   \t\t-9999 ),\t//10\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 38,  42,\t \t(char*) \"X pixels per meter\",  \t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 42,  46, \t\t(char*) \"Y pixels per meter\", \t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 46,  50, \t\t(char*) \"Colors in color table\", \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 50,  54, \t\t(char*) \"Important Color Count\", \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 54,  58, \t\t(char*) \"red chanel bitmask\", \t\t-9999 ),\t//15\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 58,  62, \t\t(char*) \"blue chanel bitmask\", \t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 62,  66, \t\t(char*) \"green chanel bitmask\", \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 66,  70, \t\t(char*) \"alpha chanel bitmask\",\t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 70,  74, \t\t(char*) \"color space type\", \t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 74,  78, \t\t(char*) \"color space enpoints\",\t\t-9999 ),\t//20\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 78,  82, \t\t(char*) \"gamma for red chanel\", \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 82,  86, \t\t(char*) \"gamma for green chanel\", \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 86,  90, \t\t(char*) \"gamma for blue chanel\", \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 90,  94, \t\t(char*) \"intent\",\t\t\t\t \t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 94,  98, \t\t(char*) \"ICC profile data\",\t \t\t-9999 ),\t//25\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 98,  102, \t\t(char*) \"ICC profile size\", \t\t-9999 ),\n\t\t\t\t\t\t\t\t\t\t\tIMAGE_INFO( 102, 104, \t\t(char*) \"reserved\", \t\t\t\t-9999 )\n\t\t\t\t\t\t\t\t\t};\n\n\t\tother_data = other_data_temp;\t\t\t\t\t\t\t\n\t\ttype = IMAGE_TYPE_RGB;\n\t\tother_data_len = 27;\n\t\tother_data = new IMAGE_INFO[ other_data_len ];\n\n\t\tstd::copy( other_data_temp, other_data_temp + other_data_len, other_data );\n\n\t\tx = 0;\n\t\ty = 0;\n\t\twidth = 100;\n\t\theight = 100;\n\n\t}\n\n\t// no path... cannot load image until there is path.\n\tIMAGE(){\n\t\timage_path = NULL;\n\t\tsetup_other_data();\n\t}\n\n\t// create image with a path\n\tIMAGE( char * p ){\n\t\timage_path = p;\n\t\tsetup_other_data(); \t\n\t}\n\n\t// set the path.\n\tvoid set_path( char * p ){\n\t\timage_path = p;\n\t}\n\n\tvoid set_type( int t ){\n\t\ttype = t;\n\t}\n\n\tvoid set_pos( int _x, int _y ){\n\t\tx = _x;\n\t\ty = _y;\n\t}\n\n\tvoid set_size( int _w, int _h ){\n\t\twidth = _w;\n\t\theight = _h;\n\t}\n\n\t// will load all the data into this image object so that they can later be used.\n\t//\tfirst read the file and store all the relevant information into the other data array\n\t//\tthen it will attampt to load \n\tvoid load(){\n\t\t// check if the path exists\n\t\tif( image_path != NULL ){\n\t\t\tstd::ifstream f;\n\n\t\t\t// open file\n\t\t\tf.open( image_path, std::ios::in | std::ios::binary  );\n\t\t\tchar * file = 0;\n\n\t\t\t// find the end and size of the file\n\t\t\tf.seekg( 0, std::ios::end );\n\t\t\tsize = f.tellg();\n\t\t\tstd::cout << \"size: \" << size << \"\\n\";\n\t\t\tf.seekg( 0, std::ios::beg );\n\n\t\t\t// read the file and store it in a char array\n\t\t\tfile = new char[ size + 1 ];\n\t\t\tf.read( file, size );\n\t\t\tfile[ size ] = '\\0';\n\t\t\n\n\t\t\t// load the contents into \"other_data\"\n\t\t\t//int * temp = new int[1];\n\t\t\tunsigned char * temp = new unsigned char[4];\n\t\t\tfor( int i = 0; i < size; i++ ){\n\t\t\t\tfor( int c = 0; c < other_data_len; c++ ){\n\n\t\t\t\t\tif( i == other_data[ c ].start ){\n\t\t\t\t\t\tstd::copy( file + other_data[c].start, file + other_data[c].end, temp );\n\t\t\t\t\t\tother_data[c].value = *(temp+3) << 24 | *(temp+2) << 16 | *(temp+1) << 8 | *temp;\n\t\t\t\t\t\t\n\t\t\t\t\t\tstd::cout << std::dec << other_data[c].name << \" : \" << other_data[c].value << \"\\n\";\n\t\t\t\t\t\ti = other_data[ c ].end-1;\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\n\n\t\t\t\n\t\t\tpixel_offset \t= (unsigned int) (other_data[ 3 ].value);\n\t\t\tstd::cout << \"pixel_offset: \" << pixel_offset << \"\\n\";\n\n\t\t\timage_width \t= (unsigned int) (other_data[ 5 ].value);\n\t\t\tstd::cout << \"width: \" << image_width << \"\\n\";\n\t\t\t\t\n\t\t\timage_height \t= (unsigned int) (other_data[ 6 ].value);\n\t\t\tstd::cout << \"height: \" << image_height << \"\\n\";\n\n\t\t\tbits_per_pixel \t= (unsigned int) (other_data[ 8 ].value);\n\t\t\tstd::cout << \"bpp: \" << bits_per_pixel << \"\\n\";\n\n\t\t\tunsigned char * image_data;\n\t\t\ttexDat = new unsigned char[ image_width * image_height * 3 ];\n\n\n\n\t\t\tif( bits_per_pixel == 24 ){ \n\t\t\t\ttexDat = new unsigned char[ image_width * image_height * 3 ];\n\t\t\t\timage_data = new unsigned char[ image_width * image_height * 3 ];\n\n\t\t\t\tfor( int i = 0; i < (image_width * image_height * 3); i++ ){\n\n\t\t\t\t\timage_data[ i ] \t= \t(unsigned char)file[ pixel_offset + i + 2 ] ;\t\t// R\n\t\t\t\t\timage_data[ i+1 ] \t= \t(unsigned char)file[ pixel_offset + i + 1] ;\t\t// G\n\t\t\t\t\timage_data[ i+2 ] \t= \t(unsigned char)file[ pixel_offset + i ] ;\t\t\t// B\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\ti += 2;\n\t\t\t\t}\n\n\t\t\t\tglEnable(GL_BLEND);\n\t\t\t\tglBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); \n\t\t\t\tglGenTextures(1, &tex);\n\t\t\t\tglBindTexture(GL_TEXTURE_2D, tex);\n\t\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);\n\t\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);\n\t\t\t   \tglTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat); \n\n\n\n\t\t\t}else if( bits_per_pixel == 32 ){\n\t\t\t\ttexDat = new unsigned char[ image_width * image_height * 4 ];\n\t\t\t\timage_data = new unsigned char[ image_width * image_height * 4 ];\n\n\t\t\t\tfor( int i = 0; i < (image_width * image_height * 4); i++ ){\t\t\t\t\t\n\t\t\t\t\t\n\t\t\t\t\timage_data[ i ] \t= \t(unsigned char)file[ pixel_offset + i + 3 ] ;\t\t// R\n\t\t\t\t\timage_data[ i+1 ] \t= \t(unsigned char)file[ pixel_offset + i + 2 ] ;\t\t// G\n\t\t\t\t\timage_data[ i+2 ] \t= \t(unsigned char)file[ pixel_offset + i + 1 ] ;\t\t// B\n\t\t\t\t\timage_data[ i+3 ] \t= \t(unsigned char)file[ pixel_offset + i  ] ;\t\t\t// A\n\t\t\t\t\t\t\t\t\t\n\t\t\t\t\ti += 3;\n\t\t\t\t}\n\n\t\t\t\tglEnable(GL_BLEND);\n\t\t\t\tglBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); \n\t\t\t\tglGenTextures(1, &tex);\n\t\t\t\tglBindTexture(GL_TEXTURE_2D, tex);\n\t\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);\n\t\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);\n\t\t\t   \tglTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat);\n\n\t\t\t}else{\n\n\n\n\t\t\t}\n\n\t\t\ttexDat = image_data;\n\n\t\t    glBindTexture(GL_TEXTURE_2D, 0);\n\t\t    glEnable(GL_TEXTURE_2D);\n\t  \n\n\n\n\n\t\t}else{\n\t\t\tstd::cout << \"there is no file path specified for IMAGE object, could not load \\n\";\n\t\t}\n\n\n\n\n\t}\n\n\tvoid draw(){\n\n\t\tif( bits_per_pixel == 24 ){\n\n\t\t\tglBindTexture(GL_TEXTURE_2D, tex);\n\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);\n\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);\n\t\t    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image_width, image_height, 0, GL_RGB, GL_UNSIGNED_BYTE, texDat); \n\t\t    glBindTexture(GL_TEXTURE_2D, 0);\n\n\t\t    glBindTexture(GL_TEXTURE_2D, tex);\n\n\t\t}else if( bits_per_pixel == 32 ){\n\t\t\tglBindTexture(GL_TEXTURE_2D, tex);\n\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);\n\t\t    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);\n\t\t    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texDat); \n\t\t    glBindTexture(GL_TEXTURE_2D, 0);\n\n\t\t    glBindTexture(GL_TEXTURE_2D, tex);\n\n\t\t}\n\n\n\t\tglColor3f(1,1,1);\n\t    glBegin(GL_QUADS);\n\t    \tglTexCoord2i(0, 0); glVertex2i(x, y);\n\t    \tglTexCoord2i(0, 1); glVertex2i(x, y + height);\n\t\t    glTexCoord2i(1, 1); glVertex2i(x + width, y + height);\n\t\t    glTexCoord2i(1, 0); glVertex2i(x + width, y);\n\t    glEnd();\n\n\t}\n\n};\n\n\n\n\n\nclass FONT{\n\tIMAGE font_map_lower;\n\tIMAGE font_map_upper;\n\n\tint start_x;\n\tint start_y;\n\tint letter_width;\n\tint letter_height;\n\n\tint * \n\n\tFONT(){\n\t\tstart_x = 0;\n\t\tstart_y = 0;\n\t}\n\n\tFONT( char * lower_p, char * upper_p ){\n\t\tfont_map_lower = IMAGE( lower_p );\n\t\tfont_map_upper = IMAGE( upper_p );\n\n\t\tfont_map_lower.load();\n\t\tfont_map_upper.load();\n\t}\n\n\tvoid set_param_start( int _x, int _y ){\n\t\tstart_y = _y;\n\t\tstart_x = _x;\n\t}\n\n\tvoid set_param_size( int _w, int _h ){\n\t\tletter_width = _w;\n\t\tletter_height = _h;\n\t}\n\n\n};\n\n\n\n// this is the class that will display text on the screen using the bitmap loader.\n// this class will use a global object that stores different FONTS.\nclass TEXT{\n\n\t// First we take in a string\n\t// we will take a font\n\t// look for the path of the font, or look for the file in the font directory.\n\t// load the bitmap and load the file that tells you the \"display interval\"\n\t\t// A \"display interval\" is a text file that relates to every font bitmap.\n\t\t// it contains:\t\n\t\t//\t\tA starting x and y position\n\t\t//\t\ta width and height for every letter.\n\t\t//\tFormat:\n\t\t\t//\tx\n\t\t\t//\ty\n\t\t\t//\twidth\n\t\t\t//\theight\n\npublic:\n\tchar * content;\n\tchar * font;\n\tint size;\n\tint width;\n\tint height;\n\tint x;\n\tint y;\n\n\tIMAGE font_map_lower;\n\tIMAGE font_map_upper;\n\n\tTEXT(){\n\t\tcontent = \t(char *) \"NO CONTENT\";\n\t\tfont = \t\t(char *) \"Helvetica\";\n\t\tsize = 10;\n\t}\n\n\tTEXT( char * c ){\n\t\tcontent = c;\n\t\tfont = \t(char *) \"Helvetica\";\n\t\tsize = 10;\n\t}\n\n\tTEXT( char * c, char * f ){\n\t\tcontent = c;\n\t\tfont = \tf;\n\t\tsize = 10;\n\t}\n\n\tvoid set_size( int a ){\n\t\tsize = a;\n\t}\n\n\tvoid set_pos( int _x, int _y ){\n\t\tx = _x;\n\t\ty = _y;\n\t}\n\n\n\tvoid load(){\n\n\t}\n\n\n};\n\t\n\n\n\n\n\n\nint main( int argc, char * * argv ){\n\n\tglutInit(&argc, argv);\n    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);\n    glutInitWindowPosition( 0, 0 );\n    glutInitWindowSize(1224, 1224);\n    glutCreateWindow(\"test_final\");\n\t\n    glMatrixMode(GL_PROJECTION);\n    glOrtho(0, 1224, 0, 1224, -1, 1);\n    glMatrixMode(GL_MODELVIEW);\n\n\n    glColor3f( 255, 255, 255 );\n    glBegin(GL_QUADS);\n     \tglVertex3f(0, 0, 0);\n     \tglVertex3f(0, 1224, 0);\n     \tglVertex3f(1224, 1224, 0);\n     \tglVertex3f(1224, 0, 0);\n    glEnd();\n\n\n\n    IMAGE img2 = IMAGE( (char*) \"../fonts/def_lower_case.bmp\");\n    img2.set_pos( 10, 10 );\n    img2.set_size( 400, 400 );\n    img2.load();\n    img2.draw();\n\n\n/*  TEXT text = TEXT( (char *)\"hello\" );\n    text.set_pos( 100, 100 );\n    text.load();\n*/\n\n\n\n\n    glutSwapBuffers();\n\n\tglutMainLoop();\n\t\n\n\treturn 0;\n}",
+			"file": "test/text.cpp",
+			"file_size": 11215,
+			"file_write_time": 131367052082203188,
+			"settings":
+			{
+				"buffer_size": 11221,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "main.cpp",
+			"settings":
+			{
+				"buffer_size": 24525,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 153.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/home/suli/git/stusurf",
+		"/home/suli/git/stusurf/fonts",
+		"/home/suli/git/stusurf/images"
+	],
+	"file_history":
+	[
+		"/home/suli/git/stusurf/test/old",
+		"/home/suli/git/stusurf/makefile",
+		"/home/suli/git/stusurf/test/test_inheritance.cpp",
+		"/home/suli/msp430/test/bit_shift_old.c",
+		"/home/suli/git/stusurf/test/text.cpp",
+		"/home/suli/git/stusurf/main.cpp",
+		"/home/suli/git/stusurf/test/test_bmp_final.cpp",
+		"/home/suli/git/stusurf/README.MD",
+		"/home/suli/school/digital_logic/lab_7/main.c",
+		"/home/suli/sort.c",
+		"/home/suli/git/stusurf/test/test_bmp.cpp",
+		"/home/suli/git/stusurf/test/test_bmp_old.cpp",
+		"/home/suli/git/stusurf/test_bmp.cpp",
+		"/home/suli/test.c",
+		"/home/suli/git/misc/opengl/cpp_opengl_ortho_template.cpp",
+		"/home/suli/git/stusurf/test_inheritance.cpp",
+		"/home/suli/git/imageOpenGL/Picture.cpp",
+		"/home/suli/git/imageOpenGL/BPMREAD.cpp",
+		"/home/suli/git/stusurf/class FOG.cpp",
+		"/home/suli/git/stusurf/main_old.cpp",
+		"/home/suli/LOFT/test_tex.cpp",
+		"/home/suli/git/misc/shortest_path/Dijkstra_3.cpp",
+		"/home/suli/untitled.cpp",
+		"/home/suli/LOFT/main.cpp",
+		"/home/suli/LOFT/main_old.cpp",
+		"/home/suli/LOFT/makefile",
+		"/home/suli/LOFT/common.h",
+		"/home/suli/LOFT/doc",
+		"/home/suli/LOFT/test.cpp",
+		"/home/suli/git/cell_count/cell_darken.py",
+		"/home/suli/KAT/makefile",
+		"/home/suli/KAT/common.h",
+		"/home/suli/KAT/doc",
+		"/home/suli/KAT/main.cpp",
+		"/home/suli/KAT/test.cpp"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"    \n",
+			"type",
+			"NULL",
+			"BUFF",
+			"std::vector",
+			"vector",
+			"\t\t\n",
+			"BUTTON_BUTTON",
+			"window_height",
+			"window_width",
+			"glOrth",
+			"width",
+			"500",
+			"glutFu",
+			"glVie",
+			"glOr",
+			"glO",
+			"fulls",
+			"ortho",
+			"glOrtho",
+			"extern",
+			"Glubyte",
+			";\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"-9999",
+			"0",
+			"ArrayList"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "test/makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 39,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5,
+								5
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "test/text.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11221,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8886,
+								8886
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5776.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"file": "fonts/def_lower_case.png",
+					"semi_transient": true,
+					"stack_index": 2,
+					"type": "image"
+				},
+				{
+					"buffer": 2,
+					"file": "main.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 24525,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24525,
+								24525
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 20677.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "sublime_project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/msp430/msp430.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 259.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

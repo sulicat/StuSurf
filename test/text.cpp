@@ -307,9 +307,119 @@ public:
 
 
 
+class FONT{
+public:
+	IMAGE font_map_lower;
+	IMAGE font_map_upper;
+
+	int start_x;			// stores the pixel count start x
+	int start_y;			// stores the pixel count start Y
+	int letter_width;		// stores the width of every letter in pixels
+	int letter_height;		// stores the height of every letter in pixels
+
+	int * lower_map;		// an array with all ascii values as they map to image (lower_case)
+	int lower_map_len;
+	int * upper_map;		// an array with all ascii values as they map to image (upper_case)
+	int upper_map_len;
+
+	int rows;
+	int columns;
+
+	FONT(){
+		start_x = 0;
+		start_y = 0;
+
+		lower_map = new int[ 0 ];
+		lower_map_len = 0;
+
+		upper_map = new int[ 0 ];
+		upper_map_len = 0;
+	
+		rows = 0;
+		columns = 0;
+	}
+
+
+	// set the amount of rows and columns in order to seperate
+	FONT( int _r, int _c ){
+		rows = _r;
+		columns = _c;
+	}
+
+
+
+
+
+	void load( char * lower_p, char * upper_p ){
+		font_map_lower = IMAGE( lower_p );
+		font_map_upper = IMAGE( upper_p );
+
+		font_map_lower.load();
+		font_map_upper.load();
+
+		int size = rows * columns;
+
+		lower_map = new int[ size ];
+		upper_map = new int[ size ];
+		lower_map_len = size;
+		upper_map_len = size;
+
+		for( int i = 0; i < rows*columns; i++ ){
+			lower_map[i] = 0;
+			upper_map[i] = 0;
+		}
+
+	}
+
+	void set_param_start( int _x, int _y ){
+		start_y = _y;
+		start_x = _x;
+	}
+
+	void set_param_size( int _w, int _h ){
+		letter_width = _w;
+		letter_height = _h;
+	}
+
+	void map_lower( int _pos, int _ascii ){
+		if( _pos < columns * rows ){
+			lower_map[ _pos ] = _ascii;
+
+			for( int i = _pos; i < columns*rows; i++ ){
+				lower_map[ i ] = _ascii + i;
+			}
+		}
+	}
+
+	void map_lower( int _pos, int _ascii, int ascii_end ){
+		if( _pos < columns * rows ){
+			lower_map[ _pos ] = _ascii;
+
+			for( int i = _pos; _ascii + i < ascii_end; i++ ){
+				lower_map[ i ] = _ascii + i;
+			}
+		}
+	}
+
+
+	void to_string(){
+		
+		std::cout << "FONT map data Lower: \n"; 
+		for( int r = 0; r < rows; r++ ){
+			for( int c = 0; c < columns; c++ ){
+				std::cout << lower_map[ c + (rows*r)] << "\t";
+			}
+			std::cout << "\n";
+		}
+	}
+
+
+};
+
 
 
 // this is the class that will display text on the screen using the bitmap loader.
+// this class will use a global object that stores different FONTS.
 class TEXT{
 
 	// First we take in a string
@@ -402,24 +512,24 @@ int main( int argc, char * * argv ){
 
 
 
-    IMAGE img2 = IMAGE( (char*) "test_3.bmp");
-    img2.set_pos( 400, 400 );
-    img2.set_size( 400, 400 );
+    IMAGE img2 = IMAGE( (char*) "../fonts/def_lower_case.bmp");
+    img2.set_pos( 10, 10 );
+    img2.set_size( 1600, 1600 );
     img2.load();
     img2.draw();
 
-    IMAGE img = IMAGE( (char*) "alpha.bmp");
-    img.set_pos( 100, 100 );
-    img.set_size( 900, 900 );
-    img.load();
-    img.draw();
 
-
-
-/*    TEXT text = TEXT( (char *)"hello" );
+/*  TEXT text = TEXT( (char *)"hello" );
     text.set_pos( 100, 100 );
     text.load();
 */
+
+    FONT f1 = FONT( 8, 8 );
+    f1.load( (char *)"../fonts/def_lower_case.bmp", (char *)"../fonts/def_lower_case.bmp" );
+    //f1.map_lower(0, 97);
+    f1.map_lower(0, 97, 100);
+    f1.to_string();
+
 
     glutSwapBuffers();
 
