@@ -267,8 +267,8 @@ public:
 
 	}
 
-	void draw(){
 
+	void draw_setup(){
 		if( bits_per_pixel == 24 ){
 
 			glBindTexture(GL_TEXTURE_2D, tex);
@@ -289,6 +289,12 @@ public:
 		    glBindTexture(GL_TEXTURE_2D, tex);
 
 		}
+	}
+
+
+	void draw(){
+
+		draw_setup();
 
 
 		glColor3f(1,1,1);
@@ -300,6 +306,79 @@ public:
 	    glEnd();
 
 	}
+
+
+	// draw a part of the image at the current x and y pos
+	void partial_draw_pixel( int crop_w_start, int crop_w_end, int crop_h_start, int crop_h_end ){
+		
+		draw_setup();
+
+
+		float zero_x = (float)crop_w_start/image_width;
+		float zero_y = (float)crop_h_start/image_height;
+
+		float one_x = (float)crop_w_end/image_width;
+		float one_y = (float)crop_h_end/image_height;
+
+		// draw a part of the image
+		glColor3f(1,1,1);
+	    glBegin(GL_QUADS);
+	    	glTexCoord2f(zero_x, zero_y); 			glVertex2i(x, y);
+	    	glTexCoord2f(zero_x, one_y); 			glVertex2i(x, y + height);
+		    glTexCoord2f(one_x, one_x); 			glVertex2i(x + width, y + height);
+		    glTexCoord2f(one_x, zero_y); 			glVertex2i(x + width, y);
+	    glEnd();
+
+
+	}
+
+
+	// draw a part of the image at the current x and y pos
+	void partial_draw_image( int crop_w_start, int crop_w_end, int crop_h_start, int crop_h_end ){
+		
+		draw_setup();
+
+		float zero_x = (float)crop_w_start/width;
+		float zero_y = (float)crop_h_start/height;
+
+		float one_x = (float)crop_w_end/width;
+		float one_y = (float)crop_h_end/height;
+
+		// draw a part of the image
+		glColor3f(1,1,1);
+	    glBegin(GL_QUADS);
+	    	glTexCoord2f(zero_x, zero_y); 			glVertex2i(x, y);
+	    	glTexCoord2f(zero_x, one_y); 			glVertex2i(x, y + height);
+		    glTexCoord2f(one_x, one_x); 			glVertex2i(x + width, y + height);
+		    glTexCoord2f(one_x, zero_y); 			glVertex2i(x + width, y);
+	    glEnd();
+
+	}
+
+
+
+	// 	the main partial draw function.
+	//	to use:
+	//		partial_draw_pixel_resize( crop_start_x, crop_start_y, crop_end_x, crop_y_end, pos_x, pos_y, width, height )
+	void partial_draw_pixel_resize( int crop_x_start, int crop_y_start, int crop_x_end, int crop_y_end, int _x, int _y, int _w, int _h ){
+		draw_setup();
+
+		float zero_x = (float)crop_x_start/image_width;
+		float zero_y = (float)crop_y_start/image_height;
+
+		float one_x = ((float)crop_x_end/image_width);
+		float one_y = ((float)crop_y_end/image_height);		
+
+
+		glColor3f(1,1,1);
+	    glBegin(GL_QUADS);
+	    	glTexCoord2f( zero_x, 	zero_y); 			glVertex2i( _x,		 	_y );
+	    	glTexCoord2f( zero_x, 	one_y); 			glVertex2i( _x, 	 	_y + _h );
+		    glTexCoord2f( one_x, 	one_y); 			glVertex2i( _x + _w, 	_y + _h);
+		    glTexCoord2f( one_x, 	zero_y); 			glVertex2i( _x + _w,  	_y);
+	    glEnd();
+	}
+
 
 };
 
@@ -369,6 +448,9 @@ public:
 			upper_map[i] = 0;
 		}
 
+	 	letter_width = font_map_lower.image_width / columns;
+	 	letter_height = font_map_lower.image_height / rows;
+
 	}
 
 	void set_param_start( int _x, int _y ){
@@ -386,7 +468,7 @@ public:
 			lower_map[ _pos ] = _ascii;
 
 			for( int i = _pos; i < columns*rows; i++ ){
-				lower_map[ i ] = _ascii + i;
+				lower_map[ i ] = _ascii + i - _pos;
 			}
 		}
 	}
@@ -395,19 +477,74 @@ public:
 		if( _pos < columns * rows ){
 			lower_map[ _pos ] = _ascii;
 
-			for( int i = _pos; _ascii + i < ascii_end; i++ ){
-				lower_map[ i ] = _ascii + i;
+			for( int i = _pos; _ascii + i - _pos < ascii_end; i++ ){
+				lower_map[ i ] = _ascii + i - _pos;
+			}
+		}
+	}
+
+	void map_upper( int _pos, int _ascii ){
+		if( _pos < columns * rows ){
+			upper_map[ _pos ] = _ascii;
+
+			for( int i = _pos; i < columns*rows; i++ ){
+				upper_map[ i ] = _ascii + i - _pos;
+			}
+		}
+	}
+
+	void map_upper( int _pos, int _ascii, int ascii_end ){
+		if( _pos < columns * rows ){
+			upper_map[ _pos ] = _ascii;
+
+			for( int i = _pos; _ascii + i - _pos < ascii_end; i++ ){
+				upper_map[ i ] = _ascii + i - _pos;
 			}
 		}
 	}
 
 
+	int pos_from_RC( int _r, int _c ){
+		return 0;
+	}
+
+
+	void draw_letter( int _x, int _y, int _w, int _h, char _letter ){
+		/*for( int i = 0; i < lower_map_len; i++ ){
+			if( (int)_letter == lower_map[i] ){
+				font_map_lower.partial_draw_pixel_resize(  , y, x + letter_width, y + letter_height, _x, _y, )
+			}
+		}*/
+
+		for( int i = 0; i < lower_map_len; i++ ){
+			if( lower_map[i] == _letter ){
+				int crop_x_s = (i%columns) * letter_width;
+				int crop_y_s = font_map_lower.image_width - (((i+rows)/rows) * letter_height);
+				font_map_lower.partial_draw_pixel_resize(crop_x_s , crop_y_s, crop_x_s + letter_width, crop_y_s + letter_width, _x, _y, _w, _h );
+				break;
+			}
+		}
+
+		//font_map_lower.partial_draw_pixel_resize( 0, 1400, 200, 1600, _x, _y, _w, _h );
+
+	}
+
+
 	void to_string(){
 		
-		std::cout << "FONT map data Lower: \n"; 
+		std::cout << "font map data Lower: \n"; 
 		for( int r = 0; r < rows; r++ ){
 			for( int c = 0; c < columns; c++ ){
 				std::cout << lower_map[ c + (rows*r)] << "\t";
+			}
+			std::cout << "\n";
+		}
+		std::cout << "\n\n";
+
+		std::cout << "font map data UPPER: \n"; 
+		for( int r = 0; r < rows; r++ ){
+			for( int c = 0; c < columns; c++ ){
+				std::cout << upper_map[ c + (rows*r)] << "\t";
 			}
 			std::cout << "\n";
 		}
@@ -438,32 +575,28 @@ class TEXT{
 
 public:
 	char * content;
-	char * font;
+	int content_len;
+	FONT font;
 	int size;
 	int width;
 	int height;
 	int x;
 	int y;
 
-	IMAGE font_map_lower;
-	IMAGE font_map_upper;
-
 	TEXT(){
 		content = 	(char *) "NO CONTENT";
-		font = 		(char *) "Helvetica";
+		content_len = sizeof(content)/sizeof(char);
 		size = 10;
 	}
 
 	TEXT( char * c ){
 		content = c;
-		font = 	(char *) "Helvetica";
+		content_len = sizeof(content)/sizeof(char);
 		size = 10;
 	}
 
-	TEXT( char * c, char * f ){
-		content = c;
-		font = 	f;
-		size = 10;
+	void set_font( FONT f ){
+		font  = f;
 	}
 
 	void set_size( int a ){
@@ -476,7 +609,13 @@ public:
 	}
 
 
-	void load(){
+	void draw(){
+
+/*		for( int i = 0; i < content_len; i++ ){
+			font.draw_letter( 0 + i*size, 0, size, size, content[i] );	
+		}*/
+
+		font.draw_letter( 10, 10, 50, 50, 'a' );
 
 	}
 
@@ -514,21 +653,25 @@ int main( int argc, char * * argv ){
 
     IMAGE img2 = IMAGE( (char*) "../fonts/def_lower_case.bmp");
     img2.set_pos( 10, 10 );
-    img2.set_size( 1600, 1600 );
+    img2.set_size( 500, 500 );
     img2.load();
-    img2.draw();
+    img2.partial_draw_pixel_resize( 200, 0, 400, 200, 600, 600, 100, 100);
 
 
-/*  TEXT text = TEXT( (char *)"hello" );
+	TEXT text = TEXT( (char *)"hello" );
     text.set_pos( 100, 100 );
-    text.load();
-*/
+
 
     FONT f1 = FONT( 8, 8 );
     f1.load( (char *)"../fonts/def_lower_case.bmp", (char *)"../fonts/def_lower_case.bmp" );
-    //f1.map_lower(0, 97);
-    f1.map_lower(0, 97, 100);
+
+    f1.map_lower(0, 97, 127);
+    f1.map_lower(30, 32, 64);
+
+    f1.map_upper( 0, 97 );
     f1.to_string();
+
+    f1.draw_letter( 100, 100, 500, 500, 'z' );
 
 
     glutSwapBuffers();
