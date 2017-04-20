@@ -6,9 +6,13 @@
 #include <GL/glut.h>
 
 
-#define IMAGE_TYPE_RGB 24
-#define IMAGE_TYPE_RGBA 32
-#define IMAGE_TYPE_GREYSCALE 2
+#define IMAGE_TYPE_RGB 65
+#define IMAGE_TYPE_RGBA 66
+#define IMAGE_TYPE_GREYSCALE 67
+
+#define TEXT_ALIGN_LEFT			68
+#define TEXT_ALIGN_CENTER		69
+#define TEXT_ALIGN_JUSTIFIED	68
 
 struct IMAGE_INFO{
 	int start;
@@ -510,22 +514,30 @@ public:
 
 
 	void draw_letter( int _x, int _y, int _w, int _h, char _letter ){
-		/*for( int i = 0; i < lower_map_len; i++ ){
-			if( (int)_letter == lower_map[i] ){
-				font_map_lower.partial_draw_pixel_resize(  , y, x + letter_width, y + letter_height, _x, _y, )
-			}
-		}*/
 
-		for( int i = 0; i < lower_map_len; i++ ){
-			if( lower_map[i] == _letter ){
-				int crop_x_s = (i%columns) * letter_width;
-				int crop_y_s = font_map_lower.image_width - (((i+rows)/rows) * letter_height);
-				font_map_lower.partial_draw_pixel_resize(crop_x_s , crop_y_s, crop_x_s + letter_width, crop_y_s + letter_width, _x, _y, _w, _h );
-				break;
+		// if the letter is not upper case
+		if( !(_letter >= 65 && _letter <= 90) ){
+
+			for( int i = 0; i < lower_map_len; i++ ){
+				if( lower_map[i] == _letter ){
+					int crop_x_s = (i%columns) * letter_width;
+					int crop_y_s = font_map_lower.image_width - (((i+rows)/rows) * letter_height);
+					font_map_lower.partial_draw_pixel_resize(crop_x_s , crop_y_s, crop_x_s + letter_width, crop_y_s + letter_width, _x, _y, _w, _h );
+					break;
+				}
 			}
+
+		// if the letter is upper case
+		}else{
+			for( int i = 0; i < upper_map_len; i++ ){
+				if( upper_map[i] == _letter ){
+					int crop_x_s = (i%columns) * letter_width;
+					int crop_y_s = font_map_upper.image_width - (((i+rows)/rows) * letter_height);
+					font_map_upper.partial_draw_pixel_resize(crop_x_s , crop_y_s, crop_x_s + letter_width, crop_y_s + letter_width, _x, _y, _w, _h );
+					break;
+				}
+			}			
 		}
-
-		//font_map_lower.partial_draw_pixel_resize( 0, 1400, 200, 1600, _x, _y, _w, _h );
 
 	}
 
@@ -582,17 +594,26 @@ public:
 	int height;
 	int x;
 	int y;
+	int alignment;
 
 	TEXT(){
 		content = 	(char *) "NO CONTENT";
 		content_len = sizeof(content)/sizeof(char);
 		size = 10;
+		alignment = TEXT_ALIGN_LEFT;
+		width = 0;
+		height = 0;
 	}
 
 	TEXT( char * c ){
 		content = c;
-		content_len = sizeof(content)/sizeof(char);
+		content_len = 0;
+		int i = 0;
+		while( c[i] != '\0' ){ content_len += 1; i++; }
 		size = 10;
+		alignment = TEXT_ALIGN_LEFT;
+		width = 0;
+		height = 0;
 	}
 
 	void set_font( FONT f ){
@@ -603,11 +624,22 @@ public:
 		size = a;
 	}
 
+	void set_width( int _w ){
+		width = _w;
+	}
+
+	void set_height( int _h ){
+		height = _h;
+	}
+
 	void set_pos( int _x, int _y ){
 		x = _x;
 		y = _y;
 	}
 
+	void set_alignment( int _a ){
+		alignment = _a;
+	}
 
 	void draw(){
 
@@ -615,7 +647,12 @@ public:
 			font.draw_letter( 0 + i*size, 0, size, size, content[i] );	
 		}*/
 
-		font.draw_letter( 10, 10, 50, 50, 'a' );
+		//font.draw_letter( 10, 10, 50, 50, 'a' );
+
+		for( int i = 0; i < content_len; i++ ){
+			font.draw_letter( x + i*size, y, size, size, content[i] );			
+		}
+
 
 	}
 
@@ -655,23 +692,32 @@ int main( int argc, char * * argv ){
     img2.set_pos( 10, 10 );
     img2.set_size( 500, 500 );
     img2.load();
-    img2.partial_draw_pixel_resize( 200, 0, 400, 200, 600, 600, 100, 100);
-
-
-	TEXT text = TEXT( (char *)"hello" );
-    text.set_pos( 100, 100 );
+    //img2.partial_draw_pixel_resize( 200, 0, 400, 200, 600, 600, 100, 100);
 
 
     FONT f1 = FONT( 8, 8 );
-    f1.load( (char *)"../fonts/def_lower_case.bmp", (char *)"../fonts/def_lower_case.bmp" );
+    f1.load( (char *)"../fonts/def_lower_case.bmp", (char *)"../fonts/def_upper_case.bmp" );
 
     f1.map_lower(0, 97, 127);
     f1.map_lower(30, 32, 64);
 
-    f1.map_upper( 0, 97 );
+    f1.map_upper( 0, 65, 91 );
     f1.to_string();
 
-    f1.draw_letter( 100, 100, 500, 500, 'z' );
+    //f1.draw_letter( 100, 100, 500, 500, 'z' );
+
+
+    TEXT text = TEXT( (char *) "size 20 hello WORLD hello world" );
+    text.set_pos( 100, 100 );
+    text.set_font( f1 );
+    text.set_size(20);
+    text.draw();
+
+    TEXT text2 = TEXT( (char *) "size 40 hello WORLD hello world hello world" );
+    text2.set_pos( 100, 150 );
+    text2.set_font( f1 );
+    text2.set_size(40);
+    text2.draw();
 
 
     glutSwapBuffers();

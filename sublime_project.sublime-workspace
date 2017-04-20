@@ -4,6 +4,82 @@
 		"selected_items":
 		[
 			[
+				"leter",
+				"letter_height"
+			],
+			[
+				"cro",
+				"crop_y_s"
+			],
+			[
+				"le",
+				"letter_height"
+			],
+			[
+				"lett",
+				"letter_height"
+			],
+			[
+				"let",
+				"letter_width"
+			],
+			[
+				"draw",
+				"partial_draw_pixel_resize"
+			],
+			[
+				"font",
+				"font_map_lower"
+			],
+			[
+				"o",
+				"one_y"
+			],
+			[
+				"z",
+				"zero_y"
+			],
+			[
+				"one",
+				"one_y"
+			],
+			[
+				"zer",
+				"zero_x"
+			],
+			[
+				"zero",
+				"zero_x"
+			],
+			[
+				"pos",
+				"pos_from_RC"
+			],
+			[
+				"lete",
+				"letter_width"
+			],
+			[
+				"fon",
+				"font"
+			],
+			[
+				"parti",
+				"partial_draw_pixel"
+			],
+			[
+				"size",
+				"size"
+			],
+			[
+				"conte",
+				"content_len"
+			],
+			[
+				"PA",
+				"partial_draw_pixel"
+			],
+			[
 				"ima",
 				"image_width"
 			],
@@ -36,24 +112,12 @@
 				"upper_map"
 			],
 			[
-				"le",
-				"letter_height"
-			],
-			[
 				"start",
 				"start_x"
 			],
 			[
-				"fon",
-				"font_map_upper"
-			],
-			[
 				"font_ma",
 				"font_map_upper"
-			],
-			[
-				"font",
-				"font_map_lower"
 			],
 			[
 				"IM",
@@ -216,10 +280,6 @@
 				"import"
 			],
 			[
-				"size",
-				"sizeof"
-			],
-			[
 				"a",
 				"arg_3"
 			],
@@ -322,10 +382,6 @@
 			[
 				"che",
 				"check_inside"
-			],
-			[
-				"draw",
-				"draw_areas"
 			],
 			[
 				"window",
@@ -458,38 +514,6 @@
 			[
 				"lo",
 				"loft_display_callback"
-			],
-			[
-				"widge",
-				"widgets_len"
-			],
-			[
-				"lof",
-				"loft"
-			],
-			[
-				"Wid",
-				"WIDGET"
-			],
-			[
-				"wid",
-				"Widgets"
-			],
-			[
-				"glutI",
-				"glutInitWindowPosition"
-			],
-			[
-				"to",
-				"to_string"
-			],
-			[
-				"res",
-				"reshape_callback"
-			],
-			[
-				"displa",
-				"display_callback"
 			]
 		]
 	},
@@ -499,7 +523,7 @@
 			"file": "test/text.cpp",
 			"settings":
 			{
-				"buffer_size": 14997,
+				"buffer_size": 17079,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -562,6 +586,7 @@
 	],
 	"file_history":
 	[
+		"/home/suli/git/Bssembly/Bssembly.cpp",
 		"/home/suli/git/stusurf/test/makefile",
 		"/home/suli/git/stusurf/test/old",
 		"/home/suli/git/stusurf/makefile",
@@ -601,7 +626,7 @@
 	],
 	"find":
 	{
-		"height": 27.0
+		"height": 54.0
 	},
 	"find_in_files":
 	{
@@ -667,15 +692,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14997,
+						"buffer_size": 17079,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14940,
-								14940
+								16673,
+								16673
 							]
 						],
 						"settings":
@@ -684,7 +709,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 10159.0,
+						"translation.y": 11641.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -816,7 +841,7 @@
 		[
 			[
 				"",
-				"~/git/stusurf.sublime-workspace"
+				"~/git/stusurf/sublime_project.sublime-workspace"
 			]
 		],
 		"width": 380.0
