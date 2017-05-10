@@ -641,6 +641,10 @@ public:
 		alignment = _a;
 	}
 
+	void limit_width( int a ){
+
+	}
+
 	void draw(){
 
 /*		for( int i = 0; i < content_len; i++ ){
@@ -714,10 +718,12 @@ int main( int argc, char * * argv ){
     text.draw();
 
     TEXT text2 = TEXT( (char *) "size 40 hello WORLD hello world hello world" );
+    text2.limit_width( 500 );
     text2.set_pos( 100, 150 );
     text2.set_font( f1 );
     text2.set_size(40);
     text2.draw();
+
 
 
     glutSwapBuffers();
