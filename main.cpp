@@ -3,6 +3,9 @@
 #include <fstream>
 #include "GL/glut.h"
 
+#include "image.h";
+
+
 #define DEBUG_PRINT 		1
 #define FRAME_DELAY 		20
 
@@ -48,6 +51,15 @@ public:
 
 	void render(){
 		
+		glBegin( GL_QOUADS );
+			glVertex2f( 0,		0 );
+			glVertex2f( 100,	0 );
+			glVertex2f( 100,	100 );
+			glVertex2f( 0,		100 );
+	glEnd();
+
+
+
 	}
 
 };
@@ -63,23 +75,25 @@ public:
 class PROGRAM{
 public:
 
+	SCREEN * screens;
+	int screens_len;
 
+	int current_screen_i;
 
 
 	PROGRAM(){
-
+		screens = new SCREEN[0];
+		screens_len = 0;
+		current_screen_i = -1;
 	}
 
 
 	void render(){
 
-		glBegin( GL_QUADS );
-			glVertex2f(0,		0);
-			glVertex2f(0,		200);
-			glVertex2f(200,		200);
-			glVertex2f(200,		0);
-		glEnd();
-
+		if( screens_len > 0 ){
+			screens[current_screen_i].render();
+		}
+		
 		glutSwapBuffers();
 
 	}
@@ -89,7 +103,7 @@ public:
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-PROGRAM main_prog = PROGRAM();
+PROGRAM program = PROGRAM();
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -117,7 +131,7 @@ void init_glut(){
 
 // render function. This will render the main object which will handle all the other renders.
 void render( int a ){
-	main_prog.render();
+	program.render();
 }
 
 
@@ -157,6 +171,15 @@ int main( int argc, char * * argv ){
 
 
 	init_glut();
+
+
+
+	SCREEN screen_1 = SCREEN();
+
+	program.add(  );	
+
+
+
 
 	glutMainLoop();
 
