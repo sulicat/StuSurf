@@ -43,18 +43,10 @@ float angle = 0.0;
 
 class SCREEN{
 public:
-
-	char * name;
-
-
 	SCREEN(){
-		name = (char *)"na";
+
 	}
 
-
-	void set_name( char * n ){
-		name = n;
-	}
 
 
 	void render(){
@@ -149,7 +141,7 @@ public:
 	PROGRAM(){
 		screens = new SCREEN[0];
 		screens_len = 0;
-		current_screen_i = 0;
+		current_screen_i = -1;
 	}
 
 
@@ -164,27 +156,12 @@ public:
 	}
 
 
-	void add( SCREEN screen ){
-		SCREEN * temp = new SCREEN[ screens_len + 1 ];
-		std::copy( screens, screens + screens_len, temp );
-		temp[ screens_len ] = screen;
-		screens = temp;
-
-		screens_len += 1;
-	}
-
-
-	void set_current_screen( int s ){
-		current_screen_i = s;
-	}
-
-	
-
 };
 
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 PROGRAM program = PROGRAM();
+SCREEN screen_1 = SCREEN();
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -214,7 +191,9 @@ void init_glut(){
 
 // render function. This will render the main object which will handle all the other renders.
 void render( int a ){
-	program.render();
+	//program.render();
+	screen_1.render();
+
 	glutTimerFunc( FRAME_DELAY, render, 0 );
 }
 
@@ -252,10 +231,6 @@ int main( int argc, char * * argv ){
 	glutCreateWindow( "stusurf" );
 
 	glutDisplayFunc( callback_disaplay );
-	
-
-	SCREEN screen_1 = SCREEN();
-	program.add(screen_1);
 
 
 	init_glut();
