@@ -1,0 +1,1 @@
+This is the data to set for the def_lower_case.bmp font map.
