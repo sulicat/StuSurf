@@ -1,0 +1,21 @@
+<top_layer>
+	<child_1_of_top>
+		data in child 1
+	</child_1_of_top>
+
+	<child2>
+		data2
+	</child2>	
+</top_layer>
+
+
+
+<second_in_top_layer>
+	<A>
+		hello
+	</A>
+
+	<B>
+
+	</B>
+</second_in_top_layer>

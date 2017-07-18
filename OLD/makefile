@@ -1,2 +1,2 @@
 all:
-	g++ -o bin/run main.cpp -lglut -lGL -lGLU
+	g++ -o bin/run main_old.cpp -lglut -lGL -lGLU
