@@ -2,6 +2,7 @@
 #define STUSURF_H
 
 #include "common.h"
+#include "headers.h"
 
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
@@ -30,7 +31,7 @@ public:
 	void key_press( unsigned char _key, int _x, int _y );
 	void key_press_special( unsigned char _key, int _x, int _y );
 
-	void add( Test t );
+	void add( Base * a );
 
 	void render( void );
 

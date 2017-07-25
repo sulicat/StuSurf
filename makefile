@@ -1,2 +1,3 @@
 all:
-	g++ -o bin/run *.cpp -lglut -lGL -lGLU
+	./update_headers.sh
+	g++ -o bin/run *.cpp include/*.cpp -lglut -lGL -lGLU

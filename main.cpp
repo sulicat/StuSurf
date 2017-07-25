@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <GL/glut.h>
 
-#include "stusurf.h"
-#include "tinyxml2.h"
-#include "test_object.cpp"
+#include "include/stusurf.h"
+#include "lib/tinyxml2.h"
+#include "include/common.h"
 
 // debug flags
 #define DEBUG_INPUT_PRINT 0
@@ -92,11 +92,12 @@ int main( int argc, char * * argv ){
 
 	program.give_window_size( &WINDOW_WIDTH, &WINDOW_HEIGHT );
 
-	Test te = Test();
-
-
 	// this is a tempory test subjevct. We will add a bunch of objects to the main program throgh here. 
 	// 	our end goal is to habe the main program read a bunch of files and populate itself.
+
+	test_module_1 * test = new test_module_1();
+
+	program.add( test );
 
 	
 	glutInit( &argc, argv );
