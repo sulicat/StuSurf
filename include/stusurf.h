@@ -6,7 +6,7 @@
 
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
-class STUSURF{
+class Stusurf{
 public:
 	char * path_start_screen;
 	FILE * file_start_screen;
@@ -20,7 +20,7 @@ public:
 	int main_list_len;
 
 	// constructor. Takes in the path of the file that the program will start to display from. If file does not exist it will create it. 
-	STUSURF( char * _start );
+	Stusurf( char * _start );
 
 	// setting the program up
 	void give_window_size( int * _w, int * _h );

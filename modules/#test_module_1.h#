@@ -62,7 +62,7 @@ public:
 	  	if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
 		  std::cout <<"module_press: " <<  _button << "\n";
 		}
-	        
+
 	}
 
 };

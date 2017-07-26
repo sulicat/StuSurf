@@ -1,4 +1,3 @@
-
 #ifndef COMMON_H
 #define COMMON_H
 
@@ -28,8 +27,12 @@ public:
 
 /*************************************************************************/
 
-
 // these are some functions that can be used by the modules that need them
+class Common{
+public:
+   	static bool check_inside_rect( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height );
 
+};
 
+	
 #endif

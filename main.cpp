@@ -23,7 +23,7 @@ float background_G = 0;
 float background_B = 0;
 
 // this is the main program variable
-STUSURF program = STUSURF( (char * ) "../etc/start_screen.txt" );
+Stusurf program = Stusurf( (char * ) "../etc/start_screen.txt" );
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

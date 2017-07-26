@@ -1,0 +1,9 @@
+// this includes the definitions of any functions in the Common class located in the common.h file
+
+#include "common.h"
+
+// this is a function that can be used to check if the _x and _y positions are within an object
+bool Common::check_inside_rect( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height ){
+  return true;
+}
+
