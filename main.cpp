@@ -35,7 +35,7 @@ void render( int a ){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	
+
 // this is the process that starts the render function.
 void callback_disaplay(){
 	glClear( GL_COLOR_BUFFER_BIT );
@@ -49,6 +49,8 @@ void callback_reshape( int _x, int _y ){
 	WINDOW_WIDTH 	= _x;
 	WINDOW_HEIGHT 	= _y;
 	glViewport( 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT );
+	program.reshape();
+
 }
 
 void callback_mouseFunc( int _button, int _state, int _x, int _y ){
@@ -59,13 +61,13 @@ void callback_mouseFunc( int _button, int _state, int _x, int _y ){
 
 void callback_passiveMouseFunc( int _x, int _y ){
 	if( DEBUG_INPUT_PRINT == 1 )
-		std::cout << "passiveMouseFunc: x - y: " << _x << " - " << _y << "\n"; 
+		std::cout << "passiveMouseFunc: x - y: " << _x << " - " << _y << "\n";
 	program.mouse_move_passive( _x, _y );
 }
 
 void callback_activeMouseFunc( int _x, int _y ){
 	if( DEBUG_INPUT_PRINT == 1 )
-		std::cout << "activeMouseFunc: x - y: " << _x << " - " << _y << "\n"; 
+		std::cout << "activeMouseFunc: x - y: " << _x << " - " << _y << "\n";
 	program.mouse_move_active( _x, _y );
 }
 
@@ -87,7 +89,7 @@ void callback_keyboardFunc_special( int _key, int _x, int _y ){
 int main( int argc, char * * argv ){
 
 	// set the width and height to a comfortable value.
-	WINDOW_WIDTH = 1200;
+	WINDOW_WIDTH = 400;
 	WINDOW_HEIGHT = 1000;
 
 	program.give_window_size( &WINDOW_WIDTH, &WINDOW_HEIGHT );
@@ -96,10 +98,12 @@ int main( int argc, char * * argv ){
 	// 	our end goal is to habe the main program read a bunch of files and populate itself.
 
 	test_module_1 * test = new test_module_1();
+	test->set_size( 190, 300 );
+	test->set_pos( 200, 0 );
 
 	program.add( test );
 
-	
+
 	glutInit( &argc, argv );
 	glutInitWindowSize( WINDOW_WIDTH, WINDOW_HEIGHT );
 	glutInitWindowPosition( 0, 0 );

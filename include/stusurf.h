@@ -30,6 +30,7 @@ public:
 	void mouse_move_active( int _x, int _y );
 	void key_press( unsigned char _key, int _x, int _y );
 	void key_press_special( unsigned char _key, int _x, int _y );
+	void reshape();
 
 	void add( Base * a );
 

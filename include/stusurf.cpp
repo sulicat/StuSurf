@@ -12,11 +12,11 @@ Stusurf::Stusurf( char * _start ){
 	// set the path
 	path_start_screen = _start;
 	std::cout << "Loading New screen located at: " << _start << "\n";
-	
+
 	// start off with ana empty list of objects
 	main_list = new Base*[0];
 	main_list_len = 0;
-	
+
 }
 
 /************************************************************************************************************************************/
@@ -25,31 +25,52 @@ void Stusurf::toString( void ){
 	std::cout << path_start_screen << "\n";
 }
 
+void Stusurf::reshape(){
+	std::cout << "stusurf reshape to: " << WINDOW_WIDTH << " " << WINDOW_HEIGHT << "\n";
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->reshape();
+	}
+
+}
+
 void Stusurf::give_window_size( int * _w, int * _h ){
 	width = _w;
 	height = _h;
 }
 
 void Stusurf::mouse_press( int _button, int _state, int _x, int _y ){
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
 	for( int i = 0; i < main_list_len; i++ ){
-		main_list[i]->mouse_press( _button, _state, _x, _y );
+		main_list[i]->mouse_press( _button, _state, _x, recalc_y );
 	}
 }
 
 void Stusurf::mouse_move_passive( int _x, int _y ){
-	//std::cout << "mouse move: " << _x << " " << _y << "\n";
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->mouse_move_passive( _x, recalc_y );
+	}
 }
 
 void Stusurf::mouse_move_active( int _x, int _y ){
-	//std::cout << "mouse move ACTIVE: " << _x << " " << _y << "\n";
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->mouse_move_active( _x, recalc_y );
+	}
 }
 
 void Stusurf::key_press( unsigned char _key, int _x, int _y ){
-	//std::cout << "keypress: k x y " << _key << " " << _x << " " << _y << "\n";
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->key_press( _key, _x, recalc_y );
+	}
 }
 
 void Stusurf::key_press_special( unsigned char _key, int _x, int _y ){
-	//std::cout << "keypress SPECIAL: k x y " << _key << " " << _x << " " << _y << "\n";
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->key_press_special( _key, _x, recalc_y );
+	}
 }
 
 /************************************************************************************************************************************/
