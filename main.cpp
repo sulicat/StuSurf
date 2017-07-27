@@ -101,7 +101,12 @@ int main( int argc, char * * argv ){
 	test->set_size( 190, 300 );
 	test->set_pos( 200, 0 );
 
+	test_module_2 * test2 = new test_module_2();
+	test2->set_size( 150, 300 );
+	test2->set_pos( 0, 0 );
+
 	program.add( test );
+	program.add( test2 );
 
 
 	glutInit( &argc, argv );

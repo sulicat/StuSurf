@@ -3,5 +3,6 @@
 
 #include "../modules/test2.h"
 #include "../modules/test_module_1.h"
+#include "../modules/test_module_2.h"
 
 #endif
