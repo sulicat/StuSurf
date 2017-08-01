@@ -41,8 +41,32 @@ void Stusurf::evaluate_screen(){
 
 		std::cout << "\tstaring line parse....\n";
 		while( file_stream_screen.getline( line, MAX_LINE_READ )  ){
-			std::cout << "\t" << line << "\n";
-			std::cout << "\t\t" << Common::string_to_int(Common::split_string( line, ' ' )[0]) + 1 << "\n";
+			std::cout << "\t\t" << line;
+			// at this point. we are going to assume that for every line, there is the required info. We will perform an error check...
+			// length must be 7.
+			std::string * line_arr = Common::split_string( line, ' ' );
+			if( line_arr[0] != "7" ){
+				std::cout << " ... ERROR. Could not parse line in file: " << current_selected_screen << "\n";
+
+			}else{
+				std::cout << " ... GOOD\n";
+				// we will send the split data into another function.
+				// this is a function that is written by a bash script after reading the modules.
+				// this function will return an object that we can add to main_list. And that way we can render things in file
+				// line template :
+				//			Object_name x y width height path_data
+				//index:	1			2 3 4	  5		 6
+
+				Base * temp_add;
+				temp_add  = 	create_object( 	line_arr[1],
+												Common::string_to_int( line_arr[2] ),
+												Common::string_to_int( line_arr[3] ),
+												Common::string_to_int( line_arr[4] ),
+												Common::string_to_int( line_arr[5] ),
+												line_arr[6] 							);
+
+				add( temp_add );
+			}
 
 		}
 		std::cout << "\tendingstaring line parse....\n";
