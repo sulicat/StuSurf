@@ -23,7 +23,8 @@ float background_G = 0;
 float background_B = 0;
 
 // this is the main program variable
-Stusurf program = Stusurf( (char * ) "../etc/start_screen.txt" );
+std::string start_screen_path = "screens/";
+Stusurf program = Stusurf( 	start_screen_path );
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -97,6 +98,8 @@ int main( int argc, char * * argv ){
 	// this is a tempory test subjevct. We will add a bunch of objects to the main program throgh here. 
 	// 	our end goal is to habe the main program read a bunch of files and populate itself.
 
+
+	/*
 	test_module_1 * test = new test_module_1();
 	test->set_size( 190, 300 );
 	test->set_pos( 200, 0 );
@@ -107,6 +110,10 @@ int main( int argc, char * * argv ){
 
 	program.add( test );
 	program.add( test2 );
+	*/
+
+	program.evaluate_screen();
+
 
 
 	glutInit( &argc, argv );

@@ -8,9 +8,10 @@
 /************************************************************************************************************************************/
 
 // the constructor
-Stusurf::Stusurf( char * _start ){
+Stusurf::Stusurf( std::string _start ){
 	// set the path
-	path_start_screen = _start;
+	screens_dir_path = _start;
+	current_selected_screen = _start + "main.txt";
 	std::cout << "Loading New screen located at: " << _start << "\n";
 
 	// start off with ana empty list of objects
@@ -22,7 +23,7 @@ Stusurf::Stusurf( char * _start ){
 /************************************************************************************************************************************/
 // this is the test print function
 void Stusurf::toString( void ){
-	std::cout << path_start_screen << "\n";
+	std::cout << "empty test function" << "\n";
 }
 
 void Stusurf::reshape(){
@@ -101,5 +102,6 @@ void Stusurf::add( Base * _input ){
 
 	std::cout << "done adding new element to main_list\n";
 }
+
 
 
