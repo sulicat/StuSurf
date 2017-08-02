@@ -14,16 +14,16 @@ Base * Stusurf::create_object( std::string _type, int _x, int _y, int _width, in
 
 	if( _type == "test_module_1" ){
 		_output = new test_module_1();
-}
-else if( _type == "test_module_1" ){
-_output = new test_module_1;
-}
-else if( _type == "test_module_2" ){
-_output = new test_module_2;
-}
-else{
+
+	}else if( _type == "test_module_2" ){
+		_output = new test_module_2();
+		_output->set_size( _width, _height );
+		_output->set_pos( _x, _y );
+
+	}else{
 		_output = new Common::empty_module();
 	}
+
 		_output->set_size( _width, _height );
 		_output->set_pos( _x, _y );
 

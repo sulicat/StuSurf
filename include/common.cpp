@@ -15,15 +15,11 @@ bool Common::check_inside_rect( int _x, int _y, int rect_x, int rect_y, int rect
 	return false;
 }
 
-
-
 std::string Common::int_to_string( int _num ){
 	std::ostringstream str;
 	str << _num;
 	return str.str();
 }
-
-
 
 std::string * Common::split_string( char * input, char delim ){
 	int i = 0;
@@ -67,8 +63,6 @@ std::string * Common::split_string( char * input, char delim ){
 	return out;
 
 }
-
-
 
 std::string * Common::split_string( std::string _input, char delim ){
 	const char * input = new char[ sizeof( _input.c_str() )/sizeof(char) ];
@@ -115,7 +109,6 @@ std::string * Common::split_string( std::string _input, char delim ){
 	return out;
 
 }
-
 
 int Common::string_to_int( std::string _input ){
 	return atoi( _input.c_str() );

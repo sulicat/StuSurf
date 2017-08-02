@@ -37,6 +37,40 @@ public:
 // these are some functions that can be used by the modules that need them
 class Common{
 public:
+
+	class empty_module : public Base {
+	public:
+		int 	x_full;
+		int 	y_full;
+		float 	width_full;
+		float 	height_full;
+		float 	x;
+		float 	y;
+		float 	width;
+		float 	height;
+
+		empty_module( ){
+			std::cout << "creating an EMPTY MODULE\n";
+			x_full 			= 0;
+			y_full 			= 0;
+			width_full 		= 0;
+			height_full 	= 0;
+		}
+
+		// none of the functions do anything
+		void reshape(){}
+		void set_size( int _w, int _h ){}
+		void set_pos( int _x, int _y ){}
+		void render(){}
+		void mouse_press( int _button, int _state, int _x, int _y ){}
+		void mouse_move_passive( int _x, int _y ){}
+		void mouse_move_active( int _x, int _y ){}
+		void key_press( unsigned char _key, int _x, int _y ){}
+		void key_press_special( unsigned char _key, int _x, int _y ){ }
+	};
+
+
+
    	static bool 			check_inside_rect	( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height );
 	static std::string 		int_to_string		( int _num );
 	static int 				string_to_int		( std::string _input );

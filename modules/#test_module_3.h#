@@ -1,0 +1,3 @@
+class moudell : public Base{
+
+	}
