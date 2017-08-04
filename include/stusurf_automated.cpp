@@ -21,12 +21,15 @@ _output = new test_module_1;
 else if( _type == "test_module_2" ){
 _output = new test_module_2;
 }
+else if( _type == "test_module_3" ){
+_output = new test_module_3;
+}
 else{
 		_output = new Common::empty_module();
 	}
 		_output->set_size( _width, _height );
 		_output->set_pos( _x, _y );
-
+		_output->set_path( ( char * ) _path_data.c_str() );
 
 	return _output;
 

@@ -11,6 +11,7 @@ public:
 	float 	y;
 	float 	width;
 	float 	height;
+	char * 	path_data;
 
 	test_module_1( ){
 		std::cout << "creating a new testing_module\n";
@@ -51,12 +52,28 @@ public:
 
 	void render(){
 		glColor3f( 1.0, 0.0, 0.0 );
-		glBegin( GL_QUADS );
+		/*glBegin( GL_QUADS );
 			glVertex3f( x, y, 0 );
 			glVertex3f( x + width, y, 0 );
 			glVertex3f( x + width, y + height , 0 );
 			glVertex3f( x, y + height, 0 );
 		glEnd();
+		*/
+
+		char p = 'h';
+
+		/*
+		glPushMatrix();
+			glTranslatef(x, y, 0);
+			glScalef( 0.1 * 1/152.38,0.1 * 1/152.38,0.1 * 1/152.38 );
+			glutStrokeCharacter( GLUT_STROKE_ROMAN, p );
+		glPopMatrix();
+		*/
+
+		//Common::render_char( x, y, 0.1, 'a' );
+		//Common::render_string( x, y, 0.03, "hello world this is a never ending sttring..... the size is " );
+		Common::render_paragraph( x, y, 0.5, 0.5, 0.03, "hello world 1 hello world 2 a b c abcdefg this is a paragraph. It says stuff. But you shouldnt read it cuz it is lots of stuff."  );
+
 	}
 
 	void mouse_press( int _button, int _state, int _x, int _y ){
@@ -89,5 +106,9 @@ public:
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
 			std::cout << "key_press_special: " << _key << " " << _x << " " << _y << "\n";
 		}
+	}
+
+	void set_path( char * _p ){
+		path_data = _p;
 	}
 };

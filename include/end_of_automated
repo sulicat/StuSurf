@@ -3,7 +3,7 @@ else{
 	}
 		_output->set_size( _width, _height );
 		_output->set_pos( _x, _y );
-
+		_output->set_path( ( char * ) _path_data.c_str() );
 
 	return _output;
 

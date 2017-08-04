@@ -79,6 +79,7 @@ void Stusurf::key_press_special( unsigned char _key, int _x, int _y ){
 // render function
 void Stusurf::render( void ){
 	// render all the objects in the main list
+	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 	for( int i = 0; i < main_list_len; i++ ){
 		main_list[i]->render();
 	}

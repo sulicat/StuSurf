@@ -1,6 +1,7 @@
 // this includes the definitions of any functions in the Common class located in the common.h file
 
 #include "common.h"
+#include <GL/glut.h>
 #include <iostream>
 #include <stdlib.h>
 
@@ -116,4 +117,38 @@ int Common::string_to_int( std::string _input ){
 
 float Common::string_to_float( std::string _input ){
 	return atof( _input.c_str() );
+}
+
+void Common::render_char( float _x, float _y, float _scale, char _c ){
+	float _size = _scale * FONT_SIZE_ROMAN;
+	glPushMatrix();
+		glTranslatef( _x, _y, 0 );
+		glScalef( _size, _size, _size  );
+		glutStrokeCharacter( GLUT_STROKE_ROMAN, _c );
+	glPopMatrix();
+}
+
+
+void Common::render_string( float _x, float _y, float _scale, std::string _s ){
+	float current_pos = 0;
+	for( int i = 0; i < _s.length(); i++ ){
+		render_char( _x + current_pos, _y, _scale, _s[i] );
+		current_pos = current_pos + glutStrokeWidth( GLUT_STROKE_ROMAN, _s[i] )*FONT_SIZE_ROMAN*_scale;
+	}
+}
+
+void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p ){
+	float current_pos_x = 0;
+	float current_pos_y = 0;
+
+	for( int i = 0; i < _p.length(); i++ ){
+		render_char( _x + current_pos_x, _y + current_pos_y, _scale, _p[i] );
+		current_pos_x += glutStrokeWidth( GLUT_STROKE_ROMAN, _p[i] )*FONT_SIZE_ROMAN*_scale;
+
+		if( current_pos_x > _x + _width + 1 ){
+			current_pos_x = 0;
+			current_pos_y -= _scale;
+		}
+	}
+
 }

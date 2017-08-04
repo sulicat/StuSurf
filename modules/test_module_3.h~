@@ -1,7 +1,7 @@
 #include "../include/common.h"
 #include <GL/glut.h>
 
-class test_module_1 : public Base{
+class test_module_2 : public Base{
 public:
 	int 	x_full;
 	int 	y_full;
@@ -11,13 +11,19 @@ public:
 	float 	y;
 	float 	width;
 	float 	height;
+	float	R;
+	float	G;
+	float 	B;
 
-	test_module_1( ){
+	test_module_2( ){
 		std::cout << "creating a new testing_module\n";
 		x_full 			= 0;
 		y_full 			= 0;
 		width_full 		= 0;
 		height_full 	= 0;
+		R = 0;
+		G = 0;
+		B = 1;
 
 		x 			= (float)x_full/WINDOW_WIDTH;
 		y 			= (float)y_full/WINDOW_HEIGHT;
@@ -50,7 +56,7 @@ public:
 	}
 
 	void render(){
-		glColor3f( 1.0, 0.0, 0.0 );
+		glColor3f( R, G, B );
 		glBegin( GL_QUADS );
 			glVertex3f( x, y, 0 );
 			glVertex3f( x + width, y, 0 );
@@ -64,7 +70,19 @@ public:
 	  	if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
 			// do something.... we are inside the objects space
 			std::cout << "test_module_press \n";
+
+			if( _state == 0 ){
+				if( B == 1 ){
+					B = 0;
+					G = 1;
+				}else if( G == 1 ){
+					B = 1;
+					G = 0;
+				}
+			}
+
 		}
+
 	}
 
 	void mouse_move_passive( int _x, int _y ){

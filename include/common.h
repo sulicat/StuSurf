@@ -19,6 +19,7 @@ public:
 	float y;
 	float width;
 	float height;
+	char * path_data;
 
 	virtual void render() = 0;
 	virtual void mouse_press( int _button, int _state, int _x, int _y  ) = 0;
@@ -29,6 +30,7 @@ public:
 	virtual void mouse_move_active( int _x, int _y ) = 0;
 	virtual void key_press( unsigned char _key, int _x, int _y ) = 0;
 	virtual void key_press_special( unsigned char _key, int _x, int _y ) = 0;
+	virtual void set_path( char * _p ) = 0;
 };
 
 
@@ -48,6 +50,7 @@ public:
 		float 	y;
 		float 	width;
 		float 	height;
+		char *	path_data;
 
 		empty_module( ){
 			std::cout << "creating an EMPTY MODULE\n";
@@ -67,9 +70,12 @@ public:
 		void mouse_move_active( int _x, int _y ){}
 		void key_press( unsigned char _key, int _x, int _y ){}
 		void key_press_special( unsigned char _key, int _x, int _y ){ }
+		void set_path( char * _p ){}
 	};
 
+	// Vars | Functions tha can be used by the rest of the progra,
 
+	static const float		FONT_SIZE_ROMAN 			= 1/152.38;
 
    	static bool 			check_inside_rect	( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height );
 	static std::string 		int_to_string		( int _num );
@@ -77,6 +83,9 @@ public:
 	static float 			string_to_float		( std::string _input );
 	static std::string * 	split_string		( char * input, char delim  ); // the length is in retval[0] as a string
 	static std::string * 	split_string		( std::string input, char delim  ); // the length is in retval[0] as a string
+	static void				render_char			( float x, float y, float scale, char c);
+	static void				render_string		( float x, float y, float scale, std::string s );
+	static void				render_paragraph	( float x, float y, float w, float h, float scale, std::string p );
 
 };
 

@@ -1,7 +1,7 @@
 #include "../include/common.h"
 #include <GL/glut.h>
 
-class test_module_2 : public Base{
+class test_module_3 : public Base{
 public:
 	int 	x_full;
 	int 	y_full;
@@ -14,10 +14,9 @@ public:
 	float	R;
 	float	G;
 	float 	B;
-	char *	path_data;
-	float 	angle;
+	char * 	path_data;
 
-	test_module_2( ){
+	test_module_3( ){
 		std::cout << "creating a new testing_module\n";
 		x_full 			= 0;
 		y_full 			= 0;
@@ -31,7 +30,6 @@ public:
 		y 			= (float)y_full/WINDOW_HEIGHT;
 		width 		= (float)width_full/WINDOW_WIDTH;
 		height 		= (float)height_full/WINDOW_HEIGHT;
-		angle		= 0;
 	}
 
 	void reshape(){
@@ -65,15 +63,7 @@ public:
 			glVertex3f( x + width, y, 0 );
 			glVertex3f( x + width, y + height , 0 );
 			glVertex3f( x, y + height, 0 );
-			glEnd();
-
-		glPushMatrix();
-			glTranslatef( x + width/2, y + height/2, 0 );
-			glRotatef( angle, 0, 1, 0 );
-			glutWireTeapot( width );
-		glPopMatrix();
-
-		angle += 0.1;
+		glEnd();
 	}
 
 	void mouse_press( int _button, int _state, int _x, int _y ){
@@ -83,12 +73,14 @@ public:
 			std::cout << "test_module_press \n";
 
 			if( _state == 0 ){
-				if( B == 1 ){
-					B = 0;
+				if( G == 0 ){
+					B = 1;
 					G = 1;
+					R = 1;
 				}else if( G == 1 ){
 					B = 1;
 					G = 0;
+					R = 1;
 				}
 			}
 
@@ -121,6 +113,5 @@ public:
 	}
 
 	void set_path( char * _p ){
-
 	}
 };
