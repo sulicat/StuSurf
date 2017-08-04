@@ -86,6 +86,7 @@ public:
 	static void				render_char			( float x, float y, float scale, char c);
 	static void				render_string		( float x, float y, float scale, std::string s );
 	static void				render_paragraph	( float x, float y, float w, float h, float scale, std::string p );
+	static void				render_paragraph	( float x, float y, float w, float h, float scale, std::string p, float _line_spacing );
 
 };
 
