@@ -119,6 +119,8 @@ float Common::string_to_float( std::string _input ){
 	return atof( _input.c_str() );
 }
 
+
+// render charecter
 void Common::render_char( float _x, float _y, float _scale, char _c ){
 	float _size = _scale * FONT_SIZE_ROMAN;
 	glPushMatrix();
@@ -128,7 +130,13 @@ void Common::render_char( float _x, float _y, float _scale, char _c ){
 	glPopMatrix();
 }
 
+void Common::render_char( float _x, float _y, float _scale, char _c, float _R, float _G, float _B ){
+	glColor3f( _R, _G, _B );
+	render_char( _x, _y, _scale, _c );
+}
 
+
+// render string
 void Common::render_string( float _x, float _y, float _scale, std::string _s ){
 	float current_pos = 0;
 	for( int i = 0; i < _s.length(); i++ ){
@@ -137,6 +145,13 @@ void Common::render_string( float _x, float _y, float _scale, std::string _s ){
 	}
 }
 
+void Common::render_string( float _x, float _y, float _scale, std::string _s, float _R, float _G, float _B ){
+	glColor3f( _R, _G, _B );
+	render_string( _x, _y, _scale, _s );
+}
+
+
+// render_paragraph
 void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p ){
 	float current_pos_x = 0;
 	float current_pos_y = 0;
@@ -150,7 +165,11 @@ void Common::render_paragraph( float _x, float _y, float _width, float _height, 
 			current_pos_y -=  _scale;
 		}
 	}
+}
 
+void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p, float _R, float _G, float _B ){
+	glColor3f( _R, _G, _B );
+	render_paragraph( _x, _y, _width, _height, _scale, _p );
 }
 
 void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p, float _line_spacing ){
@@ -166,5 +185,9 @@ void Common::render_paragraph( float _x, float _y, float _width, float _height, 
 			current_pos_y -= _line_spacing * _scale;
 		}
 	}
+}
 
+void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p, float _line_spacing, float _R, float _G, float _B ){
+	glColor3f( _R, _G, _B );
+	render_paragraph( _x, _y, _width, _height, _scale, _p, _line_spacing );
 }

@@ -60,12 +60,12 @@ public:
 
 	void render(){
 		glColor3f( R, G, B );
-		glBegin( GL_QUADS );
+		/*glBegin( GL_QUADS );
 			glVertex3f( x, y, 0 );
 			glVertex3f( x + width, y, 0 );
 			glVertex3f( x + width, y + height , 0 );
 			glVertex3f( x, y + height, 0 );
-			glEnd();
+			glEnd();*/
 
 		glPushMatrix();
 			glTranslatef( x + width/2, y + height/2, 0 );

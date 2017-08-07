@@ -72,7 +72,7 @@ public:
 
 		//Common::render_char( x, y, 0.1, 'a', 1, 0, 1 );
 		//Common::render_string( x, y, 0.03, "hello world this is a never ending sttring..... the size is ", 1, 1, 0 );
-		Common::render_paragraph( x, y, 0.5, 0.5, 0.03, "hello world 1 hello world 2 a b c abcdefg this is a paragraph. It says stuff. But you shouldnt read it cuz it is lots of stuff.", 1, 1, 1, 1 );
+		Common::render_paragraph( x, y, 0.5, 0.5, 0.03, "hello world 1 hello world 2 a b c abcdefg this is a paragraph. It says stuff. But you shouldnt read it cuz it is lots of stuff.", 3, 1, 1, 1 );
 
 	}
 
