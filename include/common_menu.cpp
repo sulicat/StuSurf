@@ -14,7 +14,7 @@ MenuItem::MenuItem( ){
 	reshape();
 }
 
-void MenuItem::create(std::string _name, void (*_callback)(std::string)){
+void MenuItem::create(std::string _name, int (*_callback)(std::string)){
 	name = _name;
 	callback = _callback;
 	reshape();
@@ -69,14 +69,15 @@ void MenuItem::set_param( std::string _p ){
 	callback_param = _p;
 }
 
-void MenuItem::trigger(){
-	callback( callback_param );
+int MenuItem::trigger(){
+	return callback( callback_param );
 }
 
 // ------------------------------------------------------------------ //
 
-void temp_callback(std::string a){
+int temp_callback(std::string a){
 	std::cout << a << "\n";
+	return 0;
 }
 
 
@@ -95,8 +96,10 @@ Menu::Menu(){
 	num_of_items_shown = 15;
 	selected_index = 0;
 
+	last_mouse_active_hold_x = 0;
+	last_mouse_active_hold_y = 0;
 
-	scroll(0);
+	outside_scroll_speed = 0.01;
 
 	add( "helo", temp_callback, "hello" );
 	add( "helo_asd", temp_callback, "hello2" );
@@ -104,13 +107,16 @@ Menu::Menu(){
 	add( "helo_p4", temp_callback, "hello2" );
 	add( "helo_asdlonger", temp_callback, "hello2" );
 	add( "helo_im a cat", temp_callback, "hello2" );
-	add( "1", temp_callback, "hello2" );
+	add( "1", temp_callback, "hello1" );
 	add( "2", temp_callback, "hello2" );
-	add( "3", temp_callback, "hello2" );
-	add( "4", temp_callback, "hello2" );
-	add( "5", temp_callback, "hello2" );
-	add( "6", temp_callback, "hello2" );
-	add( "7", temp_callback, "hello2" );
+	add( "3", temp_callback, "hello3" );
+	add( "4", temp_callback, "hello4" );
+	add( "5", temp_callback, "hello5" );
+	add( "6", temp_callback, "hello6" );
+	add( "7", temp_callback, "hello7" );
+
+	select(selected_index);
+
 }
 
 void Menu::reshape( ){
@@ -159,6 +165,33 @@ void Menu::set_pos( int _x, int _y ){
 }
 
 
+void Menu::select( int _i ){
+	for( int i = 0; i < items_len; i++ ){
+		items[i].selected = false;
+	}
+
+	if( _i < items_len && _i >= 0 ){
+		items[_i].selected = true;
+		// scrolling
+		if( _i > item_offset + num_of_items_shown ){
+			item_offset += 1;
+		}else if( _i < item_offset ){
+			item_offset -= 1;
+		}
+	}
+}
+
+void Menu::scroll( int _x ){
+	item_offset += _x;
+	// check bounds of the offset
+	if( item_offset + num_of_items_shown + 1 > items_len ){
+		item_offset = items_len - num_of_items_shown - 1;
+
+	}else if( item_offset < 0 ){
+		item_offset = 0;
+	}
+}
+
 void Menu::set_number_of_items( int _n ){
 	num_of_items_shown = _n;
 	reshape();
@@ -190,16 +223,7 @@ void Menu::toggle_show(){
 	is_shown = !is_shown;
 }
 
-void Menu::scroll( int _s ){
-	item_offset += _s;
-	if( item_offset > num_of_items_shown - 7 ){
-		item_offset = num_of_items_shown - 7;
-	}else if( item_offset < 0 ){
-		item_offset = 0;
-	}
-}
-
-void Menu::add( std::string _name, void (*_callback)(std::string), std::string _param ){
+void Menu::add( std::string _name, int (*_callback)(std::string), std::string _param ){
 	// reallocate and move memory to bigger items array
 	MenuItem * temp = new MenuItem[items_len + 1];
 	std::copy( items, items + items_len, temp );
@@ -213,39 +237,53 @@ void Menu::add( std::string _name, void (*_callback)(std::string), std::string _
 	items_len += 1;
 }
 
+void Menu::trigger(){
+	if( selected_index < items_len && selected_index >= 0 ){
+		if( items[ selected_index ].trigger() == 1 ){
+			is_shown = false;
+		}
+	}
+}
+
 // ----------------------------------------------------------------------------- //
 
 void Menu::key_press_special( unsigned char _key, int _x, int _y ){
 	if( is_shown ){
 		if( (int)_key == 101 ){						// up
 			selected_index -= 1;
-		}else if( (int)_key == 103 ){				// dowm
+
+		}else if( (int)_key == 103 ){				// down
 			selected_index += 1;
 		}
-	}
 
-	// bounds checking
-	if( selected_index < 0 ){
-		selected_index = 0;
-	}else if( selected_index >= items_len ){
-		selected_index = items_len - 1;
-	}
+		// bound check the index.
+		// 	stop at top and bottom of the list
+		if( selected_index < 0 ){
+			selected_index = 0;
+		}else if( selected_index >= items_len ){
+			selected_index = items_len - 1;
+		}
+		select( selected_index );
 
-	update_draw();
+	}
 }
 
 void Menu::key_press( unsigned char _key, int _x, int _y ){
 	if( is_shown ){
 		if( (int)_key == 13 ){						// ENTER Key
-			items[selected_index].trigger();
-			is_shown = false;
+			trigger();
 		}
 	}
 }
 
 void Menu::mouse_press( int _button, int _state, int _x, int _y ){
-	std::cout << "MOUSE MENU: " << _button << " " << _x << " " << _y << "\n";
-	if( is_shown ){
+	if( is_shown && _button == 0 && _state == 0 ){
+		// only trigger if mouse pressed inside the menu
+		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
+			trigger( );
+		}
+		last_mouse_active_hold_x = _x;
+		last_mouse_active_hold_y = _y;
 	}
 }
 
@@ -253,35 +291,26 @@ void Menu::mouse_move_passive( int _x, int _y ){
 	// is the mouse inside the menu ?
 	if( is_shown == true && Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full )){
 		// which item is it hoevering over ?
-		int temp_selected_index = num_of_items_shown - (int)(((float)(_y - y_full)/(height_full)) * num_of_items_shown);
+		int temp_selected_index = num_of_items_shown - (int)(((float)(_y - y_full)/(height_full + height_per_item)) * (num_of_items_shown + 1 ));
 		temp_selected_index += item_offset;
 		for( int i = 0; i < items_len; i++ ){
 			items[i].selected = false;
 		}
-		items[ temp_selected_index ].selected = true;
-		selected_index = temp_selected_index;
-	}
 
+		selected_index = temp_selected_index;
+		select( temp_selected_index );
+	}
 }
 
 void Menu::mouse_move_active( int _x, int _y ){
-	std::cout << "move a MENU " << _x << " " << _y << "\n";
+	if( is_shown && !(Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ))){
+		scroll( (last_mouse_active_hold_y - _y) * outside_scroll_speed );
+	}
 }
 
 
 void Menu::update_draw(){
 
-	if( selected_index > item_offset + num_of_items_shown ){
-		item_offset = selected_index - num_of_items_shown ;
-
-	}else if( selected_index < item_offset ){
-		item_offset = selected_index;
-	}
-
-	for( int i = 0; i < items_len; i++ ){
-		items[i].selected = false;
-	}
-	items[ selected_index ].selected = true;
 }
 
 // ----------------------------------------------------------------------------- //

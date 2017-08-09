@@ -54,35 +54,66 @@ void Stusurf::give_window_size( int * _w, int * _h ){
 
 void Stusurf::mouse_press( int _button, int _state, int _x, int _y ){
 	int recalc_y = WINDOW_HEIGHT - _y - 1;
-	for( int i = 0; i < main_list_len; i++ ){
-		main_list[i]->mouse_press( _button, _state, _x, recalc_y );
-	}
 
+	// we will only send input to the modules when none of the
+	//	main menus is open
+	bool _any_m_open = false;
 	for( int i = 0; i < menus_len; i++ ){
 		menus[i].mouse_press( _button, _state, _x, recalc_y );
+		if( menus[i].is_shown ){
+			_any_m_open = true;
+		}
 	}
+
+	if( _any_m_open == false ){
+		for( int i = 0; i < main_list_len; i++ ){
+			main_list[i]->mouse_press( _button, _state, _x, recalc_y );
+		}
+	}
+
 }
 
 void Stusurf::mouse_move_passive( int _x, int _y ){
 	int recalc_y = WINDOW_HEIGHT - _y - 1;
-	for( int i = 0; i < main_list_len; i++ ){
-		main_list[i]->mouse_move_passive( _x, recalc_y );
-	}
 
+	// we will only send input to the modules when none of the
+	//	main menus is open
+	bool _any_m_open = false;
 	for( int i = 0; i < menus_len; i++ ){
 		menus[i].mouse_move_passive( _x, recalc_y );
+		if( menus[i].is_shown ){
+			_any_m_open = true;
+		}
 	}
+
+	if( _any_m_open == false ){
+		for( int i = 0; i < main_list_len; i++ ){
+			main_list[i]->mouse_move_passive( _x, recalc_y );
+		}
+	}
+
 }
 
 void Stusurf::mouse_move_active( int _x, int _y ){
 	int recalc_y = WINDOW_HEIGHT - _y - 1;
-	for( int i = 0; i < main_list_len; i++ ){
-		main_list[i]->mouse_move_active( _x, recalc_y );
-	}
 
+	// we will only send input to the modules when none of the
+	//	main menus is open
+	bool _any_m_open = false;
 	for( int i = 0; i < menus_len; i++ ){
 		menus[i].mouse_move_active( _x, recalc_y );
+		if( menus[i].is_shown ){
+			_any_m_open = true;
+		}
 	}
+
+	if( _any_m_open == false ){
+		for( int i = 0; i < main_list_len; i++ ){
+			main_list[i]->mouse_move_active( _x, recalc_y );
+		}
+	}
+
+
 }
 
 void Stusurf::key_press( unsigned char _key, int _x, int _y ){
@@ -102,7 +133,11 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 	for( int m = 0; m < menus_len; m++ ){
 		if( _key == menus[m].get_shortcut() ){
 			_m_open = true;
-			menus[m].set_pos( _x, recalc_y );
+			if( recalc_y < WINDOW_HEIGHT/2 ){
+				menus[m].set_pos( _x, recalc_y );
+			}else{
+				menus[m].set_pos( _x, recalc_y - menus[m].height_full );
+			}
 			menus[m].toggle_show();
 		}
 		if( menus[m].is_shown == true ){ any_menus_open = true; }
