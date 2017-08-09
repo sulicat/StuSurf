@@ -152,7 +152,8 @@ public:
 	int		selected_index;
 	float	outside_scroll_speed;
 
-	unsigned char shortcut;
+	unsigned char 	shortcut;
+	std::string		search_term;
 
 	MenuItem * 	items;
 	int			items_len;
@@ -178,7 +179,6 @@ public:
 	void 		key_press( unsigned char _key, int _x, int _y );
 	void 		key_press_special( unsigned char _key, int _x, int _y );
 	void		scroll( int _ammount );
-	void		update_draw();
 	void		trigger();
 
 	unsigned char	get_shortcut();

@@ -77,7 +77,7 @@ int MenuItem::trigger(){
 
 int temp_callback(std::string a){
 	std::cout << a << "\n";
-	return 0;
+	return 1;
 }
 
 
@@ -98,6 +98,7 @@ Menu::Menu(){
 
 	last_mouse_active_hold_x = 0;
 	last_mouse_active_hold_y = 0;
+	search_term = "";
 
 	outside_scroll_speed = 0.01;
 
@@ -154,6 +155,9 @@ void Menu::render(){
 			items[i].render( _start_x, _start_y - (temp_mult * height_per_item), 0 );
 			temp_mult += 1;
 		}
+		// we now want to render the search string
+		Common::render_string( x + width*1.1 , y, height * 0.2, search_term, 1, 0, 0 );
+
 	}
 }
 
@@ -221,6 +225,7 @@ void Menu::hide(){
 
 void Menu::toggle_show(){
 	is_shown = !is_shown;
+	search_term = "";
 }
 
 void Menu::add( std::string _name, int (*_callback)(std::string), std::string _param ){
@@ -272,7 +277,12 @@ void Menu::key_press( unsigned char _key, int _x, int _y ){
 	if( is_shown ){
 		if( (int)_key == 13 ){						// ENTER Key
 			trigger();
+
+		}else if( (int)_key > 31 && (int)_key < 127 ){									// every printable keyboard charecter
+			search_term += _key;
 		}
+
+
 	}
 }
 
@@ -308,10 +318,6 @@ void Menu::mouse_move_active( int _x, int _y ){
 	}
 }
 
-
-void Menu::update_draw(){
-
-}
 
 // ----------------------------------------------------------------------------- //
 

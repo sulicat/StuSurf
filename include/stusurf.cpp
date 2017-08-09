@@ -148,7 +148,7 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 			main_list[i]->key_press( _key, _x, recalc_y );
 		}
 
-	}else{
+	}else if( _m_open == false ){
 		for( int i = 0; i < menus_len; i++ ){
 			menus[i].key_press( _key, _x, recalc_y );
 		}
