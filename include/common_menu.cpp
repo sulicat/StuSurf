@@ -108,18 +108,18 @@ Menu::Menu(){
 	outside_scroll_speed = 0.01;
 
 	add( "abcd_1", temp_callback, "1" );
-	add( "abcd_2", temp_callback, "1" );
-	add( "abcd_3", temp_callback, "1" );
-	add( "abcd_4", temp_callback, "1" );
+	add( "random_2", temp_callback, "random" );
+	add( "abasdd_3", temp_callback, "1" );
+	add( "facd_4", temp_callback, "1" );
+	add( "fabcd_5", temp_callback, "1" );
+	add( "asdcd_1", temp_callback, "1" );
+	add( "abcds_2", temp_callback, "1" );
+	add( "abcad_3", temp_callback, "1" );
+	add( "absscd_4", temp_callback, "1" );
 	add( "abcd_5", temp_callback, "1" );
-	add( "abcd_1", temp_callback, "1" );
-	add( "abcd_2", temp_callback, "1" );
-	add( "abcd_3", temp_callback, "1" );
-	add( "abcd_4", temp_callback, "1" );
-	add( "abcd_5", temp_callback, "1" );
-	add( "abcd_1", temp_callback, "1" );
-	add( "abcd_2", temp_callback, "1" );
-	add( "abcd_3", temp_callback, "1" );
+	add( "cbcasd_1", temp_callback, "1" );
+	add( "helobcd_2", temp_callback, "1" );
+	add( "hellobcd_3", temp_callback, "1" );
 	add( "abcd_4", temp_callback, "1" );
 	add( "abcd_5", temp_callback, "1" );
 	add( "abcd_1", temp_callback, "1" );
@@ -173,9 +173,9 @@ void Menu::render(){
 		//	related to item_offset
 		//	items_len
 		float sbar_x = x - width*0.03;
-		float sbar_y = y + height + height_per_item;
+		float sbar_y = y + height + height_per_item/2;
 		float sbar_width = width*0.01;
-		float sbar_height = - height - height_per_item;
+		float sbar_height = - height;
 
 		glColor3f(1.0, 1.0, 1.0);
 		glBegin( GL_QUADS );
@@ -185,9 +185,9 @@ void Menu::render(){
 			glVertex3f( sbar_x,					sbar_y + sbar_height,		0 );
 		glEnd();
 
-		if( !(items_len < num_of_items_shown) ){
+		if( !(items_len < num_of_items_shown) && items_len > 0){
 			sbar_height = 	sbar_height/(items_len - num_of_items_shown);
-			sbar_y 		-=  (float)item_offset/(items_len + num_of_items_shown);
+			sbar_y 		-=  (height/(items_len - num_of_items_shown)) * item_offset;
 		}
 		glColor3f(1.0, 0.0, 0.0);
 		glBegin( GL_QUADS );
