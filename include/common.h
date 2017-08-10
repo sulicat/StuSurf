@@ -151,7 +151,11 @@ public:
 	int 	item_offset;
 	int		selected_index;
 	float	outside_scroll_speed;
+	int 	scroll_speed;
+	int		scroll_counter;
 
+
+	std::string		name;
 	unsigned char 	shortcut;
 	std::string		search_term;
 
@@ -165,6 +169,7 @@ public:
 	void		set_pos( float x, float y );
 	void 		set_pos( int x, int y );
 	void		set_width( float w );
+	void		set_name( std::string _name );
 	void		reshape();
 	void		show();
 	void		hide();

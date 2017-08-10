@@ -84,10 +84,11 @@ int temp_callback(std::string a){
 Menu::Menu(){
 	std::cout << "created a menu\n";
 	// start off with an empty menu, until new objects are added to it.
-	items 		= new MenuItem[0];
-	items_len 	= 0;
+	items 			= new MenuItem[0];
+	items_len 		= 0;
 	items_full 		= new MenuItem[0];
 	items_full_len 	= 0;
+	name			= "untitled";
 
 	x_full 		= 100;
 	y_full 		= 100;
@@ -97,6 +98,8 @@ Menu::Menu(){
 	item_offset = 0;
 	num_of_items_shown = 15;
 	selected_index = 0;
+	scroll_speed = 10;
+	scroll_counter = 0;
 
 	last_mouse_active_hold_x = 0;
 	last_mouse_active_hold_y = 0;
@@ -104,19 +107,26 @@ Menu::Menu(){
 
 	outside_scroll_speed = 0.01;
 
-	add( "helo", temp_callback, "hello" );
-	add( "helo_asd", temp_callback, "hello2" );
-	add( "helo_3", temp_callback, "hello2" );
-	add( "helo_p4", temp_callback, "hello2" );
-	add( "helo_asdlonger", temp_callback, "hello2" );
-	add( "helo_im a cat", temp_callback, "hello2" );
-	add( "1", temp_callback, "hello1" );
-	add( "2", temp_callback, "hello2" );
-	add( "3", temp_callback, "hello3" );
-	add( "4", temp_callback, "hello4" );
-	add( "5", temp_callback, "hello5" );
-	add( "6", temp_callback, "hello6" );
-	add( "7", temp_callback, "hello7" );
+	add( "abcd_1", temp_callback, "1" );
+	add( "abcd_2", temp_callback, "1" );
+	add( "abcd_3", temp_callback, "1" );
+	add( "abcd_4", temp_callback, "1" );
+	add( "abcd_5", temp_callback, "1" );
+	add( "abcd_1", temp_callback, "1" );
+	add( "abcd_2", temp_callback, "1" );
+	add( "abcd_3", temp_callback, "1" );
+	add( "abcd_4", temp_callback, "1" );
+	add( "abcd_5", temp_callback, "1" );
+	add( "abcd_1", temp_callback, "1" );
+	add( "abcd_2", temp_callback, "1" );
+	add( "abcd_3", temp_callback, "1" );
+	add( "abcd_4", temp_callback, "1" );
+	add( "abcd_5", temp_callback, "1" );
+	add( "abcd_1", temp_callback, "1" );
+	add( "abcd_2", temp_callback, "1" );
+	add( "abcd_3", temp_callback, "1" );
+	add( "abcd_4", temp_callback, "1" );
+	add( "abcd_5", temp_callback, "1" );
 
 	select(selected_index);
 
@@ -141,12 +151,50 @@ void Menu::reshape( ){
 
 void Menu::render(){
 	if( is_shown ){
+		// background rect
 		glColor3f( 1,1,1 );
 		glBegin( GL_QUADS );
 			glVertex3f( x, y, 0 );
 			glVertex3f( x + width, y, 0 );
 			glVertex3f( x + width, y + height, 0 );
 			glVertex3f( x, y + height, 0 );
+		glEnd();
+
+		// menu title
+		glBegin( GL_QUADS );
+			glVertex3f( x,			y + height * 1.18,		0 );
+			glVertex3f( x + width, 	y + height * 1.18,		0 );
+			glVertex3f( x + width, 	y + height * 1.32, 		0 );
+			glVertex3f( x,			y + height * 1.32,		0 );
+		glEnd();
+		Common::render_string( x + width * 0.05, y + height*1.2, height * 0.1, name, 1.0, 0.0, 0.0 );
+
+		// render a scroll bar
+		//	related to item_offset
+		//	items_len
+		float sbar_x = x - width*0.03;
+		float sbar_y = y + height + height_per_item;
+		float sbar_width = width*0.01;
+		float sbar_height = - height - height_per_item;
+
+		glColor3f(1.0, 1.0, 1.0);
+		glBegin( GL_QUADS );
+			glVertex3f( sbar_x,					sbar_y,						0 );
+			glVertex3f( sbar_x + sbar_width,	sbar_y,						0 );
+			glVertex3f( sbar_x + sbar_width,	sbar_y + sbar_height,		0 );
+			glVertex3f( sbar_x,					sbar_y + sbar_height,		0 );
+		glEnd();
+
+		if( !(items_len < num_of_items_shown) ){
+			sbar_height = 	sbar_height/(items_len - num_of_items_shown);
+			sbar_y 		-=  (float)item_offset/(items_len + num_of_items_shown);
+		}
+		glColor3f(1.0, 0.0, 0.0);
+		glBegin( GL_QUADS );
+			glVertex3f( sbar_x,					sbar_y,						0 );
+			glVertex3f( sbar_x + sbar_width,	sbar_y,						0 );
+			glVertex3f( sbar_x + sbar_width,	sbar_y + sbar_height,		0 );
+			glVertex3f( sbar_x,					sbar_y + sbar_height,		0 );
 		glEnd();
 
 		float _start_x = x;
@@ -169,6 +217,10 @@ void Menu::set_pos( int _x, int _y ){
 	reshape();
 }
 
+void Menu::set_name( std::string _n ){
+	name = _n;
+}
+
 void Menu::select( int _i ){
 	for( int i = 0; i < items_len; i++ ){
 		items[i].selected = false;
@@ -188,14 +240,17 @@ void Menu::select( int _i ){
 void Menu::scroll( int _x ){
 
 	if( items_len > num_of_items_shown ){
-		item_offset += _x;
-		// check bounds of the offset
-		if( item_offset + num_of_items_shown + 1 > items_len ){
-			item_offset = items_len - num_of_items_shown - 1;
+		if( scroll_counter > scroll_speed ){
+			item_offset += _x;
+			// check bounds of the offset
+			if( item_offset + num_of_items_shown + 1 > items_len ){
+				item_offset = items_len - num_of_items_shown - 1;
 
-		}else if( item_offset < 0 ){
-			item_offset = 0;
-		}
+			}else if( item_offset < 0 ){
+				item_offset = 0;
+			}
+			scroll_counter = 0;
+		}else{ scroll_counter += 1; }
 	}
 }
 

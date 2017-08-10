@@ -6,11 +6,6 @@
 
 #include <iostream>
 
-
-
-// the keyboard input for the main program
-#define STUSURF_MENU_KEY '`'
-
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
 class Stusurf{

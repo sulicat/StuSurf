@@ -19,17 +19,21 @@ Stusurf::Stusurf( std::string _start ){
 	main_list = new Base*[0];
 	main_list_len = 0;
 
+	// this is the screen select menu, it will
 	Menu menu_screen_select = Menu();
 	menu_screen_select.set_number_of_items(8);
 	menu_screen_select.set_height( 200 );
 	menu_screen_select.set_width( 300 );
-	menu_screen_select.set_shortcut( STUSURF_MENU_KEY );
+	menu_screen_select.set_shortcut( 'S' );
+	menu_screen_select.set_name( "Screens" );
 
+	// this is the add menu, it will add new modules to the current screen
 	Menu menu_screen_add = Menu();
 	menu_screen_add.set_number_of_items(8);
 	menu_screen_add.set_height( 200 );
 	menu_screen_add.set_width( 300 );
 	menu_screen_add.set_shortcut( 'A' );
+	menu_screen_add.set_name( "Add" );
 
 	add(menu_screen_select);
 	add(menu_screen_add);
@@ -161,6 +165,13 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 			menus[i].key_press( _key, _x, recalc_y );
 		}
 	}
+
+	if( (int)_key == 27 ){			// escape key
+		for( int i = 0; i < menus_len; i++ ){
+			menus[i].is_shown = false;
+		}
+	}
+
 }
 
 void Stusurf::key_press_special( unsigned char _key, int _x, int _y ){
