@@ -4,6 +4,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <GL/glut.h>
+#include <fstream>
 
 /************************************************************************************************************************************/
 
@@ -12,7 +13,7 @@
 Stusurf::Stusurf( std::string _start ){
 	// set the path
 	screens_dir_path = _start;
-	current_selected_screen = _start + "main.txt";
+	current_selected_screen = _start + "home";
 	std::cout << "Loading New screen located at: " << _start << "\n";
 
 	// start off with ana empty list of objects
@@ -38,6 +39,8 @@ Stusurf::Stusurf( std::string _start ){
 	add(menu_screen_select);
 	add(menu_screen_add);
 
+	evaluate_screen_list();
+
 }
 
 /************************************************************************************************************************************/
@@ -57,6 +60,36 @@ void Stusurf::reshape(){
 		menus[i].reshape();
 	}
 
+}
+
+
+int temp( std::string a ){
+	std::cout << a << "\n";
+	return 1;
+}
+
+void Stusurf::evaluate_screen_list(){
+	// read the file with all the screen names. Create menu items with these names
+	char _line[256];
+	std::string _line_string;
+	std::ifstream screen_list;
+	screen_list.open( "include/screen_list", std::ifstream::in );
+
+
+	while( screen_list.getline( _line, 256 ) ){
+		std::cout << "\n\n\n" << _line << "\n\n\n";
+		_line_string = _line;
+		menus[0].add( _line_string, temp, _line_string );
+
+	}
+
+	screen_list.close();
+}
+
+int Stusurf::change_selected_screen( std::string _n ){
+	current_selected_screen = screens_dir_path + _n;
+	evaluate_screen();
+	return 1;
 }
 
 void Stusurf::give_window_size( int * _w, int * _h ){

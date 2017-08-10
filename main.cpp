@@ -24,7 +24,7 @@ float background_B = 0;
 
 // this is the main program variable
 std::string start_screen_path = "screens/";
-Stusurf program = Stusurf( 	start_screen_path );
+Stusurf program = Stusurf( start_screen_path );
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

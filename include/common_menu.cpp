@@ -107,26 +107,6 @@ Menu::Menu(){
 
 	outside_scroll_speed = 0.01;
 
-	add( "abcd_1", temp_callback, "1" );
-	add( "random_2", temp_callback, "random" );
-	add( "abasdd_3", temp_callback, "1" );
-	add( "facd_4", temp_callback, "1" );
-	add( "fabcd_5", temp_callback, "1" );
-	add( "asdcd_1", temp_callback, "1" );
-	add( "abcds_2", temp_callback, "1" );
-	add( "abcad_3", temp_callback, "1" );
-	add( "absscd_4", temp_callback, "1" );
-	add( "abcd_5", temp_callback, "1" );
-	add( "cbcasd_1", temp_callback, "1" );
-	add( "helobcd_2", temp_callback, "1" );
-	add( "hellobcd_3", temp_callback, "1" );
-	add( "abcd_4", temp_callback, "1" );
-	add( "abcd_5", temp_callback, "1" );
-	add( "abcd_1", temp_callback, "1" );
-	add( "abcd_2", temp_callback, "1" );
-	add( "abcd_3", temp_callback, "1" );
-	add( "abcd_4", temp_callback, "1" );
-	add( "abcd_5", temp_callback, "1" );
 
 	select(selected_index);
 
@@ -346,11 +326,15 @@ void Menu::key_press( unsigned char _key, int _x, int _y ){
 
 		}else if( (int)_key > 31 && (int)_key < 127 ){		// every printable keyboard charecter
 			search_term += _key;
+			selected_index = 0;
+			select( selected_index );
 			search();
 
 		}else if( (int)_key == 8 ){							// backspace
 			if( search_term.length() > 0 ){
 				search_term = search_term.substr( 0, search_term.length()-1 );
+				selected_index = 0;
+				select( selected_index );
 				search();
 			}
 		}

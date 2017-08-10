@@ -48,6 +48,9 @@ public:
 	void set_current_screen();
 	void evaluate_screen( void );
 	Base * create_object( std::string _type, int x, int y, int width, int height, std::string _path_data );
+	int change_selected_screen( std::string _n );
+	void evaluate_screen_list();
+
 
 	void toString( void );
 
