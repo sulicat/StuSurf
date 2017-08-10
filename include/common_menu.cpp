@@ -86,6 +86,8 @@ Menu::Menu(){
 	// start off with an empty menu, until new objects are added to it.
 	items 		= new MenuItem[0];
 	items_len 	= 0;
+	items_full 		= new MenuItem[0];
+	items_full_len 	= 0;
 
 	x_full 		= 100;
 	y_full 		= 100;
@@ -157,7 +159,6 @@ void Menu::render(){
 		}
 		// we now want to render the search string
 		Common::render_string( x + width*1.1 , y, height * 0.2, search_term, 1, 0, 0 );
-
 	}
 }
 
@@ -217,14 +218,19 @@ void Menu::set_shortcut( unsigned char _c ){
 
 void Menu::show(){
 	is_shown = true;
+	refill_items();
+	search_term = "";
 }
 
 void Menu::hide(){
 	is_shown = false;
+	refill_items();
+	search_term = "";
 }
 
 void Menu::toggle_show(){
 	is_shown = !is_shown;
+	refill_items();
 	search_term = "";
 }
 
@@ -240,6 +246,9 @@ void Menu::add( std::string _name, int (*_callback)(std::string), std::string _p
 	items[ items_len ].set_param( _param );
 
 	items_len += 1;
+
+	items_full = items;
+	items_full_len = items_len;
 }
 
 void Menu::trigger(){
@@ -275,13 +284,19 @@ void Menu::key_press_special( unsigned char _key, int _x, int _y ){
 
 void Menu::key_press( unsigned char _key, int _x, int _y ){
 	if( is_shown ){
-		if( (int)_key == 13 ){						// ENTER Key
+		if( (int)_key == 13 ){								// ENTER Key
 			trigger();
 
-		}else if( (int)_key > 31 && (int)_key < 127 ){									// every printable keyboard charecter
+		}else if( (int)_key > 31 && (int)_key < 127 ){		// every printable keyboard charecter
 			search_term += _key;
-		}
+			search();
 
+		}else if( (int)_key == 8 ){							// backspace
+			if( search_term.length() > 0 ){
+				search_term = search_term.substr( 0, search_term.length()-1 );
+				search();
+			}
+		}
 
 	}
 }
@@ -317,6 +332,35 @@ void Menu::mouse_move_active( int _x, int _y ){
 		scroll( (last_mouse_active_hold_y - _y) * outside_scroll_speed );
 	}
 }
+
+
+void Menu::search(){
+	refill_items();
+	if( search_term.length() > 0 ){
+		for( int i = 0; i < items_len; i++ ){
+			if( !(items[i].name.substr( 0,search_term.length() ) == search_term) ){
+				pop_item( i );
+				i -= 1;
+			}
+		}
+	}
+}
+
+void Menu::refill_items(){
+	items = items_full;
+	items_len = items_full_len;
+}
+
+void Menu::pop_item( int _i ){
+	if( items_len > 0 && _i < items_len ){
+		MenuItem * temp	= new MenuItem[ items_len - 1 ];
+		std::copy( items, items + _i, temp );
+		std::copy( items + _i + 1, items + items_len, temp + _i );
+		items = temp;
+		items_len -= 1;
+	}
+}
+
 
 
 // ----------------------------------------------------------------------------- //

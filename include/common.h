@@ -157,6 +157,8 @@ public:
 
 	MenuItem * 	items;
 	int			items_len;
+	MenuItem * 	items_full;
+	int			items_full_len;
 
 				Menu();
 	void 		render();
@@ -179,6 +181,9 @@ public:
 	void 		key_press( unsigned char _key, int _x, int _y );
 	void 		key_press_special( unsigned char _key, int _x, int _y );
 	void		scroll( int _ammount );
+	void		search();
+	void		refill_items();
+	void		pop_item( int _i );
 	void		trigger();
 
 	unsigned char	get_shortcut();
