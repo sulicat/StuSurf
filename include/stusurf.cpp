@@ -24,7 +24,15 @@ Stusurf::Stusurf( std::string _start ){
 	menu_screen_select.set_height( 200 );
 	menu_screen_select.set_width( 300 );
 	menu_screen_select.set_shortcut( STUSURF_MENU_KEY );
+
+	Menu menu_screen_add = Menu();
+	menu_screen_add.set_number_of_items(8);
+	menu_screen_add.set_height( 200 );
+	menu_screen_add.set_width( 300 );
+	menu_screen_add.set_shortcut( 'A' );
+
 	add(menu_screen_select);
+	add(menu_screen_add);
 
 }
 

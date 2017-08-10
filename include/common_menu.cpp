@@ -169,7 +169,6 @@ void Menu::set_pos( int _x, int _y ){
 	reshape();
 }
 
-
 void Menu::select( int _i ){
 	for( int i = 0; i < items_len; i++ ){
 		items[i].selected = false;
@@ -187,13 +186,16 @@ void Menu::select( int _i ){
 }
 
 void Menu::scroll( int _x ){
-	item_offset += _x;
-	// check bounds of the offset
-	if( item_offset + num_of_items_shown + 1 > items_len ){
-		item_offset = items_len - num_of_items_shown - 1;
 
-	}else if( item_offset < 0 ){
-		item_offset = 0;
+	if( items_len > num_of_items_shown ){
+		item_offset += _x;
+		// check bounds of the offset
+		if( item_offset + num_of_items_shown + 1 > items_len ){
+			item_offset = items_len - num_of_items_shown - 1;
+
+		}else if( item_offset < 0 ){
+			item_offset = 0;
+		}
 	}
 }
 
@@ -344,6 +346,7 @@ void Menu::search(){
 			}
 		}
 	}
+
 }
 
 void Menu::refill_items(){
@@ -365,5 +368,7 @@ void Menu::pop_item( int _i ){
 
 // ----------------------------------------------------------------------------- //
 
-unsigned char Menu::get_shortcut(){ return shortcut; }
+unsigned char Menu::get_shortcut(){
+	return shortcut;
+}
 
