@@ -2,32 +2,33 @@
 
 ## Goal:
 <br>
-This project is an attempt at me hitting two birds with one stone. I recently bought a surface and thought to myslef wouyldnt it be cool if i made a custom note taking app..... but then thought I would also like to make something that will help me understand OpenGL a bit more, and at the same time allow me to forget about opengl when making programs that need graphics. So this program is basically a wrapper for opengl that will allow you to create buttons and other input feilds etc... while I am testing this wrapper, I am kinda using it to make the note taking app aswell. I am finding this to be a great apporach because I add features as I need them
+This project doesn't really have an intention. It is simply a program that would help me write quick programs in the future that are easily accessible and usable. The idea is that I create a new program, say test.cpp and test.h. As long as the main class the program is housed in inherints from Base, and I place it in the modules folder, I can implement it within stusurf.
 <br>
 
-#Features:
-<br>
-	. Image Loader (done: bmp)
-	. Font Loader (wip)
-	. Input handling
-		. Draw Area
-		. Button (wip)
-		. Text Fields (wip)
-	. Different "windows"
-	. Multiple program states. 
-	. Will write the rest later.....
+The program is split into different parts.<br>
+- The first part is the Stusurf itselsf. There is only 1 instance of this per running program.<br>
+- The second is what I call "screens". A screen is simply a text file, located in the screen folder. You can have multiple screens per instance of Stusurf. You can only view 1 screen at a time, however can freely edit and switch between screens at will.<br>
+- The third is modules. These are the homebrew scripts that I or any user of the program would make. They can do whatever, they have access to input and rendering. Many modules can be places within a screen.
 
+<br><br>
+
+So what ?<br>
+Well, I don't know, you can make a screen with a bunch of modules that would allow you to turn on various devices connected to your computer.<br>
+Then you can make a screen with modules dedicated specifically to sending quick test requests to some URL and printing the results.
+<br>
+You can make a screen with modules that can help you keep your life organized... calender/task list etc... 
+<br>
+You can share modules with others, all you need to do is move it to the modules folder and recompile. 
+<br>
+<br>
+You can probably tell there is not much direction. More than anything this is a learning project for me, so criticism is appreciated.
 
 # Use:
+Go to main directory and compile using make.<br>
+the executable should then be created as /bin/run
 <br>
-
-	. create Global window object
-	. init your glut
-	. Create screens..... each screen represents a program state
-	. add objects to screens.... objects can have callbacks in order to trigger events
-	. add the sceens to the window
-	. call glut mainloop
-
-<br>
-
+## dependancies:
+- opengl
+- c++11
+- currently linux only.... will work on windows version eventually.
 ## Please note that this is a wip, and the source code is pretty messy .... especially main.cpp .... 
