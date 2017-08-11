@@ -14,14 +14,10 @@ The program is split into different parts.<br>
 
 So what ?<br>
 - Well, I don't know, you can make a screen with a bunch of modules that would allow you to turn on various devices connected to your computer.<br>
-- Then you can make a screen with modules dedicated specifically to sending quick test requests to some URL and printing the results.
-<br>
-- You can make a screen with modules that can help you keep your life organized... calender/task list etc... 
-<br>
-- You can share modules with others, all you need to do is move it to the modules folder and recompile. 
-<br>
-- Then you can switch between all of these screens with ease.
-<br>
+- Then you can make a screen with modules dedicated specifically to sending quick test requests to some URL and printing the results. <br>
+- You can make a screen with modules that can help you keep your life organized... calender/task list etc... <br>
+- You can share modules with others, all you need to do is move it to the modules folder and recompile. <br>
+- Then you can switch between all of these screens with ease. <br>
 You can probably tell there is not much direction. More than anything this is a learning project for me, so criticism is appreciated.
 
 ## Use:
