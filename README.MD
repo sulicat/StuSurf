@@ -22,8 +22,7 @@ You can probably tell there is not much direction. More than anything this is a 
 
 ## Use:
 - Go to main directory and compile using make.<br>
-- the executable should then be created as /bin/run
-<br>
+- the executable should then be created as /bin/run <br>
 ## dependancies:
 - opengl
 - c++11
