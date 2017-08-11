@@ -1,4 +1,6 @@
 #include <GL/glut.h>
+#include <functional>
+#include <iostream>
 #include "common.h"
 
 
@@ -14,7 +16,7 @@ MenuItem::MenuItem( ){
 	reshape();
 }
 
-void MenuItem::create(std::string _name, int (*_callback)(std::string)){
+void MenuItem::create(std::string _name, std::function<int(std::string)> _callback ){
 	name = _name;
 	callback = _callback;
 	reshape();
@@ -43,7 +45,6 @@ void MenuItem::render( float _x, float _y, float _z ){
 							y_start + height * text_margin_bottom,
 							height * text_size,
 							name );
-
 }
 
 void MenuItem::reshape(){
@@ -271,7 +272,7 @@ void Menu::toggle_show(){
 	search_term = "";
 }
 
-void Menu::add( std::string _name, int (*_callback)(std::string), std::string _param ){
+void Menu::add( std::string _name, std::function<int(std::string)> _callback, std::string _param ){
 	// reallocate and move memory to bigger items array
 	MenuItem * temp = new MenuItem[items_len + 1];
 	std::copy( items, items + items_len, temp );

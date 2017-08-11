@@ -36,10 +36,17 @@ Stusurf::Stusurf( std::string _start ){
 	menu_screen_add.set_shortcut( 'A' );
 	menu_screen_add.set_name( "Add" );
 
+	// adding the menus to a list of menus. Makes sending input and rendering
+	//	simpler
 	add(menu_screen_select);
 	add(menu_screen_add);
 
+	// this will read the list of screens.
+	//	It will populate the screens menu with the buttons to switch screens.
+	//	it will also add a new button that will allow for the creation of new screens
 	evaluate_screen_list();
+
+
 
 }
 
@@ -79,8 +86,7 @@ void Stusurf::evaluate_screen_list(){
 	while( screen_list.getline( _line, 256 ) ){
 		std::cout << "\n\n\n" << _line << "\n\n\n";
 		_line_string = _line;
-		menus[0].add( _line_string, temp, _line_string );
-
+		menus[0].add( _line_string, [this](std::string _a){return this->change_selected_screen(_a);}, _line_string );
 	}
 
 	screen_list.close();

@@ -6,6 +6,7 @@ extern int WINDOW_HEIGHT;
 
 #include <iostream>
 #include <sstream>
+#include <functional>
 
 // this is the common file. It will include the base class that the main modules can inherit from.
 // first we make an abstract class. If we want to make a button, we can inherit from this class and define all the virtual functions we need.
@@ -75,7 +76,7 @@ public:
 
 	// Vars | Functions tha can be used by the rest of the progra,
 
-	static const float		FONT_SIZE_ROMAN 			= 1/152.38;
+	static constexpr float		FONT_SIZE_ROMAN 			= 1/152.38;
 
    	static bool 			check_inside_rect	( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height );
 	static std::string 		int_to_string		( int _num );
@@ -98,11 +99,10 @@ public:
 };
 
 
-
 class MenuItem{
 public:
 	std::string 	name;
-	int 			(* callback)(std::string);
+	std::function<int(std::string)>	callback;
 	std::string		callback_param;
 	int				x_full;
 	int				y_full;
@@ -118,7 +118,7 @@ public:
 	bool			selected;
 
 			MenuItem( );
-	void 	create( std::string _name, int (*callback)(std::string)  );
+	void 	create( std::string _name, std::function<int(std::string)> _callback  );
 	void	render( float _x, float _y, float _z );
 	void	reshape();
 	void	set_size( int _w, int _h );
@@ -174,7 +174,7 @@ public:
 	void		show();
 	void		hide();
 	void		toggle_show();
-	void		add( std::string _name, int (*_callback)(std::string), std::string _callback_param );
+	void		add( std::string _name, std::function<int(std::string _c)>, std::string _callback_param );
 	void		select( int _index );
 	void		set_number_of_items( int _n );
 	void		set_height( int _h );

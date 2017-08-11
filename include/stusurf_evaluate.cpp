@@ -10,6 +10,11 @@
 
 
 void Stusurf::evaluate_screen(){
+	// we must first clear out the data located in the old screen
+	delete[] main_list;
+	main_list = new Base * [0];
+	main_list_len = 0;
+
 	std::cout << "\nstarting evaluation: \n";
 	std::cout << "evaluating: " << current_selected_screen << "\n";
 

@@ -26,6 +26,7 @@ public:
 	Menu * menus;
 	int menus_len;
 
+	std::function<int(std::string)> change_selected_screen_callback;
 
 	// constructor. Takes in the path of the file that the program will start to display from. If file does not exist it will create it. 
 	Stusurf( std::string _start );
