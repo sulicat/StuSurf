@@ -4,6 +4,11 @@ output_file="include/stusurf_automated.cpp"
 start_file="include/start_of_automated"
 end_file="include/end_of_automated"
 
+# we want to echo a list of all modules into a file for the program to use in the future
+module_list_file="include/module_list"
+# clear out the existing module_list_file
+printf "%s" "" > $module_list_file
+
 # first we cycle through all the files in the modules directory.
 echo "clearing automated file: "
 cat $start_file > $output_file
@@ -26,6 +31,7 @@ for file in modules/*.h; do
 	then
 		# the line is found. we will now add support
 		word=$(echo "$line" | awk -F 'class ' '{print $2}' | awk -F ' : ' '{print $1}' )
+		echo "$word" >> $module_list_file
 
 		echo "else if( _type == \"$word\" ){" >> $output_file
 		echo "_output = new $word;" >> $output_file

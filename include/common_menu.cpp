@@ -11,7 +11,7 @@ MenuItem::MenuItem( ){
 	height_full			= 10;
 	text_size			= 0.65;
 	text_margin_left	= 0.05;
-	text_margin_bottom	= 0.25;
+	text_margin_bottom	= 0.75;
 	selected 			= false;
 	reshape();
 }
@@ -36,13 +36,13 @@ void MenuItem::render( float _x, float _y, float _z ){
 	glBegin( GL_QUADS );
 		glVertex3f( x_start,			y_start, 					_z );
 		glVertex3f( x_start + width, 	y_start, 					_z );
-		glVertex3f( x_start + width, 	y_start + height * 0.9, 	_z );
-		glVertex3f( x_start, 			y_start + height * 0.9, 	_z );
+		glVertex3f( x_start + width, 	y_start - height * 0.9, 	_z );
+		glVertex3f( x_start, 			y_start - height * 0.9, 	_z );
 	glEnd();
 
 	glColor3f(0.0, 0.0, 0.0);
 	Common::render_string( 	x_start + width * text_margin_left,
-							y_start + height * text_margin_bottom,
+							y_start - height * text_margin_bottom,
 							height * text_size,
 							name );
 }
@@ -143,18 +143,18 @@ void Menu::render(){
 
 		// menu title
 		glBegin( GL_QUADS );
-			glVertex3f( x,			y + height * 1.18,		0 );
-			glVertex3f( x + width, 	y + height * 1.18,		0 );
-			glVertex3f( x + width, 	y + height * 1.32, 		0 );
-			glVertex3f( x,			y + height * 1.32,		0 );
+			glVertex3f( x,			y + height * 1.05,		0 );
+			glVertex3f( x + width, 	y + height * 1.05,		0 );
+			glVertex3f( x + width, 	y + height * 1.20, 		0 );
+			glVertex3f( x,			y + height * 1.20,		0 );
 		glEnd();
-		Common::render_string( x + width * 0.05, y + height*1.2, height * 0.1, name, 1.0, 0.0, 0.0 );
+		Common::render_string( x + width * 0.05, y + height*1.10, height * 0.1, name, 1.0, 0.0, 0.0 );
 
 		// render a scroll bar
 		//	related to item_offset
 		//	items_len
 		float sbar_x = x - width*0.03;
-		float sbar_y = y + height + height_per_item/2;
+		float sbar_y = y + height;
 		float sbar_width = width*0.01;
 		float sbar_height = - height;
 
@@ -358,8 +358,8 @@ void Menu::mouse_move_passive( int _x, int _y ){
 	// is the mouse inside the menu ?
 	if( is_shown == true && Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full )){
 		// which item is it hoevering over ?
-		int temp_selected_index = num_of_items_shown - (int)(((float)(_y - y_full)/(height_full + height_per_item)) * (num_of_items_shown + 1 ));
-		temp_selected_index += item_offset;
+		int temp_selected_index = num_of_items_shown - (int)(((float)(_y - y_full)/(height_full + height_per_item)) * (num_of_items_shown ));
+		temp_selected_index += item_offset - 1;
 		for( int i = 0; i < items_len; i++ ){
 			items[i].selected = false;
 		}

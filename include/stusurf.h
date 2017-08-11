@@ -9,6 +9,18 @@
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
 class Stusurf{
+private:
+	int   add_mode;
+	int   add_mode_mouse;
+	int   add_x_start;
+	int   add_x_end;
+	int   add_y_start;
+	int   add_y_end;
+	int   add_x_start_mouse;
+	int   add_x_end_mouse;
+	int   add_y_start_mouse;
+	int   add_y_end_mouse;
+
 public:
 
 	std::string screens_dir_path;
@@ -16,6 +28,8 @@ public:
 
 	int * width;
 	int * height;
+
+	std::string	object_to_add;
 
 	//store a list of pointers that point to the base class.
 	// This class is guaranteed to have the functions we have such as render() and the input function. This is defined in the file common.h
@@ -46,12 +60,13 @@ public:
 
 	void render( void );
 
-	void set_current_screen();
-	void evaluate_screen( void );
-	Base * create_object( std::string _type, int x, int y, int width, int height, std::string _path_data );
-	int change_selected_screen( std::string _n );
-	void evaluate_screen_list();
-
+	void 	set_current_screen();
+	void 	evaluate_screen( void );
+	Base * 	create_object( std::string _type, int x, int y, int width, int height, std::string _path_data );
+	int 	change_selected_screen( std::string _n );
+	int 	add_object_to_screen( std::string _n );
+	void 	evaluate_screen_list();
+	void 	evaluate_module_list();
 
 	void toString( void );
 
