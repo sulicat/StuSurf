@@ -52,27 +52,14 @@ public:
 
 	void render(){
 		glColor3f( 1.0, 0.0, 0.0 );
-		/*glBegin( GL_QUADS );
+		glBegin( GL_QUADS );
 			glVertex3f( x, y, 0 );
 			glVertex3f( x + width, y, 0 );
 			glVertex3f( x + width, y + height , 0 );
 			glVertex3f( x, y + height, 0 );
 		glEnd();
-		*/
 
-		char p = 'h';
-
-		/*
-		glPushMatrix();
-			glTranslatef(x, y, 0);
-			glScalef( 0.1 * 1/152.38,0.1 * 1/152.38,0.1 * 1/152.38 );
-			glutStrokeCharacter( GLUT_STROKE_ROMAN, p );
-		glPopMatrix();
-		*/
-
-		//Common::render_char( x, y, 0.1, 'a', 1, 0, 1 );
-		//Common::render_string( x, y, 0.03, "hello world this is a never ending sttring..... the size is ", 1, 1, 0 );
-		Common::render_paragraph( x, y, 0.5, 0.5, 0.03, "hello world 1 hello world 2 a b c abcdefg this is a paragraph. It says stuff. But you shouldnt read it cuz it is lots of stuff.", 1, 1, 1, 1 );
+		Common::render_paragraph( x, y + height, width, height, 0.03, "hello world 1 hello world 2 a b c abcdefg this is a paragraph. It says stuff. But you shouldnt read it cuz it is lots of stuff.", 1, 1, 1, 1 );
 
 	}
 

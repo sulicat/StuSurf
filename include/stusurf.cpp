@@ -47,6 +47,7 @@ Stusurf::Stusurf( std::string _start ){
 	add(menu_screen_select);
 	add(menu_screen_add);
 
+
 	// this will read the list of screens.
 	//	It will populate the screens menu with the buttons to switch screens.
 	//	it will also add a new button that will allow for the creation of new screens
@@ -118,7 +119,7 @@ void Stusurf::evaluate_module_list(){
 		_line_string = _line;
 		// each menu item will have the ability to switch screens,
 		//	we had to use labdas because the callback is an overrided function
-		menus[1].add( _line_string, [this](std::string _a){return this->add_object_to_screen(_a);}, _line_string );
+		menus[1].add( _line_string, [this](std::string _a){return this->trigger_object_add(_a);}, _line_string );
 		std::cout << "... ... " << _line_string << "\n";
 	}
 
@@ -126,7 +127,7 @@ void Stusurf::evaluate_module_list(){
 	module_list.close();
 }
 
-int Stusurf::add_object_to_screen( std::string _n ){
+int Stusurf::trigger_object_add( std::string _n ){
 	object_to_add = _n;
 	add_mode = 1;
 	add_mode_mouse = 1;
@@ -178,26 +179,46 @@ void Stusurf::mouse_press( int _button, int _state, int _x, int _y ){
 		add_y_end = recalc_y;
 		add_mode_mouse = 3;
 
+	// this is the final mouse release
 	}else if( _state == 1 && add_mode_mouse == 3 ){
 		add_x_end = _x;
 		add_y_end = recalc_y;
 		add_mode_mouse = 0;
+
+		int _x_1 = add_x_start;
+		int _y_1 = add_y_start;
+		int _x_2 = add_x_end;
+		int _y_2 = add_y_end;
+
+		// Now we can create a new object and add it to the list
+		add_new_object_to_screen( Common::MIN( _x_1, _x_2 ), Common::MIN( _y_1, _y_2 ), Common::ABS( add_x_end - add_x_start ), Common::ABS( add_y_end - add_y_start), object_to_add );
 	}
+}
 
-	// enter key add handling
-	/*	 if( _state == 0 && add_mode == 1 ){
-		add_x_start = _x;
-		add_y_start = recalc_y;
-		add_x_end = _x;
-		add_y_end = recalc_y;
 
-	}else if( _state == 1 && add_mode == 1 ){
-		add_x_end = _x;
-		add_y_end = recalc_y;
-		add_mode = 0;
-		}*/
+void Stusurf::add_new_object_to_screen( int _x, int _y, int _w, int _h, std::string _name ){
+	std::ofstream screen_file;
+	screen_file.open( current_selected_screen, std::ofstream::out | std::ofstream::app );
+
+	std::string _content = _name + " ";
+
+	_content += Common::int_to_string( _x );
+	_content += " ";
+	_content += Common::int_to_string( _y );
+	_content += " ";
+	_content += Common::int_to_string( _w );
+	_content += " ";
+	_content += Common::int_to_string( _h );
+	_content += " None\n";
+
+	screen_file << _content;
+	screen_file.close();
+
+	evaluate_screen();
+
 
 }
+
 
 void Stusurf::mouse_move_passive( int _x, int _y ){
 	int recalc_y = WINDOW_HEIGHT - _y - 1;
@@ -326,8 +347,7 @@ void Stusurf::render( void ){
 	}
 
 	// render adding a new module
-	if( add_mode != 0 && add_mode_mouse != 0 ){
-
+	if( add_mode_mouse == 3 ){
 		float _bnd_x_start 	= (2*(float)add_x_start / WINDOW_WIDTH) - 1;
 		float _bnd_y_start 	= (2*(float)add_y_start / WINDOW_HEIGHT) - 1;
 		float _bnd_x_end	= (2*(float)add_x_end / WINDOW_WIDTH) - 1;
@@ -340,15 +360,9 @@ void Stusurf::render( void ){
 			glVertex3f( 	_bnd_x_end, 		_bnd_y_end,		 0 );
 			glVertex3f( 	_bnd_x_end, 		_bnd_y_start,	 0 );
 		glEnd();
-
-		//		std::cout << _bnd_x_start << " " << _bnd_y_start << "\n";
-		//		std::cout << _bnd_x_end << " " << _bnd_y_end << "\n\n";
-
 	}
-	std::cout <<"reg: " <<  add_mode << " mouse: " << add_mode_mouse << "\n";
 
 	glutSwapBuffers();
-
 }
 
 /************************************************************************************************************************************/

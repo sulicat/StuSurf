@@ -78,6 +78,13 @@ public:
 
 	static constexpr float		FONT_SIZE_ROMAN 			= 1/152.38;
 
+		template <typename T>
+	static T MIN( T _one, T _two ){ return ((_one < _two) ? _one : _two); }
+		template <typename T>
+	static T MAX( T _one, T _two ){ return ((_one > _two) ? _one : _two); }
+		template <typename T>
+	static T ABS( T _one ){ return ((_one < 0) ? -1 * _one : _one); }
+
    	static bool 			check_inside_rect	( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height );
 	static std::string 		int_to_string		( int _num );
 	static int 				string_to_int		( std::string _input );

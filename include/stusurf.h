@@ -64,7 +64,8 @@ public:
 	void 	evaluate_screen( void );
 	Base * 	create_object( std::string _type, int x, int y, int width, int height, std::string _path_data );
 	int 	change_selected_screen( std::string _n );
-	int 	add_object_to_screen( std::string _n );
+	int 	trigger_object_add( std::string _n );
+	void	add_new_object_to_screen( int _x, int _y, int _w, int _h, std::string name );
 	void 	evaluate_screen_list();
 	void 	evaluate_module_list();
 

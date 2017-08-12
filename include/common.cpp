@@ -152,15 +152,16 @@ void Common::render_string( float _x, float _y, float _scale, std::string _s, fl
 
 
 // render_paragraph
+	// no line spacing
 void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p ){
 	float current_pos_x = 0;
-	float current_pos_y = 0;
+	float current_pos_y = - _scale;
 
 	for( int i = 0; i < _p.length(); i++ ){
 		render_char( _x + current_pos_x, _y + current_pos_y, _scale, _p[i] );
 		current_pos_x += glutStrokeWidth( GLUT_STROKE_ROMAN, _p[i] )*FONT_SIZE_ROMAN*_scale + 0.07*_scale;
 
-		if( current_pos_x > _x + _width + 1 ){
+		if( current_pos_x > _width ){
 			current_pos_x = 0;
 			current_pos_y -=  _scale;
 		}
@@ -172,15 +173,16 @@ void Common::render_paragraph( float _x, float _y, float _width, float _height, 
 	render_paragraph( _x, _y, _width, _height, _scale, _p );
 }
 
+	// WITH line spacing
 void Common::render_paragraph( float _x, float _y, float _width, float _height, float _scale, std::string _p, float _line_spacing ){
 	float current_pos_x = 0;
-	float current_pos_y = 0;
+	float current_pos_y = - _scale;
 
 	for( int i = 0; i < _p.length(); i++ ){
 		render_char( _x + current_pos_x, _y + current_pos_y, _scale, _p[i] );
 		current_pos_x += glutStrokeWidth( GLUT_STROKE_ROMAN, _p[i] )*FONT_SIZE_ROMAN*_scale + 0.07*_scale;
 
-		if( current_pos_x > _x + _width + 1 ){
+		if( current_pos_x > _width ){
 			current_pos_x = 0;
 			current_pos_y -= _line_spacing * _scale;
 		}
