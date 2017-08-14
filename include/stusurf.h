@@ -6,6 +6,10 @@
 
 #include <iostream>
 
+#define SHORTCUT_ADD 1
+#define SHORTCUT_SCREEN 19
+#define SHORTCUT_DELETE 4
+
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
 class Stusurf{

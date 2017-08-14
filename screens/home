@@ -6,7 +6,3 @@ test_module_1 100 900 100 100 None
 test_module_1 100 400 100 100 None
 test_module_3 0 0 100 100 None
 somethingELse 100 100 100 100 None
-test_module_1 531 743 197 211 None
-test_module_1 560 400 288 292 None
-test_module_2 287 644 207 327 None
-test_module_3 941 417 220 244 None
