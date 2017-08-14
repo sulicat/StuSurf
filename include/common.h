@@ -30,7 +30,9 @@ public:
 	virtual void mouse_move_passive( int _x, int _y ) = 0;
 	virtual void mouse_move_active( int _x, int _y ) = 0;
 	virtual void key_press( unsigned char _key, int _x, int _y ) = 0;
+	virtual void key_release( unsigned char _key, int _x, int _y ) = 0;
 	virtual void key_press_special( unsigned char _key, int _x, int _y ) = 0;
+	virtual void key_release_special( unsigned char _key, int _x, int _y ) = 0;
 	virtual void set_path( char * _p ) = 0;
 };
 
@@ -71,6 +73,8 @@ public:
 		void mouse_move_active( int _x, int _y ){}
 		void key_press( unsigned char _key, int _x, int _y ){}
 		void key_press_special( unsigned char _key, int _x, int _y ){ }
+		void key_release( unsigned char _key, int _x, int _y ){}
+		void key_release_special( unsigned char _key, int _x, int _y ){ }
 		void set_path( char * _p ){}
 	};
 

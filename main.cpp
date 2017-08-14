@@ -84,6 +84,18 @@ void callback_keyboardFunc_special( int _key, int _x, int _y ){
 	program.key_press_special( _key, _x, _y );
 }
 
+void callback_keyboardUpFunc( unsigned char _key, int _x, int _y ){
+	if( DEBUG_INPUT_PRINT == 1 )
+		std::cout << "keyboardFunc: key: " << _key << " x - y: " << _x << " - " << _y << "\n";
+	program.key_release( _key, _x, _y );
+}
+
+void callback_keyboardUpFunc_special( int _key, int _x, int _y ){
+	if( DEBUG_INPUT_PRINT == 1 )
+		std::cout << "specialKeyboardFunc: key: " << _key << " x - y: " << _x << " - " << _y << "\n";
+	program.key_release_special( _key, _x, _y );
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -97,20 +109,6 @@ int main( int argc, char * * argv ){
 
 	// this is a tempory test subjevct. We will add a bunch of objects to the main program throgh here. 
 	// 	our end goal is to habe the main program read a bunch of files and populate itself.
-
-
-	/*
-	test_module_1 * test = new test_module_1();
-	test->set_size( 190, 300 );
-	test->set_pos( 200, 0 );
-
-	test_module_2 * test2 = new test_module_2();
-	test2->set_size( 150, 300 );
-	test2->set_pos( 0, 0 );
-
-	program.add( test );
-	program.add( test2 );
-	*/
 
 	program.evaluate_screen();
 
@@ -130,9 +128,9 @@ int main( int argc, char * * argv ){
 	glutPassiveMotionFunc( callback_passiveMouseFunc );
 	glutMotionFunc( callback_activeMouseFunc );
 	glutKeyboardFunc( callback_keyboardFunc );
+	glutKeyboardUpFunc( callback_keyboardUpFunc );
 	glutSpecialFunc( callback_keyboardFunc_special );
-
-
+	glutSpecialUpFunc( callback_keyboardUpFunc_special );
 
 	if( FULLSCREEN == 1 )
 		glutFullScreen();

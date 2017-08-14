@@ -25,13 +25,15 @@ Stusurf::Stusurf( std::string _start ){
 	add_y_start		= 0;
 	add_y_end		= 0;
 	object_to_add	= "blank";
+	delete_mode		= true;
+	control_pressed	= false;
 
 	// this is the screen select menu, it will
 	Menu menu_screen_select = Menu();
 	menu_screen_select.set_number_of_items(8);
 	menu_screen_select.set_height( 200 );
 	menu_screen_select.set_width( 300 );
-	menu_screen_select.set_shortcut( 'S' );
+	menu_screen_select.set_shortcut( 19 );
 	menu_screen_select.set_name( "Screens" );
 
 	// this is the add menu, it will add new modules to the current screen
@@ -39,7 +41,7 @@ Stusurf::Stusurf( std::string _start ){
 	menu_screen_add.set_number_of_items(8);
 	menu_screen_add.set_height( 200 );
 	menu_screen_add.set_width( 300 );
-	menu_screen_add.set_shortcut( 'A' );
+	menu_screen_add.set_shortcut( 1 );
 	menu_screen_add.set_name( "Add" );
 
 	// adding the menus to a list of menus. Makes sending input and rendering
@@ -284,7 +286,7 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 	// if there is a menu open, redirect the keyboard input to it. 
 	// if no menu is open, send keyboard input to all modules on screen.
 	for( int m = 0; m < menus_len; m++ ){
-		if( _key == menus[m].get_shortcut() ){
+		if( _key == menus[m].get_shortcut()){
 			_m_open = true;
 			if( recalc_y < WINDOW_HEIGHT/2 ){
 				menus[m].set_pos( _x, recalc_y );
@@ -293,7 +295,7 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 			}
 			menus[m].toggle_show();
 		}
-		if( menus[m].is_shown == true ){ any_menus_open = true; }
+		if( menus[m].is_shown == true ){ any_menus_open = true; break; }
 	}
 
 	if( _m_open == false && any_menus_open == false ){
@@ -312,7 +314,13 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 			menus[i].is_shown = false;
 		}
 	}
+}
 
+void Stusurf::key_release( unsigned char _key, int _x, int _y ){
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->key_release( _key, _x, recalc_y );
+	}
 }
 
 void Stusurf::key_press_special( unsigned char _key, int _x, int _y ){
@@ -328,14 +336,59 @@ void Stusurf::key_press_special( unsigned char _key, int _x, int _y ){
 	for( int i = 0; i < menus_len; i++ ){
 		menus[i].key_press_special( _key, _x, recalc_y );
 	}
+
+	if( (int)_key == 114 ){
+		control_pressed = true;
+		std::cout << "pressed ctr\n";
+	}
+}
+
+void Stusurf::key_release_special( unsigned char _key, int _x, int _y ){
+	int recalc_y = WINDOW_HEIGHT - _y - 1;
+	for( int i = 0; i < main_list_len; i++ ){
+		main_list[i]->key_release_special( _key, _x, recalc_y );
+	}
+
+	if( (int)_key == 114 ){		// CTR key
+		control_pressed = false;
+		std::cout << "released ctr\n";
+	}
 }
 
 /************************************************************************************************************************************/
 
 // render function
 void Stusurf::render( void ){
+
 	// render all the objects in the main list
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+
+	if( delete_mode == true ){
+		glLineWidth(100);
+		glColor3f( 1.0, 0.0, 0.0 );
+		// render a red border around the program and show text signifying delete mode
+		glBegin( GL_LINES );
+			glVertex3f( -1, -1, 0 );
+			glVertex3f( -1, 1, 0 );
+
+			glVertex3f( -1, 1, 0 );
+			glVertex3f( 1, 1, 0 );
+
+			glVertex3f( 1, 1, 0 );
+			glVertex3f( 1, -1, 0 );
+
+			glVertex3f( 1, -1, 0 );
+			glVertex3f( -1, -1, 0 );
+		glEnd();
+
+		glLineWidth(3);
+		Common::render_string( -0.98, 0.93, 0.05, "DELETE MODE" );
+	}
+
+	// reset the line Width for the text
+	glLineWidth(1);
+
 	for( int i = 0; i < main_list_len; i++ ){
 		main_list[i]->render();
 	}
