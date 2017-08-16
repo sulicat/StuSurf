@@ -26,6 +26,8 @@ private:
 	int   add_y_start_mouse;
 	int   add_y_end_mouse;
 	bool  control_pressed;
+	float delete_bounding_box[4];
+	int   delete_selected_index;
 
 public:
 

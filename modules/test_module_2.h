@@ -98,37 +98,37 @@ public:
 
 	void mouse_move_passive( int _x, int _y ){
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
-			std::cout << "test_module_passive_m: " << _x << " " << _y << "\n";
+			//std::cout << "test_module_passive_m: " << _x << " " << _y << "\n";
 		}
 	}
 
 	void mouse_move_active( int _x, int _y ){
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
-			std::cout << "test_module_active_m: " << _x << " " << _y << "\n";
+			//std::cout << "test_module_active_m: " << _x << " " << _y << "\n";
 		}
 	}
 
 	void key_press( unsigned char _key, int _x, int _y ){
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
-			std::cout << "key_press: " << _key << " " << _x << " " << _y << "\n";
+			//std::cout << "key_press: " << _key << " " << _x << " " << _y << "\n";
 		}
 	}
 
 	void key_press_special( unsigned char _key, int _x, int _y ){
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
-			std::cout << "key_press_special: " << _key << " " << _x << " " << _y << "\n";
+			//std::cout << "key_press_special: " << _key << " " << _x << " " << _y << "\n";
 		}
 	}
 
 	void key_release( unsigned char _key, int _x, int _y ){
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
-			std::cout << "key_release: " << _key << " " << _x << " " << _y << "\n";
+			//std::cout << "key_release: " << _key << " " << _x << " " << _y << "\n";
 		}
 	}
 
 	void key_release_special( unsigned char _key, int _x, int _y ){
 		if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
-			std::cout << "key_release_special: " << _key << " " << _x << " " << _y << "\n";
+			//std::cout << "key_release_special: " << _key << " " << _x << " " << _y << "\n";
 		}
 	}
 

@@ -27,6 +27,8 @@ Stusurf::Stusurf( std::string _start ){
 	object_to_add	= "blank";
 	delete_mode		= false;
 	control_pressed	= false;
+	delete_bounding_box[4]  = {0};
+	delete_selected_index 	= -1;
 
 	// this is the screen select menu, it will
 	Menu menu_screen_select = Menu();
@@ -241,6 +243,45 @@ void Stusurf::mouse_move_passive( int _x, int _y ){
 		}
 	}
 
+
+	// if delet mode is triggered on.
+	if( delete_mode == true ){
+		int _temp_x;
+		int _temp_y;
+		int _temp_width;
+		int _temp_height;
+
+		// check if mouse is moved over object
+		// 	if yes. Edit the bounding box vars. This will be drawn in render.
+		// 	if no. Set bounding box vars to zero.
+		bool hovering_over_obj = false;
+		for( int i = 0; i < main_list_len; i++ ){
+			_temp_x 		= ((Common::empty_module * )main_list[i])->x_full;
+ 			_temp_y 		= ((Common::empty_module * )main_list[i])->y_full;
+		 	_temp_width 	= ((Common::empty_module * )main_list[i])->width_full;
+		 	_temp_height 	= ((Common::empty_module * )main_list[i])->height_full;
+
+			if( Common::check_inside_rect( _x, recalc_y, _temp_x, _temp_y, _temp_width, _temp_height ) ){
+				hovering_over_obj = true;
+				// set the bounding box positions.
+				delete_bounding_box[0] = (2*(float)_temp_x/WINDOW_WIDTH) - 1 - 0.01;
+				delete_bounding_box[1] = (2*(float)_temp_y/WINDOW_HEIGHT) - 1 - 0.01;
+				delete_bounding_box[2] = (2*(float)_temp_width/WINDOW_WIDTH) + 0.02;
+				delete_bounding_box[3] = (2*(float)_temp_height/WINDOW_HEIGHT) + 0.02;
+				delete_selected_index  = i;
+			}
+		}
+
+		if( hovering_over_obj == false ){
+			delete_bounding_box[0] = 0;
+			delete_bounding_box[1] = 0;
+			delete_bounding_box[2] = 0;
+			delete_bounding_box[3] = 0;
+			delete_selected_index  = -1;
+		}
+
+	}
+
 }
 
 void Stusurf::mouse_move_active( int _x, int _y ){
@@ -385,8 +426,30 @@ void Stusurf::render( void ){
 			glVertex3f( -1, -1, 0 );
 		glEnd();
 
+
+		std::cout << delete_selected_index << "\n";
+
+		// bounding box array
+		//	index:	0	1	2	3
+		//	var		x	y	w	h
+		glBegin( GL_LINES );
+			glVertex3f( delete_bounding_box[0], delete_bounding_box[1], 0 );
+			glVertex3f( delete_bounding_box[0] + delete_bounding_box[2], delete_bounding_box[1], 0 );
+
+			glVertex3f( delete_bounding_box[0] + delete_bounding_box[2], delete_bounding_box[1], 0 );
+			glVertex3f( delete_bounding_box[0] + delete_bounding_box[2], delete_bounding_box[1] + delete_bounding_box[3], 0 );
+
+			glVertex3f( delete_bounding_box[0] + delete_bounding_box[2], delete_bounding_box[1] + delete_bounding_box[3], 0 );
+			glVertex3f( delete_bounding_box[0], delete_bounding_box[1] + delete_bounding_box[3], 0 );
+
+			glVertex3f( delete_bounding_box[0], delete_bounding_box[1] + delete_bounding_box[3], 0 );
+			glVertex3f( delete_bounding_box[0], delete_bounding_box[1], 0 );
+		glEnd();
+
+		// delete mode text in top left corner
 		glLineWidth(3);
 		Common::render_string( -0.98, 0.93, 0.05, "DELETE MODE" );
+
 	}
 
 	// reset the line Width for the text
