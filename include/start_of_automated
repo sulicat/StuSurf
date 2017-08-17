@@ -12,5 +12,5 @@ Base * Stusurf::create_object( std::string _type, int _x, int _y, int _width, in
 
 	Base * _output;
 
-	if( _type == "test_module_1" ){
-		_output = new test_module_1();
+	if( _type == "test_module_100" ){
+		_output = new Common::empty_module();

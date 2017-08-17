@@ -35,6 +35,7 @@ for file in modules/*.h; do
 
 		echo "else if( _type == \"$word\" ){" >> $output_file
 		echo "_output = new $word;" >> $output_file
+		echo "(($word *)_output)->ID = _ID;" >> $output_file
 		echo "}" >> $output_file
 
 		echo "$word"

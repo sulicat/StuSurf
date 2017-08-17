@@ -111,6 +111,6 @@ public:
 	}
 
 	void set_path( char * _p ){
-		path_data = _p;
+
 	}
 };

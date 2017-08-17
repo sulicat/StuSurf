@@ -1,12 +1,11 @@
 else{
 		_output = new Common::empty_module();
+		_output->set_path( ( char * ) _path_data.c_str() );
+		((Common::empty_module * )_output)->ID = _ID;
 	}
-		_output->set_size( _width, _height );
-		_output->set_pos( _x, _y );
-		//_output->set_path( ( char * ) _path_data.c_str() );
-		((test_module_1 * )_output)->ID = _ID;
+
+	_output->set_size( _width, _height );
+	_output->set_pos( _x, _y );
 
 	return _output;
-
-
 }
