@@ -29,6 +29,7 @@ Stusurf::Stusurf( std::string _start ){
 	control_pressed	= false;
 	delete_bounding_box[4]  = {0};
 	delete_selected_index 	= -1;
+	current_ID_count		= 0;
 
 	// this is the screen select menu, it will
 	Menu menu_screen_select = Menu();
@@ -204,6 +205,9 @@ void Stusurf::add_new_object_to_screen( int _x, int _y, int _w, int _h, std::str
 	std::ofstream screen_file;
 	screen_file.open( current_selected_screen, std::ofstream::out | std::ofstream::app );
 
+	// increment the ID count.
+	current_ID_count += 1;
+
 	std::string _content = _name + " ";
 
 	_content += Common::int_to_string( _x );
@@ -213,7 +217,10 @@ void Stusurf::add_new_object_to_screen( int _x, int _y, int _w, int _h, std::str
 	_content += Common::int_to_string( _w );
 	_content += " ";
 	_content += Common::int_to_string( _h );
-	_content += " None\n";
+	_content += " None";
+	_content += " ";
+	_content += Common::int_to_string( current_ID_count );
+	_content += "\n";
 
 	screen_file << _content;
 	screen_file.close();
@@ -406,7 +413,6 @@ void Stusurf::render( void ){
 
 	// render all the objects in the main list
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
 
 	if( delete_mode == true ){
 		glLineWidth(100);

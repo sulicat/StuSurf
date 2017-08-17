@@ -15,6 +15,9 @@ void Stusurf::evaluate_screen(){
 	main_list = new Base * [0];
 	main_list_len = 0;
 
+	// set ID count. In order to add in the future.
+	current_ID_count = 0;
+
 	std::cout << "\nstarting evaluation: \n";
 	std::cout << "evaluating: " << current_selected_screen << "\n";
 
@@ -50,7 +53,7 @@ void Stusurf::evaluate_screen(){
 			// at this point. we are going to assume that for every line, there is the required info. We will perform an error check...
 			// length must be 7.
 			std::string * line_arr = Common::split_string( line, ' ' );
-			if( line_arr[0] != "7" ){
+			if( line_arr[0] != "8" ){
 				std::cout << " ... ERROR. Could not parse line in file: " << current_selected_screen << "\n";
 
 			}else{
@@ -59,8 +62,8 @@ void Stusurf::evaluate_screen(){
 				// this is a function that is written by a bash script after reading the modules.
 				// this function will return an object that we can add to main_list. And that way we can render things in file
 				// line template :
-				//			Object_name x y width height path_data
-				//index:	1			2 3 4	  5		 6
+				//			Object_name x y width height path_data ID
+				//index:	1			2 3 4	  5		 6         7
 
 				Base * temp_add;
 				temp_add  = 	create_object( 	line_arr[1],
@@ -68,9 +71,14 @@ void Stusurf::evaluate_screen(){
 												Common::string_to_int( line_arr[3] ),
 												Common::string_to_int( line_arr[4] ),
 												Common::string_to_int( line_arr[5] ),
-												line_arr[6] 							);
+												line_arr[6],
+												Common::string_to_int( line_arr[7] )		);
 
 				add( temp_add );
+				// make sure the new ID is higher than the old one
+				if( current_ID_count < Common::string_to_int( line_arr[7] ) ){
+					current_ID_count = Common::string_to_int( line_arr[7] );
+				}
 			}
 
 		}

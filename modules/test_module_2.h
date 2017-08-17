@@ -15,6 +15,7 @@ public:
 	float	G;
 	float 	B;
 	char *	path_data;
+	int		ID;
 	float 	angle;
 
 	test_module_2( ){
@@ -81,6 +82,7 @@ public:
 	  	if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
 			// do something.... we are inside the objects space
 			std::cout << "test_module_press \n";
+			std::cout << ID << "\n";
 
 			if( _state == 0 ){
 				if( B == 1 ){

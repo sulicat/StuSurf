@@ -2,7 +2,7 @@
 #include "common.h"
 #include <iostream>
 
-Base * Stusurf::create_object( std::string _type, int _x, int _y, int _width, int _height, std::string _path_data ){
+Base * Stusurf::create_object( std::string _type, int _x, int _y, int _width, int _height, std::string _path_data, int _ID ){
 	// output log
 	std::cout << "\t\t\tparsed: ";
 	std::cout << _type.c_str() << " ";
@@ -29,7 +29,8 @@ else{
 	}
 		_output->set_size( _width, _height );
 		_output->set_pos( _x, _y );
-		_output->set_path( ( char * ) _path_data.c_str() );
+		//_output->set_path( ( char * ) _path_data.c_str() );
+		((test_module_1 * )_output)->ID = _ID;
 
 	return _output;
 

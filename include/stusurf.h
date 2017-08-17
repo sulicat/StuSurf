@@ -28,6 +28,7 @@ private:
 	bool  control_pressed;
 	float delete_bounding_box[4];
 	int   delete_selected_index;
+	int   current_ID_count;
 
 public:
 
@@ -72,7 +73,7 @@ public:
 
 	void 	set_current_screen();
 	void 	evaluate_screen( void );
-	Base * 	create_object( std::string _type, int x, int y, int width, int height, std::string _path_data );
+	Base * 	create_object( std::string _type, int x, int y, int width, int height, std::string _path_data, int _ID );
 	int 	change_selected_screen( std::string _n );
 	int 	trigger_object_add( std::string _n );
 	void	add_new_object_to_screen( int _x, int _y, int _w, int _h, std::string name );

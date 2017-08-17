@@ -12,15 +12,16 @@ extern int WINDOW_HEIGHT;
 // first we make an abstract class. If we want to make a button, we can inherit from this class and define all the virtual functions we need.
 class Base{
 public:
-	int x_full;
-	int y_full;
-	int width_full;
-	int height_full;
-	float x;
-	float y;
-	float width;
-	float height;
-	char * path_data;
+	int 	x_full;
+	int 	y_full;
+	int 	width_full;
+	int 	height_full;
+	float 	x;
+	float 	y;
+	float 	width;
+	float 	height;
+	int   	ID;
+	char * 	path_data;
 
 	virtual void render() = 0;
 	virtual void mouse_press( int _button, int _state, int _x, int _y  ) = 0;
@@ -53,6 +54,7 @@ public:
 		float 	y;
 		float 	width;
 		float 	height;
+		int 	ID;
 		char *	path_data;
 
 		empty_module( ){
