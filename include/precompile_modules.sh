@@ -46,7 +46,9 @@ for file in modules/*.h; do
 		echo "(($word *)_output)->height_full = _height;" >> $output_file
 		echo "(($word *)_output)->width = (2*(float)_width / WINDOW_WIDTH);" >> $output_file
 		echo "(($word *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);" >> $output_file
-
+		# set the path to the data
+		echo "(($word *)_output)->path_data = _path_data;" >> $output_file
+		echo "(($word *)_output)->type_name = _type;" >> $output_file
 		echo "}" >> $output_file
 
 		echo "$word"

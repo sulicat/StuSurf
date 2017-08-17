@@ -21,7 +21,8 @@ public:
 	float 	width;
 	float 	height;
 	int   	ID;
-	char * 	path_data;
+	std::string path_data;
+	std::string type_name;
 
 	virtual void render() = 0;
 	virtual void mouse_press( int _button, int _state, int _x, int _y  ) = 0;
@@ -53,7 +54,7 @@ public:
 		float 	width;
 		float 	height;
 		int 	ID;
-		char *	path_data;
+		std::string	path_data;
 
 		empty_module( ){
 			std::cout << "creating an EMPTY MODULE\n";

@@ -4,8 +4,5 @@ else{
 		((Common::empty_module * )_output)->ID = _ID;
 	}
 
-//	_output->set_size( _width, _height );
-//	_output->set_pos( _x, _y );
-
 	return _output;
 }

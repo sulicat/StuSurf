@@ -26,6 +26,8 @@ _output = new test_module_1;
 ((test_module_1 *)_output)->height_full = _height;
 ((test_module_1 *)_output)->width = (2*(float)_width / WINDOW_WIDTH);
 ((test_module_1 *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);
+((test_module_1 *)_output)->path_data = _path_data;
+((test_module_1 *)_output)->type_name = _type;
 }
 else if( _type == "test_module_2" ){
 _output = new test_module_2;
@@ -38,6 +40,8 @@ _output = new test_module_2;
 ((test_module_2 *)_output)->height_full = _height;
 ((test_module_2 *)_output)->width = (2*(float)_width / WINDOW_WIDTH);
 ((test_module_2 *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);
+((test_module_2 *)_output)->path_data = _path_data;
+((test_module_2 *)_output)->type_name = _type;
 }
 else if( _type == "test_module_3" ){
 _output = new test_module_3;
@@ -50,15 +54,14 @@ _output = new test_module_3;
 ((test_module_3 *)_output)->height_full = _height;
 ((test_module_3 *)_output)->width = (2*(float)_width / WINDOW_WIDTH);
 ((test_module_3 *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);
+((test_module_3 *)_output)->path_data = _path_data;
+((test_module_3 *)_output)->type_name = _type;
 }
 else{
 		_output = new Common::empty_module();
 		_output->set_path( ( char * ) _path_data.c_str() );
 		((Common::empty_module * )_output)->ID = _ID;
 	}
-
-//	_output->set_size( _width, _height );
-//	_output->set_pos( _x, _y );
 
 	return _output;
 }

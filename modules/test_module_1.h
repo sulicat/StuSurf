@@ -12,7 +12,7 @@ public:
 	float 	width;
 	float 	height;
 	int		ID;
-	char * 	path_data;
+	std::string path_data;
 
 	test_module_1( ){
 		std::cout << "creating a new testing_module\n";
@@ -52,8 +52,10 @@ public:
 		// first we check if there is an intersection
 	  	if( Common::check_inside_rect( _x, _y, x_full, y_full, width_full, height_full ) ){
 			// do something.... we are inside the objects space
-			std::cout << "test_module_press \n";
+			std::cout << "\ntest_module_press \n";
 			std::cout << ID << "\n";
+			std::cout << path_data << "\n";
+			std::cout << type_name << "\n";
 		}
 	}
 
