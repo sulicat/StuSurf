@@ -68,6 +68,7 @@ public:
 
 	void add( Base * a );
 	void add( Menu _m );
+	void delete_item( int _index );
 
 	void render( void );
 

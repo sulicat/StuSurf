@@ -157,6 +157,11 @@ void Stusurf::give_window_size( int * _w, int * _h ){
 void Stusurf::mouse_press( int _button, int _state, int _x, int _y ){
 	int recalc_y = WINDOW_HEIGHT - _y - 1;
 
+	// if we are in delet mode, we want ot delete the item on the left press down
+	if( delete_mode == true && _button == 0 && _state == 0 ){
+		delete_item( delete_selected_index );
+	}
+
 	// we will only send input to the modules when none of the
 	//	main menus is open
 	bool _any_m_open = false;
@@ -198,8 +203,20 @@ void Stusurf::mouse_press( int _button, int _state, int _x, int _y ){
 		// Now we can create a new object and add it to the list
 		add_new_object_to_screen( Common::MIN( _x_1, _x_2 ), Common::MIN( _y_1, _y_2 ), Common::ABS( add_x_end - add_x_start ), Common::ABS( add_y_end - add_y_start), object_to_add );
 	}
+
 }
 
+void Stusurf::delete_item( int _index ){
+	if( _index >= 0 && _index < main_list_len ){
+		// we want to pop the item at _index from the main_list array
+		Base * * temp = new Base* [main_list_len - 1];
+		std::copy( main_list, main_list + _index, temp );
+		std::copy( main_list + _index + 1, main_list + main_list_len, temp + _index );
+		delete[] main_list;
+		main_list = temp;
+		main_list_len -= 1;
+	}
+}
 
 void Stusurf::add_new_object_to_screen( int _x, int _y, int _w, int _h, std::string _name ){
 	std::ofstream screen_file;
@@ -431,9 +448,6 @@ void Stusurf::render( void ){
 			glVertex3f( 1, -1, 0 );
 			glVertex3f( -1, -1, 0 );
 		glEnd();
-
-
-		std::cout << delete_selected_index << "\n";
 
 		// bounding box array
 		//	index:	0	1	2	3
