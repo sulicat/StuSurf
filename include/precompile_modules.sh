@@ -36,6 +36,17 @@ for file in modules/*.h; do
 		echo "else if( _type == \"$word\" ){" >> $output_file
 		echo "_output = new $word;" >> $output_file
 		echo "(($word *)_output)->ID = _ID;" >> $output_file
+		# setting the position per object
+		echo "(($word *)_output)->x_full = _x;" >> $output_file
+		echo "(($word *)_output)->y_full = _y;" >> $output_file
+		echo "(($word *)_output)->x = (2*(float)_x / WINDOW_WIDTH) - 1;" >> $output_file
+		echo "(($word *)_output)->y = (2*(float)_y / WINDOW_HEIGHT) - 1;" >> $output_file
+		# setting the size per object
+		echo "(($word *)_output)->width_full = _width;" >> $output_file
+		echo "(($word *)_output)->height_full = _height;" >> $output_file
+		echo "(($word *)_output)->width = (2*(float)_width / WINDOW_WIDTH);" >> $output_file
+		echo "(($word *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);" >> $output_file
+
 		echo "}" >> $output_file
 
 		echo "$word"

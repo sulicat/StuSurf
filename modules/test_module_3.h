@@ -41,22 +41,6 @@ public:
 		height 		= (2*(float)height_full/WINDOW_HEIGHT);
 	}
 
-	void set_size( int _w, int _h ){
-		width_full 	= _w;
-		height_full = _h;
-
-		width 	= (2*(float)width_full/WINDOW_WIDTH);
-		height 	= (2*(float)height_full/WINDOW_HEIGHT);
-	}
-
-	void set_pos( int _x, int _y ){
-		x_full = _x;
-		y_full = _y;
-
-		x = (2*(float)x_full/WINDOW_WIDTH) - 1;
-		y = (2*(float)y_full/WINDOW_HEIGHT) - 1;
-	}
-
 	void render(){
 		glColor3f( R, G, B );
 		glBegin( GL_QUADS );

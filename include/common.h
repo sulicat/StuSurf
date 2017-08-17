@@ -25,8 +25,6 @@ public:
 
 	virtual void render() = 0;
 	virtual void mouse_press( int _button, int _state, int _x, int _y  ) = 0;
-	virtual void set_size( int _w, int _h ) = 0;
-	virtual void set_pos( int _x, int _y ) = 0;
 	virtual void reshape() = 0;
 	virtual void mouse_move_passive( int _x, int _y ) = 0;
 	virtual void mouse_move_active( int _x, int _y ) = 0;
@@ -67,8 +65,6 @@ public:
 
 		// none of the functions do anything
 		void reshape(){}
-		void set_size( int _w, int _h ){}
-		void set_pos( int _x, int _y ){}
 		void render(){}
 		void mouse_press( int _button, int _state, int _x, int _y ){}
 		void mouse_move_passive( int _x, int _y ){}
