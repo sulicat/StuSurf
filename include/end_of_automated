@@ -1,6 +1,5 @@
 else{
 		_output = new Common::empty_module();
-		_output->set_path( ( char * ) _path_data.c_str() );
 		((Common::empty_module * )_output)->ID = _ID;
 	}
 

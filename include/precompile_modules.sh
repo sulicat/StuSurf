@@ -49,6 +49,10 @@ for file in modules/*.h; do
 		# set the path to the data
 		echo "(($word *)_output)->path_data = _path_data;" >> $output_file
 		echo "(($word *)_output)->type_name = _type;" >> $output_file
+		# set the GET function
+		echo "(($word *)_output)->get_ID = [_ID](){return _ID;};" >> $output_file
+		echo "(($word *)_output)->get_path_data = [_path_data](){return _path_data;};" >> $output_file
+		echo "(($word *)_output)->get_type_name = [_type](){return _type;};" >> $output_file
 
 		echo "}" >> $output_file
 

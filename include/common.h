@@ -24,6 +24,11 @@ public:
 	std::string path_data;
 	std::string type_name;
 
+	// these are the get function. THe program should fill them out for you
+	std::function<int(void)> get_ID;
+	std::function<std::string(void)> get_path_data;
+	std::function<std::string(void)> get_type_name;
+
 	virtual void render() = 0;
 	virtual void mouse_press( int _button, int _state, int _x, int _y  ) = 0;
 	virtual void reshape() = 0;
@@ -33,7 +38,6 @@ public:
 	virtual void key_release( unsigned char _key, int _x, int _y ) = 0;
 	virtual void key_press_special( unsigned char _key, int _x, int _y ) = 0;
 	virtual void key_release_special( unsigned char _key, int _x, int _y ) = 0;
-	virtual void set_path( char * _p ) = 0;
 };
 
 
@@ -54,7 +58,6 @@ public:
 		float 	width;
 		float 	height;
 		int 	ID;
-		std::string	path_data;
 
 		empty_module( ){
 			std::cout << "creating an EMPTY MODULE\n";
@@ -74,7 +77,6 @@ public:
 		void key_press_special( unsigned char _key, int _x, int _y ){ }
 		void key_release( unsigned char _key, int _x, int _y ){}
 		void key_release_special( unsigned char _key, int _x, int _y ){ }
-		void set_path( char * _p ){}
 	};
 
 	// Vars | Functions tha can be used by the rest of the progra,
