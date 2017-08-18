@@ -161,7 +161,7 @@ void Stusurf::mouse_press( int _button, int _state, int _x, int _y ){
 	if( delete_mode == true && _button == 0 && _state == 0 ){
 		delete_item( delete_selected_index );
 		push_list_to_screen();
-		//		evaluate_screen();
+		//evaluate_screen();
 	}
 
 	// we will only send input to the modules when none of the
@@ -221,9 +221,12 @@ void Stusurf::delete_item( int _index ){
 }
 
 void Stusurf::push_list_to_screen(){
-	std::fstream screen_file( current_selected_screen, std::fstream::out | std::fstream::trunc );
+	std::fstream screen_file;
+	screen_file.open( current_selected_screen, std::fstream::out | std::fstream::trunc );
 	std::string _content = "";
+
 	for( int i = 0; i < main_list_len; i++ ){
+		_content = "";
 		_content += main_list[i]->get_type_name();
 		_content += " ";
 		_content += Common::int_to_string(((Common::empty_module *)main_list[i])->x_full);
@@ -234,7 +237,7 @@ void Stusurf::push_list_to_screen(){
 		_content += " ";
 		_content += Common::int_to_string(((Common::empty_module * )main_list[i])->height_full);
 		_content += " ";
-		_content += main_list[i]->get_path_data();;
+		_content += main_list[i]->get_path_data();
 		_content += " ";
 		_content += Common::int_to_string(main_list[i]->get_ID());
 		_content += "\n";
