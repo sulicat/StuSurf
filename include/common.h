@@ -208,4 +208,36 @@ public:
 };
 
 
+class TextField{
+ public:
+	float 	x;
+	float 	y;
+	float	width;
+	float 	height;
+	int 	x_full;
+	int 	y_full;
+	int		width_full;
+	int 	height_full;
+	bool	is_selected;
+	std::string content;
+
+	TextField();
+
+	void 	render();
+	void	set_pos( int _x, int _y );
+	void	set_size( int _x, int _y );
+	void	set_pos( float _x, float _y );
+	void	set_size( float _x, float _y );
+	void	reshape();
+	void	toggle_selected();
+	void	set_selected( bool a );
+	void	add( std::string _a );
+	void	add( char _a );
+	void	clear();
+	void	backspace();
+	void	backspace( int _b );
+	std::string value();
+};
+
+
 #endif

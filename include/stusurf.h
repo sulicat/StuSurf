@@ -9,26 +9,29 @@
 #define SHORTCUT_ADD 1
 #define SHORTCUT_SCREEN 19
 #define SHORTCUT_DELETE 4
+#define SCREEN_LIST_FILE "include/screen_list"
 
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
 class Stusurf{
 private:
-	int   add_mode;
-	bool  delete_mode;
-	int   add_mode_mouse;
-	int   add_x_start;
-	int   add_x_end;
-	int   add_y_start;
-	int   add_y_end;
-	int   add_x_start_mouse;
-	int   add_x_end_mouse;
-	int   add_y_start_mouse;
-	int   add_y_end_mouse;
-	bool  control_pressed;
-	float delete_bounding_box[4];
-	int   delete_selected_index;
-	int   current_ID_count;
+	int			add_mode;
+	bool		delete_mode;
+	int			add_mode_mouse;
+	int			add_x_start;
+	int			add_x_end;
+	int			add_y_start;
+	int			add_y_end;
+	int			add_x_start_mouse;
+	int			add_x_end_mouse;
+	int			add_y_start_mouse;
+	int			add_y_end_mouse;
+	bool		control_pressed;
+	float		delete_bounding_box[4];
+	int			delete_selected_index;
+	int			current_ID_count;
+	TextField	textfield_new_screen;
+	bool		add_new_screen_mode;
 
 public:
 
@@ -75,8 +78,10 @@ public:
 	void 	set_current_screen();
 	void 	evaluate_screen( void );
 	Base * 	create_object( std::string _type, int x, int y, int width, int height, std::string _path_data, int _ID );
+	void	create_new_screen( std::string _name );
 	int 	change_selected_screen( std::string _n );
 	int 	trigger_object_add( std::string _n );
+	int		trigger_new_screen_mode( std::string _n );
 	void	add_new_object_to_screen( int _x, int _y, int _w, int _h, std::string name );
 	void 	evaluate_screen_list();
 	void 	evaluate_module_list();

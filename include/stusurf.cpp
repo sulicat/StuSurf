@@ -52,6 +52,11 @@ Stusurf::Stusurf( std::string _start ){
 	add(menu_screen_select);
 	add(menu_screen_add);
 
+	textfield_new_screen = TextField();
+	textfield_new_screen.set_pos(0,0);
+	textfield_new_screen.set_size( 900, 150 );
+	textfield_new_screen.set_selected( true );
+
 
 	// this will read the list of screens.
 	//	It will populate the screens menu with the buttons to switch screens.
@@ -60,8 +65,6 @@ Stusurf::Stusurf( std::string _start ){
 	// we have a file made prior to compilation that will give us a list of
 	//  available modules. So we will loop throught them and add the to the add menu
 	evaluate_module_list();
-
-
 
 }
 
@@ -81,20 +84,17 @@ void Stusurf::reshape(){
 	for( int i = 0; i < menus_len; i++ ){
 		menus[i].reshape();
 	}
+
+	textfield_new_screen.reshape();
 }
 
-
-int temp( std::string a ){
-	std::cout << a << "\n";
-	return 1;
-}
 
 void Stusurf::evaluate_screen_list(){
 	// read the file with all the screen names. Create menu items with these names
 	char _line[256];
 	std::string _line_string;
 	std::ifstream screen_list;
-	screen_list.open( "include/screen_list", std::ifstream::in );
+	screen_list.open( SCREEN_LIST_FILE, std::ifstream::in );
 
 	std::cout << "... evaluating list of Screens\n";
 	std::cout << "... creating new change screens buttons\n";
@@ -109,6 +109,9 @@ void Stusurf::evaluate_screen_list(){
 
 	screen_list.close();
 	std::cout << "... ... ... DONE evaluating screens\n";
+
+	// We will now add the button to allow the creation of new screen.
+	menus[0].add( "New...", [this](std::string _a){return this->trigger_new_screen_mode(_a);}, "Null" );
 }
 
 void Stusurf::evaluate_module_list(){
@@ -132,6 +135,14 @@ void Stusurf::evaluate_module_list(){
 	module_list.close();
 }
 
+void Stusurf::create_new_screen(std::string _name){
+	std::fstream screen_file;
+	screen_file.open( SCREEN_LIST_FILE, std::fstream::out | std::fstream::app );
+	screen_file << _name + "\n";
+	screen_file.close();
+	evaluate_screen_list();
+}
+
 int Stusurf::trigger_object_add( std::string _n ){
 	object_to_add = _n;
 	add_mode = 1;
@@ -140,6 +151,11 @@ int Stusurf::trigger_object_add( std::string _n ){
 	add_y_start = 0;
 	add_x_end 	= 0;
 	add_y_end	= 0;
+	return 1;
+}
+
+int Stusurf::trigger_new_screen_mode( std::string _a ){
+	add_new_screen_mode = true;
 	return 1;
 }
 
@@ -391,9 +407,26 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 		if( menus[m].is_shown == true ){ any_menus_open = true; break; }
 	}
 
-	if( _m_open == false && any_menus_open == false ){
+
+	if( _m_open == false && any_menus_open == false && add_new_screen_mode == false ){
 		for( int i = 0; i < main_list_len; i++ ){
 			main_list[i]->key_press( _key, _x, recalc_y );
+		}
+
+	}else if( add_new_screen_mode ){
+		// make sure it is a printable charecter,
+		// get rid of:
+		//	. ; _space_ : " '
+		if( _key >= 48 && _key < 125 ){
+			textfield_new_screen.add( _key );
+
+		}else if( _key == 8 ){		// backspace
+			textfield_new_screen.backspace();
+
+		}else if( _key == 13 ){		// ENTER
+			add_new_screen_mode = false;
+			create_new_screen( textfield_new_screen.value() );
+			textfield_new_screen.clear();
 		}
 
 	}else if( _m_open == false ){
@@ -402,11 +435,17 @@ void Stusurf::key_press( unsigned char _key, int _x, int _y ){
 		}
 	}
 
+
+
 	if( (int)_key == 27 ){			// escape key
 		for( int i = 0; i < menus_len; i++ ){
 			menus[i].is_shown = false;
 		}
+		// make the add new screen menu disapear
+		add_new_screen_mode = false;
 	}
+
+
 
 
 	if( (int)_key == SHORTCUT_DELETE ){				// delete
@@ -529,6 +568,11 @@ void Stusurf::render( void ){
 		glEnd();
 	}
 
+	if( add_new_screen_mode ){
+		textfield_new_screen.render();
+	}
+
+	// apply
 	glutSwapBuffers();
 }
 
