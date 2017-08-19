@@ -221,6 +221,7 @@ class TextField{
 	int 	height_full;
 	bool	is_selected;
 	std::string content;
+	std::string title;
 
 	TextField();
 
@@ -229,6 +230,7 @@ class TextField{
 	void	set_size( int _x, int _y );
 	void	set_pos( float _x, float _y );
 	void	set_size( float _x, float _y );
+	void	set_title( std::string _t );
 	void	reshape();
 	void	toggle_selected();
 	void	set_selected( bool a );

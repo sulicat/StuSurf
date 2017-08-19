@@ -56,6 +56,7 @@ Stusurf::Stusurf( std::string _start ){
 	textfield_new_screen.set_pos(0,0);
 	textfield_new_screen.set_size( 900, 150 );
 	textfield_new_screen.set_selected( true );
+	textfield_new_screen.set_title( "New Screen" );
 
 
 	// this will read the list of screens.

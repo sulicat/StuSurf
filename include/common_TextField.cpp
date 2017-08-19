@@ -12,12 +12,17 @@ TextField::TextField(){
 	width 			= 0;
 	height 			= 0;
 	is_selected 	= false;
+	title 			= "";
 }
 
 void TextField::set_pos( int _x, int _y ){
 	x_full = _x;
 	y_full = _y;
 	reshape();
+}
+
+void TextField::set_title( std::string _t ){
+	title = _t;
 }
 
 void TextField::clear(){
@@ -69,6 +74,7 @@ std::string TextField::value(){
 
 void TextField::render(){
 	glColor3f( 1.0, 1.0, 1.0 );
+
 	//	std::cout << x << " " << y << " " << width << " " << height << "\n";
 	glBegin( GL_QUADS );
 		glVertex3f(	x,			y, 				0 );
@@ -96,6 +102,7 @@ void TextField::render(){
 		glEnd();
 	}
 	// render contents
+	Common::render_string( x, y + height * 1.05, height * 0.5, title );
 	Common::render_string( x, y + height * 0.35, height * 0.5, content );
 }
 

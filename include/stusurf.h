@@ -34,7 +34,6 @@ private:
 	bool		add_new_screen_mode;
 
 public:
-
 	std::string screens_dir_path;
 	std::string current_selected_screen;
 
