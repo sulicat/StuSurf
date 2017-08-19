@@ -113,6 +113,13 @@ Menu::Menu(){
 
 }
 
+void Menu::clear(){
+	items 			= new MenuItem[0];
+	items_len 		= 0;
+	items_full 		= new MenuItem[0];
+	items_full_len 	= 0;
+}
+
 void Menu::reshape( ){
 	x 			= (2*(float)x_full/WINDOW_WIDTH) - 1;
 	y 			= (2*(float)y_full/WINDOW_HEIGHT) - 1;

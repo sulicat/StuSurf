@@ -201,6 +201,7 @@ public:
 	void		search();
 	void		refill_items();
 	void		pop_item( int _i );
+	void		clear();
 	void		trigger();
 
 	unsigned char	get_shortcut();

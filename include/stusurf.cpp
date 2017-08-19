@@ -91,6 +91,8 @@ void Stusurf::reshape(){
 
 void Stusurf::evaluate_screen_list(){
 	// read the file with all the screen names. Create menu items with these names
+	menus[0].clear();
+
 	char _line[256];
 	std::string _line_string;
 	std::ifstream screen_list;
