@@ -11,6 +11,7 @@
 #define SHORTCUT_DELETE 4
 #define SCREEN_LIST_FILE "include/screen_list"
 
+
 // this is the main class. It will contain all the objects we need. This is the class we will interface with in main. 
 // It will deal with the other data types for us.
 class Stusurf{

@@ -7,6 +7,9 @@ extern int WINDOW_HEIGHT;
 #include <iostream>
 #include <sstream>
 #include <functional>
+#include <chrono>
+
+#define VAR_INDICATOR "$"
 
 // this is the common file. It will include the base class that the main modules can inherit from.
 // first we make an abstract class. If we want to make a button, we can inherit from this class and define all the virtual functions we need.
@@ -108,6 +111,14 @@ public:
 
 	static void				render_paragraph	( float x, float y, float w, float h, float scale, std::string p, float _line_spacing );
 	static void				render_paragraph	( float x, float y, float w, float h, float scale, std::string p, float _line_spacing, float R, float G, float B);
+
+	static std::string 		unique_path_data	( std::string _name );
+	// these are the preffered functions for objects to add data to memory.
+	// they will support several type.
+	// the basic structure will be:
+	//	variablle_name	val
+	//	where val can be a string, int, bool or array.
+	static void				var_to_file			( std::string _path, std::string _var_name, std::string var_value );
 };
 
 

@@ -66,6 +66,40 @@ _output = new test_module_3;
 ((test_module_3 *)_output)->get_path_data = [_path_data](){return _path_data;};
 ((test_module_3 *)_output)->get_type_name = [_type](){return _type;};
 }
+else if( _type == "text" ){
+_output = new text;
+((text *)_output)->ID = _ID;
+((text *)_output)->x_full = _x;
+((text *)_output)->y_full = _y;
+((text *)_output)->x = (2*(float)_x / WINDOW_WIDTH) - 1;
+((text *)_output)->y = (2*(float)_y / WINDOW_HEIGHT) - 1;
+((text *)_output)->width_full = _width;
+((text *)_output)->height_full = _height;
+((text *)_output)->width = (2*(float)_width / WINDOW_WIDTH);
+((text *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);
+((text *)_output)->path_data = _path_data;
+((text *)_output)->type_name = _type;
+((text *)_output)->get_ID = [_ID](){return _ID;};
+((text *)_output)->get_path_data = [_path_data](){return _path_data;};
+((text *)_output)->get_type_name = [_type](){return _type;};
+}
+else if( _type == "text_spinning" ){
+_output = new text_spinning;
+((text_spinning *)_output)->ID = _ID;
+((text_spinning *)_output)->x_full = _x;
+((text_spinning *)_output)->y_full = _y;
+((text_spinning *)_output)->x = (2*(float)_x / WINDOW_WIDTH) - 1;
+((text_spinning *)_output)->y = (2*(float)_y / WINDOW_HEIGHT) - 1;
+((text_spinning *)_output)->width_full = _width;
+((text_spinning *)_output)->height_full = _height;
+((text_spinning *)_output)->width = (2*(float)_width / WINDOW_WIDTH);
+((text_spinning *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);
+((text_spinning *)_output)->path_data = _path_data;
+((text_spinning *)_output)->type_name = _type;
+((text_spinning *)_output)->get_ID = [_ID](){return _ID;};
+((text_spinning *)_output)->get_path_data = [_path_data](){return _path_data;};
+((text_spinning *)_output)->get_type_name = [_type](){return _type;};
+}
 else{
 		_output = new Common::empty_module();
 		((Common::empty_module * )_output)->ID = _ID;

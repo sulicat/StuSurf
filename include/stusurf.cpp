@@ -281,7 +281,9 @@ void Stusurf::add_new_object_to_screen( int _x, int _y, int _w, int _h, std::str
 	_content += Common::int_to_string( _w );
 	_content += " ";
 	_content += Common::int_to_string( _h );
-	_content += " None";
+	_content += " ";
+	// every object added to the screen will have a unique path.
+	_content += Common::unique_path_data( _name );
 	_content += " ";
 	_content += Common::int_to_string( current_ID_count );
 	_content += "\n";

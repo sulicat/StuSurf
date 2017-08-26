@@ -225,7 +225,8 @@ void Common::var_to_file( std::string _path, std::string _var_name, std::string 
 			_updating = true;
 
 		}else{
-			_new_file_contents += _line_string + "\n";;
+			// add every line that is not  
+			_new_file_contents += _line_string;
 		}
 	}
 
@@ -233,18 +234,12 @@ void Common::var_to_file( std::string _path, std::string _var_name, std::string 
 	file.close();
 
 	if( _updating == true ){
-		// clear the file,
-		//	add old contents minus the variable in question
-		//	add the variable in question
-		//	(Assumption: Order does not matter)
-		file.open( _path, std::fstream::out | std::fstream::trunc );
-		file << _new_file_contents;
-		std::string _output = _var_name + " " + _var_value + "\n";
-		file << _output;
+		std::cout << "MODIFY\n";
 
 	}else{
 		// in this case we will open the file in append mode, and just add the variable to
 		//	the end of the file.
+		std::cout << "NEW\n";
 		file.open( _path, std::fstream::out | std::fstream::app );
 		std::string _output = _var_name + " " + _var_value + "\n";
 		file << _output;
