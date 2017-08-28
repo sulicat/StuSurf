@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
+#include <vector>
 
 bool Common::check_inside_rect( int _x, int _y, int rect_x, int rect_y, int rect_width, int rect_height ){
 	// check the left and bottom intesections
@@ -25,7 +26,7 @@ std::string Common::int_to_string( int _num ){
 
 std::string * Common::split_string( char * input, char delim ){
 	int i = 0;
-	std::string part = ""; 
+	std::string part = "";
 
 	std::string * out = new std::string[1];
 	int out_len = 1;
@@ -213,12 +214,12 @@ void Common::var_to_file( std::string _path, std::string _var_name, std::string 
 	// open in read mode.
 	file.open( _path, std::fstream::in );
 
-	char _line[452];
+	char _line[2560];
 	std::string _line_string;
 	bool _updating = false;
 	std::string _new_file_contents;
 
-	while( file.getline(_line, 452) ){
+	while( file.getline(_line, 2560) ){
 
 		_line_string = _line;
 		if( _line_string.find( _var_name ) != -1 ){
@@ -239,19 +240,112 @@ void Common::var_to_file( std::string _path, std::string _var_name, std::string 
 		//	(Assumption: Order does not matter)
 		file.open( _path, std::fstream::out | std::fstream::trunc );
 		file << _new_file_contents;
-		std::string _output = _var_name + " " + _var_value + "\n";
+		std::string _output = _var_name + ";;" + _var_value + "\n";
 		file << _output;
 
 	}else{
 		// in this case we will open the file in append mode, and just add the variable to
 		//	the end of the file.
 		file.open( _path, std::fstream::out | std::fstream::app );
-		std::string _output = _var_name + " " + _var_value + "\n";
+		std::string _output = _var_name + ";;" + _var_value + "\n";
 		file << _output;
 	}
 
 	file.close();
 
 	std::cout << "\n";
+}
 
+void Common::var_to_file( std::string _path, std::string _var_name, std::vector<std::string> _var_values ){
+	std::fstream file;
+	_var_name = VAR_INDICATOR + _var_name;
+	std::cout << _var_name << "\n";
+	// open in read mode.
+	file.open( _path, std::fstream::in );
+
+	char _line[2560];
+	std::string _line_string;
+	bool _updating = false;
+	std::string _new_file_contents;
+
+	while( file.getline(_line, 2560) ){
+
+		_line_string = _line;
+		if( _line_string.find( _var_name ) != -1 ){
+			_updating = true;
+
+		}else{
+			_new_file_contents += _line_string + "\n";;
+		}
+	}
+
+	// we will repon the file to write
+	file.close();
+
+	if( _updating == true ){
+		// clear the file,
+		//	add old contents minus the variable in question
+		//	add the variable in question
+		//	(Assumption: Order does not matter)
+		file.open( _path, std::fstream::out | std::fstream::trunc );
+		file << _new_file_contents;
+		std::string _output = _var_name;
+		for( int i = 0; i < _var_values.size(); i++ ){
+			_output += ";;" + _var_values[i];
+		}
+		_output += "\n";
+		file << _output;
+
+	}else{
+		// in this case we will open the file in append mode, and just add the variable to
+		//	the end of the file.
+		file.open( _path, std::fstream::out | std::fstream::app );
+		std::string _output = _var_name;
+		for( int i = 0; i < _var_values.size(); i++ ){
+			_output += ";;" + _var_values[i];
+		}
+		_output += "\n";
+		file << _output;
+	}
+
+	file.close();
+
+	std::cout << "\n";
+}
+
+// this will return a vector with the data it got from the file.
+std::vector<std::string> Common::var_from_file( std::string _path, std::string _name ){
+	std::vector<std::string> _output;
+	bool _found = false;
+
+	char _line[2560];
+	std::string _line_string;
+	// we want to get the line in question
+	std::fstream _file( _path, std::fstream::in );
+	while( _file.getline( _line, 2560 ) ){
+		_line_string = _line;
+		if( _line_string.find( VAR_INDICATOR + _name ) != -1 ){
+			_found = true;
+			break;
+		}
+	}
+	_file.close();
+
+
+	if( _found ){
+		int _space_pos = 0;
+		// we will first remove the variable name
+		_line_string = _line_string.substr( _line_string.find(";;") + 2, _line_string.size() );
+
+		// find every space. Cut out and store part before it. Rinse and repeat till
+		//	 no more space
+		while(_space_pos != -1){
+			_space_pos = _line_string.find(";;");
+			_output.push_back( _line_string.substr( 0, _space_pos ) );
+			std::cout << _line_string.substr( 0, _space_pos ) << "\n";
+			_line_string = _line_string.substr( _space_pos + 2, _line_string.size() );
+		}
+	}
+
+	return _output;
 }

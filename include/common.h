@@ -8,6 +8,7 @@ extern int WINDOW_HEIGHT;
 #include <sstream>
 #include <functional>
 #include <chrono>
+#include <vector>
 
 #define VAR_INDICATOR "$"
 
@@ -118,7 +119,9 @@ public:
 	// the basic structure will be:
 	//	variablle_name	val
 	//	where val can be a string, int, bool or array.
-	static void				var_to_file			( std::string _path, std::string _var_name, std::string var_value );
+	static void				var_to_file				( std::string _path, std::string _var_name, std::string var_value );
+	static void				var_to_file				( std::string _path, std::string _var_name, std::vector<std::string> var_values );
+	static std::vector<std::string> var_from_file	( std::string _path, std::string _var_name );
 };
 
 

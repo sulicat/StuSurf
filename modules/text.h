@@ -39,7 +39,6 @@ public:
 			// do something.... we are inside the objects space
 			if( _state == 0 ){
 				std::cout << path_data << "\n";
-				Common::var_to_file( path_data, "test1", "NoneAgain" );
 			}
 		}
 	}
