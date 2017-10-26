@@ -104,5 +104,7 @@ void TextField::render(){
 	// render contents
 	Common::render_string( x, y + height * 1.05, height * 0.5, title );
 	Common::render_string( x, y + height * 0.35, height * 0.5, content );
+
+	glLineWidth(2);
 }
 

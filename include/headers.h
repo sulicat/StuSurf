@@ -5,6 +5,7 @@
 #include "../modules/test_module_2.h"
 #include "../modules/test_module_3.h"
 #include "../modules/text.h"
+#include "../modules/text_bold.h"
 #include "../modules/text_spinning.h"
 
 #endif

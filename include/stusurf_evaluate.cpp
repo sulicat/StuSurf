@@ -95,4 +95,5 @@ void Stusurf::evaluate_screen(){
 	}
 
 	file_stream_screen.close();
+	reshape();
 }

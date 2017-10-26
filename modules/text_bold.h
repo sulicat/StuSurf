@@ -1,7 +1,7 @@
 #include "../include/common.h"
 #include <GL/glut.h>
 
-class text_spinning : public Base{
+class text_bold : public Base{
 public:
 	int 	x_full;
 	int 	y_full;
@@ -23,9 +23,8 @@ public:
 	int			current_selected;
 	TextField 	input_field;
 	bool		is_being_edited;
-	float		angle;
 
-	text_spinning( ){
+	text_bold( ){
 		// this module will have 2 vars in a file.
 		// the first registers whether or not it has been set.
 		// the second stores the content.
@@ -45,7 +44,6 @@ public:
 		input_field.set_pos( x_full, y_full - height_full*0.5 );
 		input_field.set_size( width_full * 2, height_full * 0.5 );
 		is_being_edited = false;
-		angle = 0;
 	}
 
 	void reshape(){
@@ -70,15 +68,11 @@ public:
 	}
 
 	void render(){
-		glPushMatrix();
-		glTranslatef( x + width, y + height/2, 0 );
-		glRotatef( angle, 1, 0, 0 );
+		glLineWidth( 4 );
 		glColor3f( RED_CHOICE[current_selected], GREEN_CHOICE[current_selected], BLUE_CHOICE[current_selected] );
 		Common::render_string( x, y + height*0.3, height * 0.5, content );
+		glLineWidth( 1 );
 		if( is_being_edited ) input_field.render();
-		glPopMatrix();
-
-		angle += 0.5;
 	}
 
 	void mouse_press( int _button, int _state, int _x, int _y ){

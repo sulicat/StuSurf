@@ -66,6 +66,23 @@ _output = new test_module_3;
 ((test_module_3 *)_output)->get_path_data = [_path_data](){return _path_data;};
 ((test_module_3 *)_output)->get_type_name = [_type](){return _type;};
 }
+else if( _type == "text_bold" ){
+_output = new text_bold;
+((text_bold *)_output)->ID = _ID;
+((text_bold *)_output)->x_full = _x;
+((text_bold *)_output)->y_full = _y;
+((text_bold *)_output)->x = (2*(float)_x / WINDOW_WIDTH) - 1;
+((text_bold *)_output)->y = (2*(float)_y / WINDOW_HEIGHT) - 1;
+((text_bold *)_output)->width_full = _width;
+((text_bold *)_output)->height_full = _height;
+((text_bold *)_output)->width = (2*(float)_width / WINDOW_WIDTH);
+((text_bold *)_output)->height = (2*(float)_height / WINDOW_HEIGHT);
+((text_bold *)_output)->path_data = _path_data;
+((text_bold *)_output)->type_name = _type;
+((text_bold *)_output)->get_ID = [_ID](){return _ID;};
+((text_bold *)_output)->get_path_data = [_path_data](){return _path_data;};
+((text_bold *)_output)->get_type_name = [_type](){return _type;};
+}
 else if( _type == "text" ){
 _output = new text;
 ((text *)_output)->ID = _ID;
