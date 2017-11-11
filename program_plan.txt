@@ -1,0 +1,44 @@
+Purpose:
+	The program will allow me to create addons within it so that I can have 1 big program that is modular and contains Engineering programs I create
+	It will be written in a way that allows new modules to be added simply and they get access to major functionality within the program
+
+Basic Design
+	2 Modes:
+		- use mode
+		- edit mode
+
+	In edit mode, the user can create "screens".
+		- when a user creates a screen, he will enter basic info about it
+		- they the user can add "modules" to the screen
+			- modules are programs that are written for stusurf. Kindof like plugins
+			- the user can link multiple "modules" together if it is offered.
+			- Different modules have seperate and unique uses and functionalites.
+
+	In use mode, the user can actually use the screens created
+		- The user can switch from screen to screen ( only 1 screen redered at a time )
+		- The different screens have been decided when the user created them in edit mode
+		- the user can use the multitude of modules within each screen
+		- the user can quickly switch focus between the multiple modules in the screen.
+
+____________________________________________________________________________________________________________________________________
+Parts structure:
+
+	- file format that stores program state/info/screen_data/module_data
+		- everything stored in text files as string ( JSON or XML )
+
+Modules:
+	- they will have an input and an output
+	- modules can request inputs from other modules
+	- modules can also request input from the input handler ( mouse\keyboard )
+	- every module will have a render method
+	- modules also have access to common program functions
+____________________________________________________________________________________________________________________________________
+
+components needed:
+	mother board
+	window handler
+	input handler
+	storage handler
+	..
+	..
+	..
