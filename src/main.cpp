@@ -1,57 +1,11 @@
-#include "../include/common.h"
-#include "../modules/TextModule.h"
+#include "../include/headers.h"
 
 // create the render window.
-int WINDOW_WIDTH 	= 	1200;
-int WINDOW_HEIGHT 	= 	1000;
-sf::RenderWindow 		window( sf::VideoMode( WINDOW_WIDTH, WINDOW_HEIGHT ), "Stusurf" );
+int WINDOW_WIDTH 			= 	1200;
+int WINDOW_HEIGHT 			= 	1000;
+enum PROGRAM_STATE State	=	USE;
+sf::RenderWindow 			window( sf::VideoMode( WINDOW_WIDTH, WINDOW_HEIGHT ), "Stusurf" );
 
-
-
-class PinkModule : public ModuleBase{
-public:
-	// standard
-	int	 	x;
-	int		y;
-	int 	width;
-	int 	height;
-	bool 	isFocused;
-	// non standard
-	sf::RectangleShape rect1;
-	sf::Color c;
-
-	PinkModule( int _x, int _y, int _w, int _h  ){
-		x = _x;
-		y = _y;
-		width = _w;
-		height = _h;
-		isFocused = false;
-
-		// non standard
-		rect1 = sf::RectangleShape( sf::Vector2f(width, height) );
-		rect1.setPosition( x, y );
-		c = sf::Color( 255, 0, 255 );
-		rect1.setFillColor( c );
-
-	}
-
-	void onKeyDown(){
-
-	}
-
-	void onKeyUp(){
-
-	}
-
-	void onMouseMovePassive( int _x, int _y ){
-
-	}
-
-	void render(){
-		window.draw( rect1 );
-	}
-
-};
 
 
 /* ********************************************************************************** */
@@ -60,36 +14,73 @@ int main( int argc, char * * argv ){
 	TextModule testModule = TextModule( 0, 0, 100, 100 );
 	PinkModule testPink = PinkModule( 200, 200, 100, 200 );
 
-	std::vector< std::unique_ptr< ModuleBase >  > list;
-	list.push_back( std::unique_ptr<ModuleBase> ( new TextModule( 100, 100, 100, 100 ) ) );
-	list.push_back( std::unique_ptr<ModuleBase> ( new PinkModule( 300, 300, 100, 100 ) ) );
+	std::vector< std::unique_ptr< ModuleBase >  > current_screen;
+	current_screen.push_back( std::unique_ptr<ModuleBase> ( new TextModule( 100, 100, 100, 100 ) ) );
+	current_screen.push_back( std::unique_ptr<ModuleBase> ( new PinkModule( 300, 300, 100, 100 ) ) );
 
 
 	sf::Event event;
 	while( window.isOpen() ){
 
 		while( window.pollEvent( event ) ){
-			if( event.type == sf::Event::Closed ){
+			switch( event.type ){
+
+			case sf::Event::Closed:			// close the window
 				window.close();
 				return 0;
+				break;
+
+			case sf::Event::KeyPressed:		// key pressed
+				// we will give every module in the crurrent screen the keyboard command.
+				for( int i = 0; i < current_screen.size(); i++ ){
+					current_screen[i]->onKeyDown( event.key.code );
+				}
+				break;
+
+			case sf::Event::KeyReleased:	// key released
+				// we will give every module in the crurrent screen the keyboard command.
+				for( int i = 0; i < current_screen.size(); i++ ){
+					current_screen[i]->onKeyUp( event.key.code );
+				}
+				break;
+
+			case sf::Event::MouseMoved:		// mouse move
+				// we will give every module in the crurrent screen the keyboard command.
+				for( int i = 0; i < current_screen.size(); i++ ){
+					current_screen[i]->onMouseMove( event.mouseMove.x, event.mouseMove.y );
+				}
+				break;
+
+			case sf::Event::MouseButtonPressed:		// mouse press
+				// we will give every module in the crurrent screen the keyboard command.
+				for( int i = 0; i < current_screen.size(); i++ ){
+					current_screen[i]->onMouseDown( event.mouseButton.button, event.mouseButton.x, event.mouseButton.y );
+				}
+				break;
+
+			case sf::Event::MouseButtonReleased:		// mouse press
+				// we will give every module in the crurrent screen the keyboard command.
+				for( int i = 0; i < current_screen.size(); i++ ){
+					current_screen[i]->onMouseUp( event.mouseButton.button, event.mouseButton.x, event.mouseButton.y );
+				}
+				break;
+
+			default:
+				break;
 			}
 		}
 
 		// render
 		window.clear();
-		//testModule.render();
-		//testPink.render();
-		for( int i = 0; i < list.size(); i++ ){
-			list[i]->render();
+		for( int i = 0; i < current_screen.size(); i++ ){
+			current_screen[i]->render();
 		}
-		
 		window.display();
+
+
+
+
 	}
-
-
-
-
-
 
 	return 0;
 }

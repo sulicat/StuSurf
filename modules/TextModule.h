@@ -25,22 +25,27 @@ public:
 		rect2.setPosition( x + width/2, y + height/2 );
 	}
 
-	void testPrint(  ){ std::cout << "hello \n"; }
-
-	void onKeyDown(){
-
+	void onKeyDown( int _code ){
+		//std::cout << "down: " << _code << "\n";
 	}
 
-	void onKeyUp(){
-
+	void onKeyUp( int _code ){
+		//std::cout << "up: " << _code << "\n";
 	}
 
-	void onMouseMovePassive( int _x, int _y ){
+	void onMouseMove( int _x, int _y ){
+		//std::cout << "\n\n" << _x << " " << _y << "\n";
+	}
 
+	void onMouseDown( int _button, int _x, int _y ){
+		//std::cout << _button << " " << _x << " " << _y << "\n";
+	}
+
+	void onMouseUp(int _button, int _x, int _y ){
+		//std::cout << _button << " " << _x << " " << _y << "\n";
 	}
 
 	void render(){
-		testPrint();
 		window.draw( rect1 );
 		window.draw( rect2 );
 	}
