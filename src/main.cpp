@@ -11,7 +11,7 @@ sf::RenderWindow 			window( sf::VideoMode( WINDOW_WIDTH, WINDOW_HEIGHT ), "Stusu
 // input buffer
 std::vector<int>			input_buffer;
 // menus that are recieving input
-std::vector< std::unique_ptr<Menu> >	list_enabled_menus;
+std::vector< Menu* >	list_enabled_menus;
 // colors
 sf::Color COLOR_PRIMARY 			= sf::Color( 100,  58,   22 );
 sf::Color COLOR_PRIMARY_DARK 		= sf::Color( 77,   35,   0 );
@@ -59,7 +59,14 @@ int main( int argc, char * * argv ){
 					break;
 
 				default:
-					mother.input( event );
+					if( list_enabled_menus.size() > 0 ){
+						for( int i = 0; i < list_enabled_menus.size(); i++ ){
+							list_enabled_menus[i]->event( event );
+						}
+					}else{
+						mother.input( event );
+					}
+
 					break;
 			}
 		}
@@ -67,6 +74,9 @@ int main( int argc, char * * argv ){
 		// render
 		window.clear();
 		mother.render();
+		for( int i = 0; i < list_enabled_menus.size(); i++ ){
+			list_enabled_menus[i]->render();
+		}
 		window.display();
 
 	}

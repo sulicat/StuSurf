@@ -19,6 +19,7 @@ void MenuItem::origin(){
 	label_text.setFont( MAIN_FONT );
 	label_text.setCharacterSize( 20 );
 	label_text.setPosition( 100, 100 );
+	label_text.setColor( COLOR_BLACK );
 }
 
 
@@ -106,8 +107,8 @@ void Menu::origin(){
 	scroll		= 0;
 	number_of_items_visible = 10;
 	height_per_item = height / number_of_items_visible;
+	selected_index 	= 0;
 	update_positions();
-	selected_index = 0;
 }
 
 Menu::Menu( ){
@@ -143,9 +144,14 @@ void Menu::add( MenuItem _a ){
 	update_positions();
 }
 
-
 void Menu::update_positions(){
 	// scroll through the elements starting at the current scroll value.
+	if( selected_index >= 7 ){
+		scroll = selected_index - 7;
+	}else{
+		scroll = 0;
+	}
+
 	int j = 0;
 	for( int i = scroll; i < contents.size(); i++ ){
 		contents[i].select( false );
@@ -156,5 +162,52 @@ void Menu::update_positions(){
 
 	if( selected_index < contents.size() && selected_index >= 0 ){
 		contents[ selected_index ].select( true );
+	}
+}
+
+void Menu::event( sf::Event e ){
+	switch( e.type ){
+		case sf::Event::KeyPressed:
+			if( e.key.code == sf::Keyboard::Up ){
+				if( selected_index > 0 )
+					selected_index -= 1;
+
+			}else if( e.key.code == sf::Keyboard::Down ){
+				if( selected_index < contents.size() - 1 )
+					selected_index += 1;
+
+			}else if( e.key.code == sf::Keyboard::Left ){
+
+			}else if( e.key.code == sf::Keyboard::Right ){
+
+			}else if( e.key.code == sf::Keyboard::Escape ){
+				this->disable();
+
+			}else if( e.key.code >= 0 && e.key.code < 26 ){
+				std::cout << e.key.code << "\n";
+			}
+
+			update_positions();
+			break;
+
+		default:
+			break;
+	}
+}
+
+void Menu::enable(){
+	for( int i = 0; i < list_enabled_menus.size(); i++ ){
+		if( list_enabled_menus[i] == this ){
+			list_enabled_menus.erase( list_enabled_menus.begin() + i );
+		}
+	}
+	list_enabled_menus.push_back( this );
+}
+
+void Menu::disable(){
+	for( int i = 0; i < list_enabled_menus.size(); i++ ){
+		if( list_enabled_menus[i] == this ){
+			list_enabled_menus.erase( list_enabled_menus.begin() + i );
+		}
 	}
 }

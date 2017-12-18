@@ -22,11 +22,23 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	command_escape = KeyBind( "this is what happens when the escape key is pressed" );
 	command_escape.add_command( sf::Keyboard::Escape );
 
-	testMenu = Menu( "test menu" );
-	testMenu.set_position( 10, 10 );
-	testMenu.add( MenuItem("hello worlf") );
-	testMenu.add( MenuItem("test1") );
-	testMenu.add( MenuItem("test2") );
+	menu_screens = Menu( "Screens" );
+	menu_screens.set_position( 10, 10 );
+	menu_screens.add( MenuItem("hello worlf") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test2") );
 
 }
 
@@ -43,7 +55,6 @@ void ScreenManager::render(){
 		std::cout << "commands\n";
 
 	}else if( state == SCREEN_CHANGE ){
-		testMenu.render();
 
 	}else{
 
@@ -61,12 +72,15 @@ void ScreenManager::input( sf::Event _event ){
 			// handle special inputs
 			if( command_execute.isTriggered( input_buffer ) ){
 				state = COMMAND;
+				menu_screens.disable();
 
 			}else if( command_screen_change.isTriggered( input_buffer ) ){
 				state = SCREEN_CHANGE;
+				menu_screens.enable();
 
 			}else if( command_escape.isTriggered( input_buffer ) ){
 				state = USE;
+				menu_screens.disable();
 			}
 
 			// we will give every module in the crurrent screen the keyboard command.
@@ -114,11 +128,6 @@ void ScreenManager::input( sf::Event _event ){
 		default:
 			break;
 	}
-
-
-	for( int i = 0; i < input_buffer.size(); i++ ){
-		//std::cout << input_buffer[i] << " ";
-	}std::cout << "\n";
 
 }
 

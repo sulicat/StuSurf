@@ -34,7 +34,7 @@ class Menu;
 class MenuItem;
 
 extern std::vector<int>							input_buffer;
-extern std::vector< std::unique_ptr<Menu> >		list_enabled_menus;
+extern std::vector< Menu* >						list_enabled_menus;
 
 enum PROGRAM_STATE{
 	EDIT,
@@ -132,8 +132,8 @@ class Menu{
  private:
 	void update_positions	();
 	void origin				();
-	int							number_of_items_visible;
-	float						height_per_item;
+	int						number_of_items_visible;
+	float					height_per_item;
 
  public:
 	std::vector<MenuItem>				contents;
@@ -158,7 +158,10 @@ class Menu{
 	void add			( MenuItem _add );
 	void set_position	( int _x, int _y );
 	void set_size		( int _w, int _h );
+	void event			(sf::Event e);
 	void render			();
+	void enable			();
+	void disable		();
 };
 
 

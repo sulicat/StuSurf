@@ -11,7 +11,7 @@ class ScreenManager{
 	KeyBind										command_screen_change;
 	KeyBind										command_escape;
 
-	Menu										testMenu;
+	Menu										menu_screens;
 
 	ScreenManager	( std::string _topDir );
 	void add		( ModuleBase * _item );
