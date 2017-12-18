@@ -270,7 +270,7 @@ class ImageTexture{
 	float height;
 	float x;
 	float y;
-	GLuint tex;
+	//	GLuint tex;
 
 	ImageTexture();
 	bool		load();

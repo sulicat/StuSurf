@@ -1,0 +1,6 @@
+// lines staring like this are ignored.
+//	structure is as follows
+//	variable  value
+
+top_dir  /home/suli/stusurf
+open_in_fullscreen  False
