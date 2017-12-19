@@ -210,4 +210,5 @@ void Menu::disable(){
 			list_enabled_menus.erase( list_enabled_menus.begin() + i );
 		}
 	}
+	input_buffer.clear();
 }

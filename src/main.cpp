@@ -9,7 +9,7 @@ int WINDOW_HEIGHT 			= 	1000;
 enum PROGRAM_STATE State	=	USE;
 sf::RenderWindow 			window( sf::VideoMode( WINDOW_WIDTH, WINDOW_HEIGHT ), "Stusurf" );
 // input buffer
-std::vector<int>			input_buffer;
+std::vector<int>		input_buffer;
 // menus that are recieving input
 std::vector< Menu* >	list_enabled_menus;
 // colors
@@ -32,7 +32,7 @@ sf::Font MAIN_FONT;
 
 
 // will handle controlled input and hold a list of modules.
-ScreenManager mother 		= ScreenManager( "/home/suli/stusurf" );
+ScreenManager screenManager 		= ScreenManager( "/home/suli/stusurf" );
 
 /* ********************************************************************************** */
 int main( int argc, char * * argv ){
@@ -43,9 +43,9 @@ int main( int argc, char * * argv ){
 
 	window.setKeyRepeatEnabled( KEY_REPEAT );
 
-	//	mother.add( new TextModule( 100, 100, 100, 100 ) );
-	//	mother.add( new PinkModule( 300, 300, 100, 100 ) );
-	mother.add( new MultiMeter1( 100, 100, 500, 500 ) );
+	//	screenManager.add( new TextModule( 100, 100, 100, 100 ) );
+	//	screenManager.add( new PinkModule( 300, 300, 100, 100 ) );
+	screenManager.add( new MultiMeter1( 100, 100, 500, 500 ) );
 
 	sf::Event event;
 	while( window.isOpen() ){
@@ -64,7 +64,7 @@ int main( int argc, char * * argv ){
 							list_enabled_menus[i]->event( event );
 						}
 					}else{
-						mother.input( event );
+						screenManager.input( event );
 					}
 
 					break;
@@ -73,7 +73,7 @@ int main( int argc, char * * argv ){
 
 		// render
 		window.clear();
-		mother.render();
+		screenManager.render();
 		for( int i = 0; i < list_enabled_menus.size(); i++ ){
 			list_enabled_menus[i]->render();
 		}
