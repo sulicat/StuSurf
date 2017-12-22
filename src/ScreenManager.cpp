@@ -1,5 +1,16 @@
 #include "../include/ScreenManager.h"
 #include "../include/common.h"
+#include "../include/Managers.h"
+
+void temp_print1( void* _a ){
+	std::cout << "hello world 1111 \n";
+	std::cout << _a << "\n";
+}
+
+void temp_print2( void* _a ){
+	std::cout << "hello world 22222 \n";
+	std::cout << _a << "\n";
+}
 
 ScreenManager::ScreenManager( std::string _topDir ){
 	// when a ScreenManager is created with a certain top dir,
@@ -22,10 +33,19 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	command_escape = KeyBind( "this is what happens when the escape key is pressed" );
 	command_escape.add_command( sf::Keyboard::Escape );
 
+
+	command_test1 = KeyBind( "This is the command that allows you to switch between different screens" );
+	command_test1.add_command( sf::Keyboard::LControl );
+	command_test1.add_command( sf::Keyboard::D );
+
+
 	menu_screens = Menu( "Screens" );
 	menu_screens.set_position( 10, 10 );
+	menu_screens.set_size( 300, 400 );
 	menu_screens.add( MenuItem("hello worlf") );
-	menu_screens.add( MenuItem("test1") );
+	menu_screens.add( MenuItem("test1", temp_print1) );
+	menu_screens.add( MenuItem("test2", temp_print2) );
+	menu_screens.add( MenuItem("test1", temp_print1, &menu_test1) );
 	menu_screens.add( MenuItem("test2") );
 	menu_screens.add( MenuItem("test1") );
 	menu_screens.add( MenuItem("test2") );
@@ -37,8 +57,37 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_screens.add( MenuItem("test2") );
 	menu_screens.add( MenuItem("test1") );
 	menu_screens.add( MenuItem("test2") );
-	menu_screens.add( MenuItem("test1") );
-	menu_screens.add( MenuItem("test2") );
+
+	menu_test1 = Menu( "test1" );
+	menu_test1.set_position( 200, 10 );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf", temp_print1, &menu_test2) );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+	menu_test1.add( MenuItem("hello worlf") );
+	menu_test1.add( MenuItem("test1") );
+
+
+	menu_test2 = Menu( "test1" );
+	menu_test2.set_position( 400, 10 );
+	menu_test2.add( MenuItem("bbbbb") );
+	menu_test2.add( MenuItem("aaaa") );
+	menu_test2.add( MenuItem("bbbbb") );
+	menu_test2.add( MenuItem("aaaa") );
+	menu_test2.add( MenuItem("bbbbb") );
+	menu_test2.add( MenuItem("aaaa") );
 
 }
 
@@ -81,6 +130,9 @@ void ScreenManager::input( sf::Event _event ){
 			}else if( command_escape.isTriggered( input_buffer ) ){
 				state = USE;
 				menu_screens.disable();
+
+			}else if( command_test1.isTriggered( input_buffer ) ){
+				menu_test1.enable();
 			}
 
 			// we will give every module in the crurrent screen the keyboard command.

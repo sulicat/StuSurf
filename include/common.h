@@ -10,6 +10,10 @@
 #include <iostream>
 #include <memory>
 
+class Menu;
+class MenuItem;
+
+
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
 extern sf::RenderWindow window;
@@ -27,20 +31,26 @@ extern sf::Color COLOR_SECONDARY_1_DARK;
 extern sf::Color COLOR_SECONDARY_2_DARK;
 extern sf::Color COLOR_WHITE;
 extern sf::Color COLOR_BLACK;
+extern sf::Color COLOR_GREY;
 
 extern sf::Font MAIN_FONT;
 
-class Menu;
-class MenuItem;
+extern sf::Texture ICON_FOLDER;
 
 extern std::vector<int>							input_buffer;
-extern std::vector< Menu* >						list_enabled_menus;
+
 
 enum PROGRAM_STATE{
 	EDIT,
 	USE,
 	COMMAND,
 	SCREEN_CHANGE
+};
+
+enum MENU_ITEM_TYPE{
+	OPEN_MENU,
+	TRIGGER_FUNCTION,
+	NOTHING
 };
 
 
@@ -95,75 +105,90 @@ class KeyBind{
 };
 
 
+
 class MenuItem{
  private:
 	void	origin();
 	void	update();
 
  public:
-	std::function<void(std::string)>			trigger;
-	std::string									label;
-	std::string									caption;
+	std::function<void(void*)>		trigger;
+	std::string						label;
+	std::string						caption;
 	int						x;
 	int 					y;
 	float					width;
 	float					height;
 	bool					selected;
+	enum MENU_ITEM_TYPE		type;
+	void*					data;
+	Menu*					open_menu;
 	// visuals
 	sf::RectangleShape		backdrop;
 	sf::Font				_font;
 	sf::Text				label_text;
+	sf::Sprite				icon_folder;
 
-	MenuItem( );
-	MenuItem( std::string _title );
-
+	MenuItem		( );
+	MenuItem		( std::string _title );
+	MenuItem		( std::string _title, std::function <void(void*)> _func );
+	MenuItem		( std::string _title, std::function <void(void*)> _func, Menu* _m );
 	void setLabel			( std::string _label );
 	void setCaption			( std::string _caption );
-	void setTrigger			( std::function< void(std::string)> _func );
+	void setTrigger			( std::function <void(void*)> _func );
+	void setTrigger			( std::function <void(void*)> _func, Menu * _m );
+	void setData			( void * _a);
 	void set_position		( float _x, float _y );
 	void set_size			( float _w, float _h );
 	void select				( bool _b );
+	void call				();
 	void render();
-
 };
 
 
 class Menu{
  private:
-	void update_positions	();
-	void origin				();
 	int						number_of_items_visible;
 	float					height_per_item;
+	void origin				();
+	void update_positions	();
+	void update_displays	();
+	void update_search		();
 
  public:
+	std::vector<MenuItem>				contents_full;
 	std::vector<MenuItem>				contents;
 	std::vector<MenuItem>				contents_shown;
 	std::string							title;
 	std::string							caption;
+	std::string							search_term;
 	int									x;
 	int 								y;
 	int 								width;
 	int 								height;
 	int 								scroll;
 	int 								selected_index;
-
 	bool								selected;
 	bool								active;
 	// look and feel
 	sf::RectangleShape 					backdrop;
+	sf::RectangleShape					hide_foreground;
+	sf::Text							label_title;
+	sf::Text							label_search;
 
 	Menu();
 	Menu( std::string _t );
-
 	void add			( MenuItem _add );
 	void set_position	( int _x, int _y );
 	void set_size		( int _w, int _h );
 	void event			(sf::Event e);
-	void render			();
 	void enable			();
 	void disable		();
+	void hide			();
+	void unhide			();
+	void render			();
+	void render_hidden	( int _x, int _y, int _w, int _h );
 };
-
 
 
 #endif

@@ -1,5 +1,7 @@
 #include "../include/headers.h"
+#include "../include/common.h"
 #include "../include/ScreenManager.h"
+#include "../include/GuiManager.h"
 
 #define KEY_REPEAT false
 
@@ -10,8 +12,6 @@ enum PROGRAM_STATE State	=	USE;
 sf::RenderWindow 			window( sf::VideoMode( WINDOW_WIDTH, WINDOW_HEIGHT ), "Stusurf" );
 // input buffer
 std::vector<int>		input_buffer;
-// menus that are recieving input
-std::vector< Menu* >	list_enabled_menus;
 // colors
 sf::Color COLOR_PRIMARY 			= sf::Color( 100,  58,   22 );
 sf::Color COLOR_PRIMARY_DARK 		= sf::Color( 77,   35,   0 );
@@ -27,12 +27,17 @@ sf::Color COLOR_SECONDARY_2_PALE 	= sf::Color( 83,   214,  92 );
 sf::Color COLOR_SECONDARY_2_DARK 	= sf::Color( 0,	   155,  10 );
 sf::Color COLOR_WHITE				= sf::Color( 255,  255,  255 );
 sf::Color COLOR_BLACK				= sf::Color( 0,    0,    0 );
+sf::Color COLOR_GREY				= sf::Color( 100,  100,  100 );
+// textures
+sf::Texture	ICON_FOLDER;
 // fonts
-sf::Font MAIN_FONT;
+sf::Font 	MAIN_FONT;
 
 
 // will handle controlled input and hold a list of modules.
 ScreenManager screenManager 		= ScreenManager( "/home/suli/stusurf" );
+// will handle Gui elements.
+GuiManager guiManager 				= GuiManager();
 
 /* ********************************************************************************** */
 int main( int argc, char * * argv ){
@@ -40,11 +45,13 @@ int main( int argc, char * * argv ){
  	if (!MAIN_FONT.loadFromFile("fonts/calibri.ttf")){
 		std::cout << "FONT WAS NOT ABLE TO LOAD\n";
 	}
+	// load the images
+	ICON_FOLDER.loadFromFile( "images/icon_folder.png");
 
 	window.setKeyRepeatEnabled( KEY_REPEAT );
 
-	//	screenManager.add( new TextModule( 100, 100, 100, 100 ) );
-	//	screenManager.add( new PinkModule( 300, 300, 100, 100 ) );
+	//screenManager.add( new TextModule( 100, 100, 100, 100 ) );
+	//screenManager.add( new PinkModule( 300, 300, 100, 100 ) );
 	screenManager.add( new MultiMeter1( 100, 100, 500, 500 ) );
 
 	sf::Event event;
@@ -59,10 +66,8 @@ int main( int argc, char * * argv ){
 					break;
 
 				default:
-					if( list_enabled_menus.size() > 0 ){
-						for( int i = 0; i < list_enabled_menus.size(); i++ ){
-							list_enabled_menus[i]->event( event );
-						}
+					if( guiManager.is_intercepting_input() ){
+						guiManager.input( event );
 					}else{
 						screenManager.input( event );
 					}
@@ -74,9 +79,7 @@ int main( int argc, char * * argv ){
 		// render
 		window.clear();
 		screenManager.render();
-		for( int i = 0; i < list_enabled_menus.size(); i++ ){
-			list_enabled_menus[i]->render();
-		}
+		guiManager.render();
 		window.display();
 
 	}
