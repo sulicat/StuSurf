@@ -145,7 +145,7 @@ void Menu::origin(){
 	title = "un-named";
 	search_term = "";
 	x = 100;
-	y = 100;
+		y = 100;
 	width = 200;
 	height = 300;
 
@@ -238,6 +238,13 @@ void Menu::update_search(){
 		contents = contents_full;
 	}else{
 		contents.clear();
+		for( int i = 0; i < contents_full.size(); i++){
+			if(  contents_full[i].label.size() >= search_term.size()
+				 && common::toLower(contents_full[i].label.substr(0, search_term.size())) == search_term ){
+				contents.push_back( contents_full[i] );
+			}
+		}
+
 	}
 }
 
@@ -282,37 +289,63 @@ void Menu::update_positions(){
 void Menu::event( sf::Event e ){
 	switch( e.type ){
 		case sf::Event::KeyPressed:
+			// ARROW UP
 			if( e.key.code == sf::Keyboard::Up ){
 				if( selected_index > 0 )
 					selected_index -= 1;
 
+			// ARROW DOWN
 			}else if( e.key.code == sf::Keyboard::Down ){
 				if( selected_index < contents.size() - 1 )
 					selected_index += 1;
 
+			// ARROW LEFT
 			}else if( e.key.code == sf::Keyboard::Left ){
 
+			// ARROW RIGHT
 			}else if( e.key.code == sf::Keyboard::Right ){
 				if( contents.size() > 0 && selected_index < contents.size() && contents[ selected_index ].type == OPEN_MENU ){
-					contents[ selected_index ].call();
 					this->hide();
+					contents[ selected_index ].call();
 				}
 
-
+			//ESCAPE
 			}else if( e.key.code == sf::Keyboard::Escape ){
 				guiManager.clear();
+				search_term.erase();
 
-			}else if( e.key.code >= 0 && e.key.code < 26 ){
-				search_term += (char)(e.key.code + 65);
+			// ALPHABETS
+			}else if( e.key.code >= sf::Keyboard::A && e.key.code <= sf::Keyboard::Z ){
+				search_term += (char)(e.key.code - sf::Keyboard::A + 'a');
 
+			// NUMBERS 0 - 9
+			}else if( e.key.code >= sf::Keyboard::Num0 && e.key.code <= sf::Keyboard::Num9 ){
+				search_term += (char)(e.key.code - sf::Keyboard::Num0 + '0');
+
+			// NUMPAD 0 - 9
+			}else if( e.key.code >= sf::Keyboard::Numpad0 && e.key.code <= sf::Keyboard::Numpad9 ){
+				search_term += (char)( e.key.code - sf::Keyboard::Numpad0 + '0');
+
+			// SPACE
 			}else if( e.key.code == sf::Keyboard::Space ){
 				search_term += " ";
 
+			// BACKSPACE
 			}else if( e.key.code == sf::Keyboard::BackSpace ){
 				if( search_term.length() > 0 ){
 					search_term.pop_back();
 				}else{
 					guiManager.reverse_menu();
+				}
+
+			// ENTER
+			}else if( e.key.code == sf::Keyboard::Return ){
+				if( contents.size() > 0 && selected_index < contents.size() && contents[ selected_index ].type == OPEN_MENU ){
+					this->hide();
+					contents[ selected_index ].call();
+				}else if( contents[ selected_index ].type != NOTHING ){
+					contents[ selected_index ].call();
+					this->disable();
 				}
 			}
 

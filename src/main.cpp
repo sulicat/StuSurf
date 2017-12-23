@@ -8,7 +8,11 @@
 // create the render window.
 int WINDOW_WIDTH 			= 	1200;
 int WINDOW_HEIGHT 			= 	1000;
+int MENU_WIDTH				=	300;
+int MENU_HEIGHT				=	400;
+// program states
 enum PROGRAM_STATE State	=	USE;
+// main window
 sf::RenderWindow 			window( sf::VideoMode( WINDOW_WIDTH, WINDOW_HEIGHT ), "Stusurf" );
 // input buffer
 std::vector<int>		input_buffer;

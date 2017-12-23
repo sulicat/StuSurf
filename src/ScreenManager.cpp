@@ -40,26 +40,23 @@ ScreenManager::ScreenManager( std::string _topDir ){
 
 
 	menu_screens = Menu( "Screens" );
-	menu_screens.set_position( 10, 10 );
-	menu_screens.set_size( 300, 400 );
 	menu_screens.add( MenuItem("hello worlf") );
 	menu_screens.add( MenuItem("test1", temp_print1) );
 	menu_screens.add( MenuItem("test2", temp_print2) );
-	menu_screens.add( MenuItem("test1", temp_print1, &menu_test1) );
-	menu_screens.add( MenuItem("test2") );
-	menu_screens.add( MenuItem("test1") );
-	menu_screens.add( MenuItem("test2") );
-	menu_screens.add( MenuItem("test1") );
-	menu_screens.add( MenuItem("test2") );
-	menu_screens.add( MenuItem("test1") );
-	menu_screens.add( MenuItem("test2") );
-	menu_screens.add( MenuItem("test1") );
-	menu_screens.add( MenuItem("test2") );
-	menu_screens.add( MenuItem("test1") );
-	menu_screens.add( MenuItem("test2") );
+	menu_screens.add( MenuItem("test1a", temp_print1, &menu_test1) );
+	menu_screens.add( MenuItem("test2b") );
+	menu_screens.add( MenuItem("ABC") );
+	menu_screens.add( MenuItem("AC") );
+	menu_screens.add( MenuItem("AAA") );
+	menu_screens.add( MenuItem("AHE") );
+	menu_screens.add( MenuItem("BASD") );
+	menu_screens.add( MenuItem("test2h") );
+	menu_screens.add( MenuItem("test1i") );
+	menu_screens.add( MenuItem("test2abc") );
+	menu_screens.add( MenuItem("test1cb") );
+	menu_screens.add( MenuItem("test2ca") );
 
 	menu_test1 = Menu( "test1" );
-	menu_test1.set_position( 200, 10 );
 	menu_test1.add( MenuItem("hello worlf") );
 	menu_test1.add( MenuItem("test1") );
 	menu_test1.add( MenuItem("hello worlf", temp_print1, &menu_test2) );

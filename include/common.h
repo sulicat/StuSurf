@@ -8,6 +8,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string>
 #include <memory>
 
 class Menu;
@@ -16,6 +17,8 @@ class MenuItem;
 
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
+extern int MENU_WIDTH;
+extern int MENU_HEIGHT;
 extern sf::RenderWindow window;
 extern sf::Color COLOR_PRIMARY;
 extern sf::Color COLOR_SECONDARY_1;
@@ -53,6 +56,12 @@ enum MENU_ITEM_TYPE{
 	NOTHING
 };
 
+
+class common{
+ public:
+	static std::string 	toLower			( std::string in );
+	static std::string 	toUpper			( std::string in );
+};
 
 class ModuleBase{
 public:
