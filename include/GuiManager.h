@@ -18,8 +18,6 @@ class GuiManager{
 	void input						( sf::Event e );
 	void render						();
 	void reverse_menu				();
-
-	void testPrint();
 };
 
 #endif

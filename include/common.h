@@ -8,6 +8,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <memory>
 
@@ -57,10 +58,13 @@ enum MENU_ITEM_TYPE{
 };
 
 
+// class with the commonly used functions. Accessible to things within the program
 class common{
  public:
-	static std::string 	toLower			( std::string in );
-	static std::string 	toUpper			( std::string in );
+	static std::string 					toLower			( std::string in );
+	static std::string 					toUpper			( std::string in );
+	static std::vector<std::string>		files_in		( std::string _dir );
+	static std::vector<std::string>		folders_in		( std::string _dir );
 };
 
 class ModuleBase{
@@ -87,7 +91,6 @@ class KeyBind{
 	int 						x;
 	int							y;
 	std::function<void(void)>	trigger;
-
 
 	KeyBind( ){
 		description = "No description";

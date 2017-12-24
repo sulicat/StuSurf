@@ -92,8 +92,3 @@ void GuiManager::render(){
 		menus[i]->render();
 	}
 }
-
-void GuiManager::testPrint(  ){
-	std::cout << "hello world\n\n";
-
-}
