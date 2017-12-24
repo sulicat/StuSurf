@@ -65,6 +65,7 @@ class common{
 	static std::string 					toUpper			( std::string in );
 	static std::vector<std::string>		files_in		( std::string _dir );
 	static std::vector<std::string>		folders_in		( std::string _dir );
+	static Menu							menuFromDir		( std::sting _dir, std::function<void(void*)> _func );
 };
 
 class ModuleBase{
