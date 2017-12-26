@@ -25,7 +25,11 @@ Then you can add MenuItems to it. You have a few choices:
 
 `menu.add( MenuItem("Item Label", void(void*) callback) );`
 
+`menu.add( MenuItem("Item Label", void(void*) callback, void* callback_argument) );`
+
 `menu.add( MenuItem("item Label", void(void*) callback, &anotherMenu) );`
+
+`menu.add( MenuItem("item Label", void(void*) callback, void* callback_argument, &anotherMenu) );`
 
 The first option adds a menu item that does nothing. Just a label. The second option adds a menu item that will lauch a callback of type void(void* _a). The parameters can be set by declaring the MenuItem before-hand and just giving it in as an argument. The third type, you give it the memory adrress of another Menu object, allowing you to have submenus.
 

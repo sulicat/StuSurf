@@ -65,7 +65,7 @@ class common{
 	static std::string 					toUpper			( std::string in );
 	static std::vector<std::string>		files_in		( std::string _dir );
 	static std::vector<std::string>		folders_in		( std::string _dir );
-	static Menu							menuFromDir		( std::sting _dir, std::function<void(void*)> _func );
+	static Menu							menuFromDir		( std::string _dir, std::function<void(void*)> _func );
 };
 
 class ModuleBase{
@@ -145,7 +145,9 @@ class MenuItem{
 	MenuItem		( );
 	MenuItem		( std::string _title );
 	MenuItem		( std::string _title, std::function <void(void*)> _func );
+	MenuItem		( std::string _title, std::function <void(void*)> _func, void* _data );
 	MenuItem		( std::string _title, std::function <void(void*)> _func, Menu* _m );
+	MenuItem		( std::string _title, std::function <void(void*)> _func, void* _data, Menu* _m );
 	void setLabel			( std::string _label );
 	void setCaption			( std::string _caption );
 	void setTrigger			( std::function <void(void*)> _func );

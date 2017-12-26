@@ -39,17 +39,30 @@ MenuItem::MenuItem( std::string _t, std::function<void(void*)> _func ){
 	setTrigger( _func );
 }
 
+MenuItem::MenuItem( std::string _t, std::function<void(void*)> _func, void* _data ){
+	origin();
+	label = _t;
+	setTrigger( _func );
+	setData( _data );
+}
+
 MenuItem::MenuItem( std::string _t, std::function <void(void*)> _func, Menu* _m ){
 	origin();
 	label = _t;
 	setTrigger( _func, _m);
 }
 
+MenuItem::MenuItem( std::string _t, std::function <void(void*)> _func, void* _data, Menu* _m ){
+	origin();
+	label = _t;
+	setTrigger( _func, _m);
+	setData( _data );
+}
+
 void MenuItem::update(){
 	// bg
 	backdrop.setPosition( x, y);
 	backdrop.setSize( sf::Vector2f(width, height * 0.95) );
-
 	// label
 	label_text.setString( label );
 	label_text.setFont( MAIN_FONT );

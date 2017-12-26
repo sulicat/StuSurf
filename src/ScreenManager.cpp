@@ -2,15 +2,21 @@
 #include "../include/common.h"
 #include "../include/Managers.h"
 
+
+////////// TEST //////////
+std::string __test = "\n --- FUNCTION IS WORKING -- \n";
 void temp_print1( void* _a ){
 	std::cout << "hello world 1111 \n";
-	std::cout << _a << "\n";
+	std::cout << *((std::string*)_a) << "\n";
 }
 
 void temp_print2( void* _a ){
 	std::cout << "hello world 22222 \n";
 	std::cout << _a << "\n";
 }
+////////// END TEST //////////
+
+
 
 ScreenManager::ScreenManager( std::string _topDir ){
 	// when a ScreenManager is created with a certain top dir,
@@ -41,9 +47,10 @@ ScreenManager::ScreenManager( std::string _topDir ){
 
 	menu_screens = Menu( "Screens" );
 	menu_screens.add( MenuItem("hello worlf") );
-	menu_screens.add( MenuItem("test1", temp_print1) );
+	menu_screens.add( MenuItem("test1", temp_print1, &__test) );
 	menu_screens.add( MenuItem("test2", temp_print2) );
-	menu_screens.add( MenuItem("test1a", temp_print1, &menu_test1) );
+	menu_screens.add( MenuItem("test1a", temp_print2, &menu_test1) );
+	menu_screens.add( MenuItem("test1a", temp_print1, &__test,  &menu_test1) );
 	menu_screens.add( MenuItem("test2b") );
 	menu_screens.add( MenuItem("ABC") );
 	menu_screens.add( MenuItem("AC") );
@@ -59,7 +66,7 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_test1 = Menu( "test1" );
 	menu_test1.add( MenuItem("hello worlf") );
 	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf", temp_print1, &menu_test2) );
+	menu_test1.add( MenuItem("hello worlf", temp_print2, &menu_test2) );
 	menu_test1.add( MenuItem("test1") );
 	menu_test1.add( MenuItem("hello worlf") );
 	menu_test1.add( MenuItem("test1") );
