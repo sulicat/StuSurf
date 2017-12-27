@@ -32,7 +32,7 @@ void common::EMPTY(void*){
 std::vector<std::string> common::files_in( std::string _dir ){
 	std::vector<std::string> out;
 	// pipe the ls into cache
-	std::string command = "ls -1F data/" + _dir + " | grep -vE /$ > cache/temp_filelist";
+	std::string command = "ls -1F " + _dir + " | grep -vE /$ > cache/temp_filelist";
 	system( command.c_str() );
 
 	std::fstream file;
@@ -55,7 +55,7 @@ std::vector<std::string> common::files_in( std::string _dir ){
 std::vector<std::string> common::folders_in( std::string _dir ){
 	std::vector<std::string> out;
 	// pipe the ls into cache
-	std::string command = "ls -R -1 -d data/" + _dir + "*/ 2>/dev/null | xargs -n 1 2>/dev/null basename > cache/temp_filelist";
+	std::string command = "ls -R -1 -d " + _dir + "*/ 2>/dev/null | xargs -n 1 2>/dev/null basename > cache/temp_filelist";
 	system( command.c_str() );
 
 	std::fstream file;
@@ -95,6 +95,5 @@ Menu * common::menuFromDir( std::string _dir, std::function<void(void*)> _func )
 		*argument_files = _dir + *argument_files;
 		out->add( MenuItem( menu_list_files[i], _func, argument_files) );
 	}
-
 	return out;
 }

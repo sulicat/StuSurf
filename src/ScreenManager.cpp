@@ -90,8 +90,7 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_test1.add( MenuItem("test1") );
 	menu_test1.add( MenuItem("hello worlf") );
 	menu_test1.add( MenuItem("test1") );
-
-
+	*/
 	menu_test2 = Menu( "test1" );
 	menu_test2.set_position( 400, 10 );
 	menu_test2.add( MenuItem("bbbbb") );
@@ -100,10 +99,9 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_test2.add( MenuItem("aaaa") );
 	menu_test2.add( MenuItem("bbbbb") );
 	menu_test2.add( MenuItem("aaaa") );
-	*/
 
 
-	menu_screens = *common::menuFromDir("screens/", change_screen);
+	menu_screens = *common::menuFromDir("data/screens/", change_screen);
 
 }
 

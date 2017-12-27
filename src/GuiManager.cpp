@@ -82,8 +82,8 @@ void GuiManager::render(){
 	_h = window.getSize().y * 0.1;
 
 	for( int i = 0; i < menus_hidden.size(); i++ ){
-		_x = (menus_hidden.size() - 1) * i * window.getSize().x * 0.02;
-		_y = window.getSize().y - _h - ((menus_hidden.size() - 1) * i *  window.getSize().y * 0.02);
+		_x = i * _w * 0.2;
+		_y = window.getSize().y -_h - (i) * _h * 0.2;
 
 		menus_hidden[i]->render_hidden( _x, _y, _w, _h );
 	}
