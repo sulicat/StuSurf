@@ -55,19 +55,6 @@ int main( int argc, char * * argv ){
 	window.setKeyRepeatEnabled( KEY_REPEAT );
 
 
-	//////////////////// TESTING ///////////////////
-	std::vector<std::string> test;
-	test = common::files_in( "screens/" );
-	for( int i = 0; i < test.size(); i++ ){
-		std::cout << test[i] << "\n";
-	}
-
-	test = common::folders_in( "screens/" );
-	for( int i = 0; i < test.size(); i++ ){
-		std::cout << "----- " << test[i] << "\n";
-	}
-	//////////////////// END TESTING ///////////////////
-
 	//screenManager.add( new TextModule( 100, 100, 100, 100 ) );
 	//screenManager.add( new PinkModule( 300, 300, 100, 100 ) );
 	screenManager.add( new MultiMeter1( 100, 100, 500, 500 ) );

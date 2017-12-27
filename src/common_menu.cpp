@@ -52,6 +52,12 @@ MenuItem::MenuItem( std::string _t, std::function <void(void*)> _func, Menu* _m 
 	setTrigger( _func, _m);
 }
 
+MenuItem::MenuItem( std::string _t, Menu* _m ){
+	origin();
+	label = _t;
+	setTrigger( _m);
+}
+
 MenuItem::MenuItem( std::string _t, std::function <void(void*)> _func, void* _data, Menu* _m ){
 	origin();
 	label = _t;
@@ -108,6 +114,11 @@ void MenuItem::setTrigger( std::function <void(void*)> _func, Menu* _m ){
 	open_menu = _m;
 }
 
+void MenuItem::setTrigger( Menu* _m ){
+	type = OPEN_MENU;
+	open_menu = _m;
+}
+
 void MenuItem::setData( void* _d ){
 	data = _d;
 }
@@ -133,11 +144,16 @@ void MenuItem::call(){
 	if( type == OPEN_MENU ){
 		std::cout << "OPEN MENU\n";
 		open_menu->enable();
-		trigger( data );
+		if( trigger )
+			trigger( data );
 
-	}else if( type == TRIGGER_FUNCTION ){
+	}else if( type == TRIGGER_FUNCTION && trigger ){
 		trigger( data );
 	}
+}
+
+void MenuItem::clear(){
+
 }
 
 void MenuItem::render(){
@@ -158,7 +174,7 @@ void Menu::origin(){
 	title = "un-named";
 	search_term = "";
 	x = 100;
-		y = 100;
+	y = 100;
 	width = 200;
 	height = 300;
 
@@ -359,6 +375,7 @@ void Menu::event( sf::Event e ){
 				}else if( contents[ selected_index ].type != NOTHING ){
 					contents[ selected_index ].call();
 					this->disable();
+					guiManager.clear();
 				}
 			}
 
@@ -392,4 +409,12 @@ void Menu::unhide(){
 	update_search();
 	update_positions();
 	update_displays();
+}
+
+void Menu::clear(){
+	for( int i = 0; i < contents_full.size(); i++ ){
+		contents_full[i].clear();
+	}
+	contents_full.clear();
+	contents.clear();
 }

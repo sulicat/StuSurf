@@ -21,10 +21,10 @@ class ScreenManager{
 	Menu										menu_test2;		// ~~~~
 	Menu										menu_test3;		// ~~~~
 
-	ScreenManager	( std::string _topDir );
-	void add		( ModuleBase * _item );
-	void input		( sf::Event _event);
-	void render		();
+	ScreenManager		( std::string _topDir );
+	void add			( ModuleBase * _item );
+	void input			( sf::Event _event);
+	void render			();
 	void test();
 };
 

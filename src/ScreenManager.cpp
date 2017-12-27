@@ -18,6 +18,13 @@ void temp_print2( void* _a ){
 
 
 
+void change_screen( void* _s ){
+	std::cout << "-----\n" << "CHANGING SCREEN\n";
+	std::cout << *((std::string*)_s) << "\n";
+	std::cout << "-----\n";
+}
+
+
 ScreenManager::ScreenManager( std::string _topDir ){
 	// when a ScreenManager is created with a certain top dir,
 	//	we want to make sure that the directory exists. Throw an error otherwise
@@ -45,6 +52,7 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	command_test1.add_command( sf::Keyboard::D );
 
 
+	/*
 	menu_screens = Menu( "Screens" );
 	menu_screens.add( MenuItem("hello worlf") );
 	menu_screens.add( MenuItem("test1", temp_print1, &__test) );
@@ -92,6 +100,10 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_test2.add( MenuItem("aaaa") );
 	menu_test2.add( MenuItem("bbbbb") );
 	menu_test2.add( MenuItem("aaaa") );
+	*/
+
+
+	menu_screens = *common::menuFromDir("screens/", change_screen);
 
 }
 

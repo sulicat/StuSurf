@@ -61,11 +61,12 @@ enum MENU_ITEM_TYPE{
 // class with the commonly used functions. Accessible to things within the program
 class common{
  public:
+	static void							EMPTY			(void*);
 	static std::string 					toLower			( std::string in );
 	static std::string 					toUpper			( std::string in );
 	static std::vector<std::string>		files_in		( std::string _dir );
 	static std::vector<std::string>		folders_in		( std::string _dir );
-	static Menu							menuFromDir		( std::string _dir, std::function<void(void*)> _func );
+	static Menu*						menuFromDir		( std::string _dir, std::function<void(void*)> _func );
 };
 
 class ModuleBase{
@@ -146,17 +147,21 @@ class MenuItem{
 	MenuItem		( std::string _title );
 	MenuItem		( std::string _title, std::function <void(void*)> _func );
 	MenuItem		( std::string _title, std::function <void(void*)> _func, void* _data );
+	MenuItem		( std::string _title, Menu* _m );
 	MenuItem		( std::string _title, std::function <void(void*)> _func, Menu* _m );
 	MenuItem		( std::string _title, std::function <void(void*)> _func, void* _data, Menu* _m );
+
 	void setLabel			( std::string _label );
 	void setCaption			( std::string _caption );
 	void setTrigger			( std::function <void(void*)> _func );
+	void setTrigger			( Menu* _m );
 	void setTrigger			( std::function <void(void*)> _func, Menu * _m );
 	void setData			( void * _a);
 	void set_position		( float _x, float _y );
 	void set_size			( float _w, float _h );
 	void select				( bool _b );
 	void call				();
+	void clear				();
 	void render();
 };
 
@@ -203,6 +208,7 @@ class Menu{
 	void unhide			();
 	void render			();
 	void render_hidden	( int _x, int _y, int _w, int _h );
+	void clear			();
 };
 
 
