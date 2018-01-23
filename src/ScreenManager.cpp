@@ -72,7 +72,7 @@ void ScreenManager::changeScreen( std::string _p ){
 
 void ScreenManager::updateScreen(){
 	std::fstream file;
-
+	current_screen.clear();
 	file.open( currentScreenPath, std::ios::in );
 	char line[255];
 	std::vector<std::string> split;
