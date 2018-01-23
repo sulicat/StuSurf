@@ -1,6 +1,7 @@
 #include "../include/ScreenManager.h"
 #include "../include/common.h"
 #include "../include/Managers.h"
+#include "../include/headers.h"
 
 
 ////////// TEST //////////
@@ -19,11 +20,11 @@ void temp_print2( void* _a ){
 
 
 void change_screen( void* _s ){
-	std::cout << "-----\n" << "CHANGING SCREEN\n";
-	std::cout << *((std::string*)_s) << "\n";
-	std::cout << "-----\n";
+	screenManager.changeScreen( *((std::string*)_s) );
 }
 
+
+// ------------ SCREEN MANAGER ----------------------
 
 ScreenManager::ScreenManager( std::string _topDir ){
 	// when a ScreenManager is created with a certain top dir,
@@ -51,46 +52,7 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	command_test1.add_command( sf::Keyboard::LControl );
 	command_test1.add_command( sf::Keyboard::D );
 
-
-	/*
-	menu_screens = Menu( "Screens" );
-	menu_screens.add( MenuItem("hello worlf") );
-	menu_screens.add( MenuItem("test1", temp_print1, &__test) );
-	menu_screens.add( MenuItem("test2", temp_print2) );
-	menu_screens.add( MenuItem("test1a", temp_print2, &menu_test1) );
-	menu_screens.add( MenuItem("test1a", temp_print1, &__test,  &menu_test1) );
-	menu_screens.add( MenuItem("test2b") );
-	menu_screens.add( MenuItem("ABC") );
-	menu_screens.add( MenuItem("AC") );
-	menu_screens.add( MenuItem("AAA") );
-	menu_screens.add( MenuItem("AHE") );
-	menu_screens.add( MenuItem("BASD") );
-	menu_screens.add( MenuItem("test2h") );
-	menu_screens.add( MenuItem("test1i") );
-	menu_screens.add( MenuItem("test2abc") );
-	menu_screens.add( MenuItem("test1cb") );
-	menu_screens.add( MenuItem("test2ca") );
-
-	menu_test1 = Menu( "test1" );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf", temp_print2, &menu_test2) );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	menu_test1.add( MenuItem("hello worlf") );
-	menu_test1.add( MenuItem("test1") );
-	*/
+	// Menus
 	menu_test2 = Menu( "test1" );
 	menu_test2.set_position( 400, 10 );
 	menu_test2.add( MenuItem("bbbbb") );
@@ -100,9 +62,42 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_test2.add( MenuItem("bbbbb") );
 	menu_test2.add( MenuItem("aaaa") );
 
-
 	menu_screens = *common::menuFromDir("data/screens/", change_screen);
+}
 
+void ScreenManager::changeScreen( std::string _p ){
+	currentScreenPath = _p;
+	updateScreen();
+}
+
+void ScreenManager::updateScreen(){
+	std::fstream file;
+
+	file.open( currentScreenPath, std::ios::in );
+	char line[255];
+	std::vector<std::string> split;
+	int line_number = 0;
+
+	while( file.getline( line, 256 ) != 0 ){
+		split = common::splitString( line, " " );
+		// this is where we want to create a module object.
+		// 	we will pass the values of the split string to a function
+		//	that is edited before compile. This function will spit out an
+		//	object of type unique_prt<ModuleBase>. We will then add it 
+		//	to the current_screen array.
+		// SPLIT is in this form:
+		//	moduleName x y width height pathToData
+		//	any other configuration will spit out an error.
+		if( split.size() == 6 ){
+			//add( common::PRECOMPILE_createModule( split[0], std::stoi(split[1]), std::stoi(split[2]), std::stoi(split[3]), std::stoi(split[4]), split[5] ) );
+			//add( MODULE_FACTORY["PinkModule"]() );
+			add( MODULE_FACTORY[split[0]](std::stoi(split[1]), std::stoi(split[2]), std::stoi(split[3]), std::stoi(split[4]), split[5]) );
+		}else{
+			std::cout << "-> ERROR: could not parse module in " << currentScreenPath << " line: " << line_number << "\n";
+		} line_number++;
+	}
+
+	file.close();
 }
 
 void ScreenManager::add( ModuleBase * _item ){

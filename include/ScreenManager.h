@@ -7,6 +7,7 @@
 class ScreenManager{
  public:
 	std::vector<std::unique_ptr< ModuleBase >>	current_screen;		// list of open modules in screen
+	std::string									currentScreenPath;	// which screen we are currently seeing
 	std::string 								path_topDir;		// absolute path to top dir
 	std::string									path_screenList;	// relative path to list of screens
 	enum PROGRAM_STATE							state;
@@ -24,6 +25,8 @@ class ScreenManager{
 	ScreenManager		( std::string _topDir );
 	void add			( ModuleBase * _item );
 	void input			( sf::Event _event);
+	void changeScreen	( std::string _p );
+	void updateScreen	();
 	void render			();
 	void test();
 };

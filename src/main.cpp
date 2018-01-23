@@ -54,10 +54,8 @@ int main( int argc, char * * argv ){
 
 	window.setKeyRepeatEnabled( KEY_REPEAT );
 
-
-	//screenManager.add( new TextModule( 100, 100, 100, 100 ) );
-	//screenManager.add( new PinkModule( 300, 300, 100, 100 ) );
-	screenManager.add( new MultiMeter1( 100, 100, 500, 500 ) );
+	common::PRECOMPILE_populate_module_factory();
+	screenManager.changeScreen( "data/screens/Home" );
 
 	sf::Event event;
 	while( window.isOpen() ){

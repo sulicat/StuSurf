@@ -7,14 +7,18 @@
 #define STUSURF_COMMON
 
 #include <SFML/Graphics.hpp>
+//#include "../lib/boost_1_66_0/boost/filesystem.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <memory>
+#include <map>
+#include <functional>
 
+// prototypes
 class Menu;
 class MenuItem;
-
+class ModuleBase;
 
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
@@ -36,13 +40,14 @@ extern sf::Color COLOR_SECONDARY_2_DARK;
 extern sf::Color COLOR_WHITE;
 extern sf::Color COLOR_BLACK;
 extern sf::Color COLOR_GREY;
-
+// font
 extern sf::Font MAIN_FONT;
-
+// images
 extern sf::Texture ICON_FOLDER;
-
-extern std::vector<int>							input_buffer;
-
+// input buffer
+extern std::vector<int> input_buffer;
+// map to store module types
+extern std::map<std::string, std::function<ModuleBase*( int, int, int, int, std::string)> > MODULE_FACTORY;
 
 enum PROGRAM_STATE{
 	EDIT,
@@ -61,12 +66,17 @@ enum MENU_ITEM_TYPE{
 // class with the commonly used functions. Accessible to things within the program
 class common{
  public:
-	static void							EMPTY			(void*);
+	static void							EMPTY			( void* );
 	static std::string 					toLower			( std::string in );
 	static std::string 					toUpper			( std::string in );
 	static std::vector<std::string>		files_in		( std::string _dir );
 	static std::vector<std::string>		folders_in		( std::string _dir );
 	static Menu*						menuFromDir		( std::string _dir, std::function<void(void*)> _func );
+	static bool							varToFile		( std::string _file, std::string var_name, std::string _var );
+	static std::string					varFromFile		( std::string _file, std::string var_name );
+	static std::vector<std::string>		splitString		( std::string _in, std::string _delim );
+
+	static void							PRECOMPILE_populate_module_factory();
 };
 
 class ModuleBase{
@@ -76,7 +86,9 @@ public:
 	int 	width;
 	int 	height;
 	bool 	isFocused;
+	std::string dataFile;
 
+	virtual void setDataFile	( std::string _data )			{ dataFile = _data; }
 	virtual void onKeyDown		( int code )					{ std::cout << "key DOWN function UNDEFINED in module\n";	}
 	virtual void onKeyUp		( int code )					{ std::cout << "key UP function UNDEFINED in module\n";		}
 	virtual void onMouseMove	( int x, int y  )				{ std::cout << "mouse MOVE function UNDEFINED in module\n";	}

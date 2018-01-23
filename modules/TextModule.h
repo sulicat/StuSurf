@@ -1,11 +1,5 @@
 class TextModule : public ModuleBase{
 public:
-	// standard
-	int	 	x;
-	int		y;
-	int 	width;
-	int 	height;
-	bool 	isFocused;
 	// non standard
 	sf::RectangleShape rect1;
 	sf::RectangleShape rect2;
@@ -25,9 +19,9 @@ public:
 		rect2.setPosition( x + width/2, y + height/2 );
 	}
 
-	void onKeyDown( int _code ){
+	//	void onKeyDown( int _code ){
 		//std::cout << "down: " << _code << "\n";
-	}
+	//	}
 
 	void onKeyUp( int _code ){
 		//std::cout << "up: " << _code << "\n";
@@ -46,6 +40,8 @@ public:
 	}
 
 	void render(){
+		rect2.setPosition( x + width/2, y + height/2 );
+		rect1.setPosition( x, y );
 		window.draw( rect1 );
 		window.draw( rect2 );
 	}

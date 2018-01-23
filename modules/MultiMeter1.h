@@ -1,11 +1,13 @@
 #include "../include/common.h"
-
 #include <unistd.h>
 #include <fcntl.h>
 #include <termios.h>
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+
+#include "../include/Managers.h"
+
 
 class MultiMeter1 : public ModuleBase{
 public:
@@ -63,7 +65,7 @@ public:
 	}
 
 	void onMouseDown( int _button, int _x, int _y ){
-
+		std::cout << common::varFromFile( screenManager.currentScreenPath, "var1" ) << "\n";
 	}
 
 	void onMouseUp(int _button, int _x, int _y ){

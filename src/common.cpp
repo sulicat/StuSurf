@@ -72,7 +72,6 @@ std::vector<std::string> common::folders_in( std::string _dir ){
 
 
 Menu * common::menuFromDir( std::string _dir, std::function<void(void*)> _func ){
-
 	Menu * out = new Menu( _dir );
 
 	// folders
@@ -95,5 +94,73 @@ Menu * common::menuFromDir( std::string _dir, std::function<void(void*)> _func )
 		*argument_files = _dir + *argument_files;
 		out->add( MenuItem( menu_list_files[i], _func, argument_files) );
 	}
+	return out;
+}
+
+
+bool common::varToFile( std::string _file, std::string var_name, std::string _var ){
+	std::fstream file;
+	std::vector<std::string> buffer_file;
+
+	file.open( _file, std::ios::in );
+	char line[255];
+	while( file.getline( line, 256 ) != 0 ){
+		buffer_file.push_back( line );
+		std::cout << line << "--\n";
+	}
+	file.close();
+
+	file.open( _file, std::ios::out | std::ios::trunc );
+	for( int i = 0; i < buffer_file.size(); i++ ){
+
+
+		if( buffer_file[i] == (var_name) ){
+			i += 1;
+		}else{
+			file << buffer_file[i] << "\n";
+		}
+	}
+
+	file << var_name << "\n";
+	file << _var << "\n";
+	file.close();
+
+	return true;
+}
+
+std::string common::varFromFile( std::string _file, std::string var_name ){
+	std::fstream file;
+	std::string _out;
+
+	file.open( _file, std::ios::in );
+	char line[255];
+	while( file.getline( line, 256 ) != 0 ){
+		if( var_name == line ){
+			file.getline( line, 256 );
+			_out = line;
+			return _out;
+		}
+	}
+
+	file.close();
+}
+
+
+
+std::vector<std::string> common::splitString( std::string _in, std::string _delim ){
+	std::vector<std::string> out;
+
+	int start = 0;
+	for( int i = 0; i < _in.size() - _delim.size(); i++ ){
+
+		if( _in.substr(i, _delim.size()) == _delim ){
+			out.push_back( _in.substr(start, i - start ));
+			start = i + 1;
+			i += _delim.size();
+		}
+
+	}
+	out.push_back( _in.substr(start, _in.size() - start  ));
+
 	return out;
 }

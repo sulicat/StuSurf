@@ -1,5 +1,6 @@
 sfml = -lsfml-system -lsfml-window -lsfml-graphics
 cpp  = -std=c++11
+boost = -l../lib/boost_1_66_0/boost/
 
 all: headers \
 	 main
