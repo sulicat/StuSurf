@@ -1,5 +1,42 @@
 #include "../include/common.h"
 
+
+// Labels
+Label::Label( std::string _t, int _x, int _y, int _w, int _h ){
+	set_pos( _x, _y );
+	set_size( _w, _h );
+	label_text.setString( _t );
+	label_text.setFont( MAIN_FONT );
+	label_text.setString( _t );
+	label_text.setColor( COLOR_BLACK );
+	backdrop.setFillColor( COLOR_CommandBox_1 );
+}
+
+void Label::set_pos( int _x, int _y ){
+	x = _x;
+	y = _y;
+	backdrop.setPosition( sf::Vector2f(_x, _y) );
+	label_text.setPosition( sf::Vector2f(_x, _y) );
+}
+
+void Label::set_size( int _w, int _h ){
+	width = _w;
+	height = _h;
+	backdrop.setSize( sf::Vector2f(_w, _h) );
+}
+
+void Label::select(){
+	backdrop.setFillColor( COLOR_CommandBox_3 );
+}
+
+void Label::render(){
+	window.draw( backdrop );
+	window.draw( label_text );
+}
+
+/*************************************************************************/
+
+
 // return the lower case version of a string
 std::string common::toLower( std::string _in ){
 	std::string _out = _in;

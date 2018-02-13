@@ -3,6 +3,9 @@
 GuiManager::GuiManager(){
 }
 
+
+// Menu addition/subtractions
+//**************************************************************
 void GuiManager::enable( Menu* _m ){
 	for( int i = 0; i < menus.size(); i++ ){
 		if( menus[i] == _m ){
@@ -41,6 +44,29 @@ void GuiManager::hide( Menu* _m ){
 	menus_hidden.push_back( _m );
 }
 
+
+// Textbox addition/subtractions
+//**************************************************************
+void GuiManager::enable( CommandBox* _m ){
+	for( int i = 0; i < textBoxes.size(); i++ ){
+		if( textBoxes[i] == _m ){
+			textBoxes.erase( textBoxes.begin() + i );
+		}
+	}
+	textBoxes.push_back( _m );
+}
+
+
+void GuiManager::disable( CommandBox* _m ){
+	for( int i = 0; i < textBoxes.size(); i++ ){
+		if( textBoxes[i] == _m ){
+			textBoxes.erase( textBoxes.begin() + i );
+		}
+	}
+}
+
+//**************************************************************
+
 void GuiManager::clear(){
 	for( int i = 0; i < menus.size(); i++ )
 		menus[i]->search_term.erase();
@@ -50,18 +76,27 @@ void GuiManager::clear(){
 
 	menus.clear();
 	menus_hidden.clear();
+	textBoxes.clear();
 	input_buffer.clear();
 }
 
 bool GuiManager::is_intercepting_input(){
 	if( menus.size() > 0 )
 		return true;
+	if( textBoxes.size() > 0 )
+		return true;
+
 	return false;
 }
 
 void GuiManager::input( sf::Event _e ){
+	// menus
 	for( int i = 0; i < menus.size(); i++ ){
 		menus[i]->event( _e );
+	}
+	// textBoxes
+	for( int i = 0; i < textBoxes.size(); i++ ){
+		textBoxes[i]->event( _e );
 	}
 }
 
@@ -90,5 +125,9 @@ void GuiManager::render(){
 
 	for( int i = 0; i < menus.size(); i++ ){
 		menus[i]->render();
+	}
+
+	for( int i = 0; i < textBoxes.size(); i++ ){
+		textBoxes[i]->render();
 	}
 }

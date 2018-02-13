@@ -6,7 +6,7 @@
 void MenuItem::origin(){
 	label = "un-named";
 	backdrop = sf::RectangleShape( sf::Vector2f( 0, 0 ) );
-	backdrop.setFillColor( COLOR_PRIMARY );
+	backdrop.setFillColor( COLOR_Menu_1 );
 	x = 0;
 	y = 0;
 	width = 0;
@@ -85,7 +85,7 @@ void MenuItem::update(){
 		backdrop.setFillColor( sf::Color::Transparent );
 	}else{
 		label_text.setColor( COLOR_WHITE );
-		backdrop.setFillColor( COLOR_PRIMARY_PALE );
+		backdrop.setFillColor( COLOR_Menu_3 );
 	}
 
 	if( type == NOTHING && selected == false ){
@@ -181,8 +181,8 @@ void Menu::origin(){
 	// visuals
 	backdrop 	= sf::RectangleShape( sf::Vector2f(width, height * 0.8) );
 	backdrop.setPosition( x, y + height * 0.1 );
-	backdrop.setFillColor( COLOR_SECONDARY_1_PALE );
-	backdrop.setOutlineColor( COLOR_SECONDARY_1 );
+	backdrop.setFillColor( COLOR_Menu_1 );
+	backdrop.setOutlineColor( COLOR_Menu_2 );
 	backdrop.setOutlineThickness(2);
 
 	label_title.setString( title );

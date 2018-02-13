@@ -1,0 +1,39 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+Creating a text input.
+GuiManager is responsible for this.
+- Small text box
+- not selectable by default
+- Can be given input
+- will parse input
+- can have the ability to autocomplete.
+- it retains its value until cleared
+- can have the ability to add a keybind to trigger a function
+
+Option 1:
+	- There can be a global list of objects(function + ref string)
+	  That will be looked at whenever the input wants to trigger 
+	  something.
+Option 2:
+	- We can give the input a memory adress to a vector. It will
+	  look through that vector for a list of commands.
+Option 3:
+	- inputs can be given function pointers 1 at a time.
+
+
+Option 4:
+	- combine option 1 and 2.
+	- Create a global list & store the memory adress ina define.
+
+
+I like option 4.
+Option 2 will also work with me.
+Option 4 is more work and design.
+Option 3 is easiest to implement now, will make future programs more frustrating
+
+We can also combine all options. Inputs will look through
+both an internal list and an outside list of functions.....
+FML.... Good design or..... finish asap ??
+

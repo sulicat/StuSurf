@@ -19,6 +19,7 @@
 class Menu;
 class MenuItem;
 class ModuleBase;
+class Command;
 
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
@@ -40,6 +41,15 @@ extern sf::Color COLOR_SECONDARY_2_DARK;
 extern sf::Color COLOR_WHITE;
 extern sf::Color COLOR_BLACK;
 extern sf::Color COLOR_GREY;
+
+extern sf::Color COLOR_Menu_1;
+extern sf::Color COLOR_Menu_2;
+extern sf::Color COLOR_Menu_3;
+extern sf::Color COLOR_Menu_4;
+
+extern sf::Color COLOR_CommandBox_1;
+extern sf::Color COLOR_CommandBox_2;
+extern sf::Color COLOR_CommandBox_3;
 // font
 extern sf::Font MAIN_FONT;
 // images
@@ -48,6 +58,9 @@ extern sf::Texture ICON_FOLDER;
 extern std::vector<int> input_buffer;
 // map to store module types
 extern std::map<std::string, std::function<ModuleBase*( int, int, int, int, std::string)> > MODULE_FACTORY;
+// Command List
+extern std::vector<Command> Main_Commands;
+
 
 enum PROGRAM_STATE{
 	EDIT,
@@ -131,6 +144,48 @@ class KeyBind{
 };
 
 
+// Used to give functions a name.
+class Command {
+ public:
+	std::function <void(void*)> callback;
+	std::string name;
+	bool use_name;
+	void* data;
+
+	Command( std::function <void(void*)> _f, std::string _n ){ callback = _f; name = _n; use_name = true; }
+	Command( std::function <void(void*)> _f, std::string _n, void* _d ){ callback = _f; name = _n; data = _d; use_name = false; }
+	void call( ){
+		if( use_name == false )
+			callback( data );
+		else
+			callback( &name );
+	}
+};
+
+
+class Label{
+ private:
+	void origin();
+
+ public:
+	std::string title;
+	int x;
+	int y;
+	int width;
+	int height;
+	sf::Text				label_text;
+	sf::RectangleShape		backdrop;
+
+	Label( std::string _t, int _x, int _y, int _w, int _h );
+	void set_pos( int _x, int _y );
+	void set_size( int _w, int _h );
+	void select();
+	void render();
+
+};
+
+/*****************************************************************************************/
+// Menus
 
 class MenuItem{
  private:
@@ -221,6 +276,40 @@ class Menu{
 	void render			();
 	void render_hidden	( int _x, int _y, int _w, int _h );
 	void clear			();
+};
+
+
+/******************************************************************************************/
+// Text Input
+class CommandBox{
+ public:
+	int x;
+	int y;
+	int width;
+	int height;
+	int number_of_guesses;
+	int scroll;
+	int selected;
+
+	std::string				search_term;;
+	// autocomplete function
+	std::vector< Command > *commands;
+	std::vector< Command >  commands_shown;
+	// visuals
+	sf::RectangleShape		backdrop;
+	sf::RectangleShape		backdrop_commands;
+	sf::Text				label_search;
+	std::vector< Label > 	guesses;
+
+
+	CommandBox();
+	void event		( sf::Event _e );
+	void render		();
+	void update		();
+	void set		(std::vector<Command> *_c);
+	void enable		();
+	void disable	();
+
 };
 
 

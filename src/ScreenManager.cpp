@@ -63,6 +63,10 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_test2.add( MenuItem("aaaa") );
 
 	menu_screens = *common::menuFromDir("data/screens/", change_screen);
+
+	// Text Boxes
+	textbox_commands = CommandBox( );
+	textbox_commands.set( &Main_Commands );
 }
 
 void ScreenManager::changeScreen( std::string _p ){
@@ -110,7 +114,6 @@ void ScreenManager::render(){
 	}
 
 	if( state == COMMAND ){
-		std::cout << "commands\n";
 
 	}else if( state == SCREEN_CHANGE ){
 
@@ -130,6 +133,7 @@ void ScreenManager::input( sf::Event _event ){
 			// handle special inputs
 			if( command_execute.isTriggered( input_buffer ) ){
 				state = COMMAND;
+				textbox_commands.enable();
 				menu_screens.disable();
 
 			}else if( command_screen_change.isTriggered( input_buffer ) ){
@@ -139,6 +143,7 @@ void ScreenManager::input( sf::Event _event ){
 			}else if( command_escape.isTriggered( input_buffer ) ){
 				state = USE;
 				menu_screens.disable();
+				textbox_commands.disable();;
 
 			}else if( command_test1.isTriggered( input_buffer ) ){
 				menu_test1.enable();

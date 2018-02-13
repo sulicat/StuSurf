@@ -22,6 +22,8 @@ class ScreenManager{
 	Menu										menu_test2;		// ~~~~
 	Menu										menu_test3;		// ~~~~
 
+	CommandBox									textbox_commands;
+
 	ScreenManager		( std::string _topDir );
 	void add			( ModuleBase * _item );
 	void input			( sf::Event _event);
