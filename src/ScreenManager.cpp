@@ -50,9 +50,32 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	menu_screens = *common::menuFromDir("data/screens/", change_screen);
 	add_items = Menu("New Module");
 
+	cursor_x = 0;
+	cursor_y = 0;
+	cursor_speed = 20;
+
 	// Text Boxes
 	textbox_commands = CommandBox( );
 	textbox_commands.set( &Main_Commands );
+
+	// VISUALS
+	border = sf::RectangleShape( sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));
+	border.setPosition( 7, 7 );
+	border.setFillColor( sf::Color(0, 0, 0, 0) );
+	border.setOutlineThickness( 7 );
+	border.setOutlineColor( sf::Color(255, 255, 0) );
+	state_text.setString( "" );
+	state_text.setFont( MAIN_FONT );
+	state_text.setPosition(window.getSize().x - 100, 100);
+
+	cursor_vert  = sf::RectangleShape( sf::Vector2f(window.getSize().x, 0) );
+	cursor_horiz = sf::RectangleShape( sf::Vector2f(0, window.getSize().y) );
+	cursor_vert.setOutlineThickness(5);
+	cursor_vert.setOutlineColor( sf::Color(255, 255, 255) );
+	cursor_vert.setFillColor( sf::Color(255, 255, 0, 0) );
+	cursor_horiz.setOutlineThickness(5);
+	cursor_horiz.setOutlineColor( sf::Color(255, 255, 255) );
+	cursor_horiz.setFillColor( sf::Color(255, 255, 0, 0) );
 }
 
 void ScreenManager::changeScreen( std::string _p ){
@@ -65,9 +88,53 @@ void ScreenManager::changeState( enum PROGRAM_STATE _s ){
 
 	// in the case of edit we want to:
 	//		enable the menu that will add new modules
-	if( state == EDIT ){
+	if( state == EDIT || state == ADD_MODULE ){
+		border.setOutlineColor( sf::Color(255, 255, 0) );
+		state_text.setString("Add a Module");
+		state_text.setPosition(  window.getSize().x - state_text.getGlobalBounds().width - 20, 8);
 		add_items.enable();
+
 	}
+
+	if( state == ADD_MODULE ){
+		cursor_x = 0;
+		cursor_y = 0;
+	}
+}
+
+void ScreenManager::resize(){
+	border.setSize(sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));
+	state_text.setPosition(  window.getSize().x - state_text.getGlobalBounds().width - 20, 8);
+	cursor_vert.setSize(  sf::Vector2f(window.getSize().x, 0) );
+	cursor_horiz.setSize( sf::Vector2f(0, window.getSize().y) );
+
+}
+
+void ScreenManager::move_cursor( sf::Event _e){
+	if( _e.key.code == sf::Keyboard::Left ){
+		move_cursor( -1, 0 );
+	}else if( _e.key.code == sf::Keyboard::Right ){
+		move_cursor( 1, 0 );
+	}else if( _e.key.code == sf::Keyboard::Up ){
+		move_cursor( 0, -1 );
+	}else if( _e.key.code == sf::Keyboard::Down ){
+		move_cursor( 0, 1 );
+	}
+}
+
+void ScreenManager::move_cursor( int _x, int _y ){
+	_x = _x * cursor_speed;
+	_y = _y * cursor_speed;
+
+	if( cursor_x + _x >= 0 &&  cursor_x + _x <= window.getSize().x){
+		cursor_x += _x;
+	}
+	if( cursor_y + _y >= 0 &&  cursor_y + _y <= window.getSize().y){
+		cursor_y += _y;
+	}
+
+	cursor_horiz.setPosition( cursor_x, 0 );
+	cursor_vert.setPosition( 0, cursor_y );
 }
 
 void ScreenManager::updateScreen(){
@@ -101,14 +168,21 @@ void ScreenManager::updateScreen(){
 
 	// we will fill the add_items menu with the list of possible modules to add
 	add_items.clear();
-	for( int i = 0; i < MODULE_FACTORY.size(); i++ ){
-		add_items.add( MenuItem( "hello world" ) );
+	for( const auto &item : MODULE_FACTORY ){
+		add_items.add( MenuItem( item.first, [this](void* _s){this->addModule_start( _s );}, new std::string(item.first) ));
 	}
 
 }
 
 void ScreenManager::add( ModuleBase * _item ){
 	current_screen.push_back( std::unique_ptr<ModuleBase>( _item ) );
+}
+
+void ScreenManager::addModule_start( void* _d ){
+	//std::cout << *((std::string*)_d) << "\n";
+	state = ADD_MODULE;
+	cursor_vert.setPosition(0, 0);
+	cursor_horiz.setPosition(0, 0);
 }
 
 void ScreenManager::render(){
@@ -121,7 +195,13 @@ void ScreenManager::render(){
 	}else if( state == SCREEN_CHANGE ){
 
 	}else if( state == EDIT ){
-		
+		window.draw(border);
+		window.draw(state_text);
+
+	}else if( state == ADD_MODULE ){
+		window.draw(state_text);
+		window.draw( cursor_vert  );
+		window.draw( cursor_horiz );
 	}
 }
 
@@ -146,6 +226,9 @@ void ScreenManager::input( sf::Event _event ){
 				state = USE;
 				menu_screens.disable();
 				textbox_commands.disable();
+
+			}else if( state == ADD_MODULE ){
+				move_cursor( _event );
 			}
 
 			// we will give every module in the crurrent screen the keyboard command.

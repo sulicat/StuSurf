@@ -103,6 +103,7 @@ int main( int argc, char * * argv ){
 
 				case sf::Event::Resized:		// resize the window
 			        window.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+					screenManager.resize();
 					break;
 
 				default:
