@@ -313,4 +313,17 @@ class CommandBox{
 };
 
 
+/*******************************************************************************************/
+// Prompt
+class Prompt{
+ public:
+	std::string title;
+	std::vector< Label > names;
+	int num_shown;
+
+	Prompt();
+	
+
+};
+
 #endif

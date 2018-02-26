@@ -73,25 +73,21 @@ int main( int argc, char * * argv ){
 	screenManager.changeScreen( "data/screens/Home" );
 
 	// ADDING commands.
-	std::string _temp_test = "I am a cat";
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test1" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test2" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test3" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test4" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test5" ) );
+	/*	std::string _temp_test = "I am a cat";
 	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test6" ) );
 	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test7" ) );
 	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test8", &_temp_test) );
 	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test9" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << *(std::string*)_a << "\n"; }, "test10", &_temp_test ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test20" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test30" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test40" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test50" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test60" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test70" ) );
-	Main_Commands.push_back( Command( [](void* _a){ std::cout << "It workms\n\n"; }, "test80" ) );
+	*/
 
+	// new folder command
+	Main_Commands.push_back( Command( []( void* a){ std::cout << "\n -------\nCreating a new folder \n --------- \n"; }, "create folder" ) );
+	// new screen
+	Main_Commands.push_back( Command( []( void* a){ std::cout << "\n -------\nCreating a new screen \n --------- \n"; }, "create screen" ) );
+	// mode edit
+	Main_Commands.push_back( Command( []( void* a){ screenManager.changeState(EDIT); }, "mode edit" ) );
+	// mode delete
+	Main_Commands.push_back( Command( []( void* a){ /*****/ }, "mode delete" ) );
 
 
 	sf::Event event;

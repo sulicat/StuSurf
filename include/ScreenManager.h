@@ -15,19 +15,15 @@ class ScreenManager{
 	KeyBind										command_execute;
 	KeyBind										command_screen_change;
 	KeyBind										command_escape;
-	KeyBind										command_test1;	// ~~~~
-
 	Menu										menu_screens;
-	Menu										menu_test1;		// ~~~~
-	Menu										menu_test2;		// ~~~~
-	Menu										menu_test3;		// ~~~~
-
+	Menu										add_items;
 	CommandBox									textbox_commands;
 
 	ScreenManager		( std::string _topDir );
 	void add			( ModuleBase * _item );
 	void input			( sf::Event _event);
 	void changeScreen	( std::string _p );
+	void changeState	( enum PROGRAM_STATE _s );
 	void updateScreen	();
 	void render			();
 	void test();

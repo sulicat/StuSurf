@@ -143,11 +143,11 @@ void CommandBox::event( sf::Event e ){
 			}else if( e.key.code == sf::Keyboard::Return ){
 				if( commands_shown.size() > 0 && scroll >= 0){
 					commands_shown[0].call( );
+					scroll = 0;
+					search_term = "";
+					guiManager.disable(this);
+					input_buffer.clear();
 				}
-
-				/*else if( commands->size() > 0 && scroll >= 0 && scroll < commands->size() ){
-					(*commands)[scroll].call();
-					}*/
 			}
 
 			update();

@@ -47,22 +47,8 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	command_escape = KeyBind( "this is what happens when the escape key is pressed" );
 	command_escape.add_command( sf::Keyboard::Escape );
 
-
-	command_test1 = KeyBind( "This is the command that allows you to switch between different screens" );
-	command_test1.add_command( sf::Keyboard::LControl );
-	command_test1.add_command( sf::Keyboard::D );
-
-	// Menus
-	menu_test2 = Menu( "test1" );
-	menu_test2.set_position( 400, 10 );
-	menu_test2.add( MenuItem("bbbbb") );
-	menu_test2.add( MenuItem("aaaa") );
-	menu_test2.add( MenuItem("bbbbb") );
-	menu_test2.add( MenuItem("aaaa") );
-	menu_test2.add( MenuItem("bbbbb") );
-	menu_test2.add( MenuItem("aaaa") );
-
 	menu_screens = *common::menuFromDir("data/screens/", change_screen);
+	add_items = Menu("New Module");
 
 	// Text Boxes
 	textbox_commands = CommandBox( );
@@ -72,6 +58,16 @@ ScreenManager::ScreenManager( std::string _topDir ){
 void ScreenManager::changeScreen( std::string _p ){
 	currentScreenPath = _p;
 	updateScreen();
+}
+
+void ScreenManager::changeState( enum PROGRAM_STATE _s ){
+	state = _s;
+
+	// in the case of edit we want to:
+	//		enable the menu that will add new modules
+	if( state == EDIT ){
+		add_items.enable();
+	}
 }
 
 void ScreenManager::updateScreen(){
@@ -102,6 +98,13 @@ void ScreenManager::updateScreen(){
 	}
 
 	file.close();
+
+	// we will fill the add_items menu with the list of possible modules to add
+	add_items.clear();
+	for( int i = 0; i < MODULE_FACTORY.size(); i++ ){
+		add_items.add( MenuItem( "hello world" ) );
+	}
+
 }
 
 void ScreenManager::add( ModuleBase * _item ){
@@ -117,8 +120,8 @@ void ScreenManager::render(){
 
 	}else if( state == SCREEN_CHANGE ){
 
-	}else{
-
+	}else if( state == EDIT ){
+		
 	}
 }
 
@@ -134,7 +137,6 @@ void ScreenManager::input( sf::Event _event ){
 			if( command_execute.isTriggered( input_buffer ) ){
 				state = COMMAND;
 				textbox_commands.enable();
-				menu_screens.disable();
 
 			}else if( command_screen_change.isTriggered( input_buffer ) ){
 				state = SCREEN_CHANGE;
@@ -143,10 +145,7 @@ void ScreenManager::input( sf::Event _event ){
 			}else if( command_escape.isTriggered( input_buffer ) ){
 				state = USE;
 				menu_screens.disable();
-				textbox_commands.disable();;
-
-			}else if( command_test1.isTriggered( input_buffer ) ){
-				menu_test1.enable();
+				textbox_commands.disable();
 			}
 
 			// we will give every module in the crurrent screen the keyboard command.

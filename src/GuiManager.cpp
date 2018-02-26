@@ -15,6 +15,7 @@ void GuiManager::enable( Menu* _m ){
 	_m->set_position( menus.size() * MENU_WIDTH, 0 );
 	_m->set_size( MENU_WIDTH, MENU_HEIGHT );
 	menus.push_back( _m );
+	std::cout << "ADDED: " << _m->title << " len: " << menus.size() << "\n";
 }
 
 void GuiManager::disable( Menu* _m ){
@@ -23,6 +24,7 @@ void GuiManager::disable( Menu* _m ){
 			menus.erase( menus.begin() + i );
 		}
 	}
+	std::cout << "\tDISABLING MENU: " << _m->title << "\n";
 }
 
 void GuiManager::hide( Menu* _m ){
