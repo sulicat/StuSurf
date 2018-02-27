@@ -33,6 +33,7 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	state = USE;
 	ADD_STATE = 0;
 	module_to_add = "";
+	DELETE_INDEX = 0;
 
 	// note(SULI) TBD.. .. .. GET FROM CONFIG .. .. .. . .. .. .. .. .. .. ..
 	// 	in the future, we may want to add 3+ shortcut keys
@@ -84,6 +85,18 @@ ScreenManager::ScreenManager( std::string _topDir ){
 
 	new_add_box = sf::RectangleShape( sf::Vector2f(0, 0));
 	new_add_box.setFillColor(sf::Color( 255, 255, 0 ));
+
+	deleteBoundingBox.setOutlineColor(sf::Color(255, 0, 0));
+	deleteBoundingBox.setFillColor( sf::Color(0, 0, 0, 0));
+	deleteBoundingBox.setOutlineThickness( 10 );
+
+	deleteBoundingBox1.setOutlineColor(sf::Color(255, 255, 0));
+	deleteBoundingBox1.setFillColor( sf::Color(0, 0, 0, 0));
+	deleteBoundingBox1.setOutlineThickness( 5 );
+
+	deleteBoundingBox2.setOutlineColor(sf::Color(255, 0, 0));
+	deleteBoundingBox2.setFillColor( sf::Color(0, 0, 0, 0));
+	deleteBoundingBox2.setOutlineThickness( 10 );
 }
 
 void ScreenManager::changeScreen( std::string _p ){
@@ -104,9 +117,16 @@ void ScreenManager::changeState( enum PROGRAM_STATE _s ){
 		add_items.enable();
 	}
 
+	// ADD module - This happens after EDIT mode
 	if( state == ADD_MODULE ){
 		cursor_x = 0;
 		cursor_y = 0;
+	}
+
+	// DELETING A MODULE
+	if( state == DELETE_MODULE ){
+		border.setOutlineColor( sf::Color(255, 0, 0, 125) );
+		state_text.setString("DELETE Module");
 	}
 }
 
@@ -143,6 +163,46 @@ void ScreenManager::move_cursor( int _x, int _y ){
 
 	cursor_horiz.setPosition( cursor_x, 0 );
 	cursor_vert.setPosition( 0, cursor_y );
+}
+
+void ScreenManager::postKeyPress( sf::Event _e){
+	if( state == DELETE_MODULE ){
+		// this is the part that allows us to cycle through modules to pich which one to delete
+		if( _e.key.code == sf::Keyboard::Left ){
+			if( DELETE_INDEX == 0 )
+				DELETE_INDEX = current_screen.size() - 1;
+			else
+				DELETE_INDEX -= 1;
+
+		}else if( _e.key.code == sf::Keyboard::Right || _e.key.code == sf::Keyboard::Tab){
+			if( DELETE_INDEX == current_screen.size() - 1 )
+				DELETE_INDEX = 0;
+			else
+				DELETE_INDEX += 1;
+
+		}else if( _e.key.code == sf::Keyboard::Return ){
+			deleteModule( DELETE_INDEX );
+		}
+	}
+
+	// we want ot make the bounding box go around the selected index
+	int _x = current_screen[DELETE_INDEX]->x;
+	int _y = current_screen[DELETE_INDEX]->y;
+	int _w = current_screen[DELETE_INDEX]->width;
+	int _h = current_screen[DELETE_INDEX]->height;
+
+	deleteBoundingBox.setSize( sf::Vector2f( _w, _h ) );
+	deleteBoundingBox.setPosition( _x, _y );
+
+	deleteBoundingBox1.setSize( sf::Vector2f( _w + 20, _h + 20 ) );
+	deleteBoundingBox1.setPosition( _x - 10, _y - 10 );
+
+	deleteBoundingBox2.setSize( sf::Vector2f( _w + 30, _h + 30 ) );
+	deleteBoundingBox2.setPosition( _x - 15, _y - 15 );
+}
+
+void ScreenManager::deleteModule( int _m ){
+	std::cout << "DELETE HERE!!!\n";
 }
 
 void ScreenManager::updateScreen(){
@@ -252,6 +312,12 @@ void ScreenManager::render(){
 			window.draw( new_add_box );
 			window.draw( crosshair );
 		}
+	}else if( state == DELETE_MODULE ){
+		window.draw( border );
+		window.draw( state_text );
+		window.draw( deleteBoundingBox );
+		window.draw( deleteBoundingBox1 );
+		window.draw( deleteBoundingBox2 );
 	}
 }
 
@@ -299,6 +365,7 @@ void ScreenManager::input( sf::Event _event ){
 			for( int i = 0; i < current_screen.size(); i++ ){
 					current_screen[i]->onKeyDown( _event.key.code );
 			}
+	 		postKeyPress( _event );
 			break;
 
 		case sf::Event::LostFocus:		// when the window is out of focus, dont log the keys pressed before.

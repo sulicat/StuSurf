@@ -17,6 +17,7 @@ class ScreenManager{
 	int											cursor_y_start;
 	int											cursor_speed;
 	int											ADD_STATE;
+	int											DELETE_INDEX;
 	std::string									module_to_add;
 
 	KeyBind										command_execute;
@@ -34,6 +35,9 @@ class ScreenManager{
 	sf::Text				state_text;
 	sf::RectangleShape		cursor_vert;
 	sf::RectangleShape		cursor_horiz;
+	sf::RectangleShape		deleteBoundingBox;
+	sf::RectangleShape		deleteBoundingBox1;
+	sf::RectangleShape		deleteBoundingBox2;
 
 
 
@@ -50,6 +54,8 @@ class ScreenManager{
 	void render				();
 	void resize				();
 	void test				();
+	void postKeyPress		( sf::Event _e );
+	void deleteModule		( int _m );
 };
 
 

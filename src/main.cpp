@@ -85,9 +85,9 @@ int main( int argc, char * * argv ){
 	// new screen
 	Main_Commands.push_back( Command( []( void* a){ std::cout << "\n -------\nCreating a new screen \n --------- \n"; }, "create screen" ) );
 	// mode edit
-	Main_Commands.push_back( Command( []( void* a){ screenManager.changeState(EDIT); }, "mode edit" ) );
+	Main_Commands.push_back( Command( []( void* a){ screenManager.changeState(EDIT); }, "mode add module" ) );
 	// mode delete
-	Main_Commands.push_back( Command( []( void* a){ /*****/ }, "mode delete" ) );
+	Main_Commands.push_back( Command( []( void* a){ screenManager.changeState(DELETE_MODULE); }, "mode delete module" ) );
 
 
 	sf::Event event;

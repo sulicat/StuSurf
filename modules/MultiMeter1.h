@@ -11,13 +11,6 @@
 
 class MultiMeter1 : public ModuleBase{
 public:
-	// standard
-	int	 	x;
-	int		y;
-	int 	width;
-	int 	height;
-	bool 	isFocused;
-	// non standard
 	sf::RectangleShape rect1;
 	sf::Color c;
 	int sfd;
