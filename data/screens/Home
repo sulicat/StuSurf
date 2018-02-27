@@ -3,3 +3,5 @@ PinkModule 20 20 40 60 data/module_data/PinkModule_1519707558
 MultiMeter1 80 20 60 40 data/module_data/MultiMeter1_1519707566
 TextModule 0 80 20 40 data/module_data/TextModule_1519707570
 TextModule 40 100 120 140 data/module_data/TextModule_1519707576
+TextModule 140 80 180 80 data/module_data/TextModule_1519707759
+MultiMeter1 40 340 420 440 data/module_data/MultiMeter1_1519707773
