@@ -1,5 +1,6 @@
 #include "../include/common.h"
 
+#define KEY_REPEAT false
 
 // Labels
 Label::Label( std::string _t, int _x, int _y, int _w, int _h ){

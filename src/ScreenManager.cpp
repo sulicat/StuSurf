@@ -31,6 +31,8 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	//	we want to make sure that the directory exists. Throw an error otherwise
 	path_topDir = _topDir;
 	state = USE;
+	ADD_STATE = 0;
+	module_to_add = "";
 
 	// note(SULI) TBD.. .. .. GET FROM CONFIG .. .. .. . .. .. .. .. .. .. ..
 	// 	in the future, we may want to add 3+ shortcut keys
@@ -70,12 +72,18 @@ ScreenManager::ScreenManager( std::string _topDir ){
 
 	cursor_vert  = sf::RectangleShape( sf::Vector2f(window.getSize().x, 0) );
 	cursor_horiz = sf::RectangleShape( sf::Vector2f(0, window.getSize().y) );
-	cursor_vert.setOutlineThickness(5);
-	cursor_vert.setOutlineColor( sf::Color(255, 255, 255) );
+	cursor_vert.setOutlineThickness(1);
+	cursor_vert.setOutlineColor( sf::Color(255, 0, 0) );
 	cursor_vert.setFillColor( sf::Color(255, 255, 0, 0) );
-	cursor_horiz.setOutlineThickness(5);
-	cursor_horiz.setOutlineColor( sf::Color(255, 255, 255) );
+	cursor_horiz.setOutlineThickness(1);
+	cursor_horiz.setOutlineColor( sf::Color(255, 0, 0) );
 	cursor_horiz.setFillColor( sf::Color(255, 255, 0, 0) );
+
+	crosshair = sf::RectangleShape( sf::Vector2f(10, 10) );
+	crosshair.setFillColor( sf::Color(255, 0, 0) );
+
+	new_add_box = sf::RectangleShape( sf::Vector2f(0, 0));
+	new_add_box.setFillColor(sf::Color( 255, 255, 0 ));
 }
 
 void ScreenManager::changeScreen( std::string _p ){
@@ -85,6 +93,7 @@ void ScreenManager::changeScreen( std::string _p ){
 
 void ScreenManager::changeState( enum PROGRAM_STATE _s ){
 	state = _s;
+	ADD_STATE = 0;
 
 	// in the case of edit we want to:
 	//		enable the menu that will add new modules
@@ -93,7 +102,6 @@ void ScreenManager::changeState( enum PROGRAM_STATE _s ){
 		state_text.setString("Add a Module");
 		state_text.setPosition(  window.getSize().x - state_text.getGlobalBounds().width - 20, 8);
 		add_items.enable();
-
 	}
 
 	if( state == ADD_MODULE ){
@@ -179,10 +187,48 @@ void ScreenManager::add( ModuleBase * _item ){
 }
 
 void ScreenManager::addModule_start( void* _d ){
-	//std::cout << *((std::string*)_d) << "\n";
+	module_to_add =  *((std::string*)_d);
 	state = ADD_MODULE;
 	cursor_vert.setPosition(0, 0);
 	cursor_horiz.setPosition(0, 0);
+}
+
+void ScreenManager::addModule_screen( ){
+	//	std::cout << "creating new module\n";
+	//	std::cout << "\t" << "x1: " << cursor_x_start << " x2: " << cursor_x << " y1: " << cursor_y_start << " y2: " << cursor_y << "\n";
+	int _x = cursor_x_start > cursor_x ? cursor_x : cursor_x_start;
+	int _y = cursor_y_start > cursor_y ? cursor_y : cursor_y_start;
+	int _w = abs(cursor_x - cursor_x_start);
+	int _h = abs(cursor_y - cursor_y_start);
+
+	// HERE WE WILL ADD NEW MODULE TO THE SCREEN FILE, THEN WE WILL UPDATE THAT FILE.
+	// 	First we have to create a data path for the module -- The name must be unique
+	//	Then we will string it along in the following format.
+	//		name x y w h path
+	//	Then we append to the current screen file
+	std::string _out = module_to_add + " " + std::to_string(_x) + " " + std::to_string(_y) + " " + std::to_string(_w) + " " + std::to_string(_h);
+	_out += " ";
+	_out += "data/module_data/";
+	_out += module_to_add;
+	_out += "_";
+	_out +=  std::to_string(std::time(nullptr));	// not the solution I would have liked. Would rather uniqueness guarantee be a little more dicriptive
+
+	state = EDIT;
+	add_items.enable();
+
+	cursor_x = 0;
+	cursor_y = 0;
+
+	//	std::cout << x << " + " << w << "\n";
+	//	std::cout << y << " + " << h << "\n";
+	std::cout << currentScreenPath << "\n";
+	std::fstream file;
+	file.open( currentScreenPath, std::fstream::out | std::fstream::app );
+	file << _out << "\n";
+	file.close();
+
+	updateScreen();
+
 }
 
 void ScreenManager::render(){
@@ -202,6 +248,10 @@ void ScreenManager::render(){
 		window.draw(state_text);
 		window.draw( cursor_vert  );
 		window.draw( cursor_horiz );
+		if( ADD_STATE == 1 ){
+			window.draw( new_add_box );
+			window.draw( crosshair );
+		}
 	}
 }
 
@@ -229,6 +279,20 @@ void ScreenManager::input( sf::Event _event ){
 
 			}else if( state == ADD_MODULE ){
 				move_cursor( _event );
+				new_add_box.setSize( sf::Vector2f( cursor_x - new_add_box.getPosition().x, cursor_y - new_add_box.getPosition().y ) );
+
+				if( _event.key.code == sf::Keyboard::Return && (ADD_STATE == 0 || ADD_STATE == -1) ){
+					ADD_STATE = 1;
+					crosshair.setPosition( cursor_x - 0.5*crosshair.getSize().x, cursor_y - 0.5*crosshair.getSize().y );
+					new_add_box.setPosition( cursor_x, cursor_y );
+					new_add_box.setSize(sf::Vector2f(0, 0));
+					cursor_x_start = cursor_x;
+					cursor_y_start = cursor_y;
+
+				}else if( _event.key.code == sf::Keyboard::Return && ADD_STATE == 1 ){
+					addModule_screen();
+					ADD_STATE = 0;
+				}
 			}
 
 			// we will give every module in the crurrent screen the keyboard command.

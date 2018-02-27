@@ -14,6 +14,9 @@
 #include <memory>
 #include <map>
 #include <functional>
+#include <math.h>
+#include <chrono>
+#include <ctime>
 
 // prototypes
 class Menu;
