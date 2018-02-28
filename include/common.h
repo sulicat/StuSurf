@@ -105,8 +105,10 @@ public:
 	int 	height;
 	bool 	isFocused;
 	std::string dataFile;
+	std::string dataType;
 
 	virtual void setDataFile	( std::string _data )			{ dataFile = _data; }
+	virtual void setDataType	( std::string _data )			{ dataType = _data; }
 	virtual void onKeyDown		( int code )					{ std::cout << "key DOWN function UNDEFINED in module\n";	}
 	virtual void onKeyUp		( int code )					{ std::cout << "key UP function UNDEFINED in module\n";		}
 	virtual void onMouseMove	( int x, int y  )				{ std::cout << "mouse MOVE function UNDEFINED in module\n";	}

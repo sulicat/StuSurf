@@ -166,43 +166,80 @@ void ScreenManager::move_cursor( int _x, int _y ){
 }
 
 void ScreenManager::postKeyPress( sf::Event _e){
-	if( state == DELETE_MODULE ){
-		// this is the part that allows us to cycle through modules to pich which one to delete
-		if( _e.key.code == sf::Keyboard::Left ){
-			if( DELETE_INDEX == 0 )
-				DELETE_INDEX = current_screen.size() - 1;
-			else
-				DELETE_INDEX -= 1;
+	if( current_screen.size() > 0 ){
+		if( state == DELETE_MODULE ){
+			// this is the part that allows us to cycle through modules to pich which one to delete
+			if( _e.key.code == sf::Keyboard::Left ){
+				if( DELETE_INDEX == 0 )
+					DELETE_INDEX = current_screen.size() - 1;
+				else
+					DELETE_INDEX -= 1;
 
-		}else if( _e.key.code == sf::Keyboard::Right || _e.key.code == sf::Keyboard::Tab){
-			if( DELETE_INDEX == current_screen.size() - 1 )
-				DELETE_INDEX = 0;
-			else
-				DELETE_INDEX += 1;
+			}else if( _e.key.code == sf::Keyboard::Right || _e.key.code == sf::Keyboard::Tab){
+				if( DELETE_INDEX == current_screen.size() - 1 )
+					DELETE_INDEX = 0;
+				else
+					DELETE_INDEX += 1;
 
-		}else if( _e.key.code == sf::Keyboard::Return ){
-			deleteModule( DELETE_INDEX );
+			}else if( _e.key.code == sf::Keyboard::Return ){
+				deleteModule( DELETE_INDEX );
+			}
+		}
+
+		if( current_screen.size() > 0 ){
+			// we want ot make the bounding box go around the selected index
+			int _x = current_screen[DELETE_INDEX]->x;
+			int _y = current_screen[DELETE_INDEX]->y;
+			int _w = current_screen[DELETE_INDEX]->width;
+			int _h = current_screen[DELETE_INDEX]->height;
+
+			deleteBoundingBox.setSize( sf::Vector2f( _w, _h ) );
+			deleteBoundingBox.setPosition( _x, _y );
+
+			deleteBoundingBox1.setSize( sf::Vector2f( _w + 20, _h + 20 ) );
+			deleteBoundingBox1.setPosition( _x - 10, _y - 10 );
+
+			deleteBoundingBox2.setSize( sf::Vector2f( _w + 30, _h + 30 ) );
+			deleteBoundingBox2.setPosition( _x - 15, _y - 15 );
 		}
 	}
-
-	// we want ot make the bounding box go around the selected index
-	int _x = current_screen[DELETE_INDEX]->x;
-	int _y = current_screen[DELETE_INDEX]->y;
-	int _w = current_screen[DELETE_INDEX]->width;
-	int _h = current_screen[DELETE_INDEX]->height;
-
-	deleteBoundingBox.setSize( sf::Vector2f( _w, _h ) );
-	deleteBoundingBox.setPosition( _x, _y );
-
-	deleteBoundingBox1.setSize( sf::Vector2f( _w + 20, _h + 20 ) );
-	deleteBoundingBox1.setPosition( _x - 10, _y - 10 );
-
-	deleteBoundingBox2.setSize( sf::Vector2f( _w + 30, _h + 30 ) );
-	deleteBoundingBox2.setPosition( _x - 15, _y - 15 );
 }
 
 void ScreenManager::deleteModule( int _m ){
-	std::cout << "DELETE HERE!!!\n";
+	std::string _file_contents = "";
+	std::string _to_delete;
+	std::string _out;
+	std::fstream _file;
+	char line[255];
+
+	_file.open( currentScreenPath, std::ios::in );
+	while( _file.getline( line, 256 ) != 0 ){
+		_file_contents += line;
+		_file_contents += "\n";
+	}
+	_file.close();
+
+	// now we search we remove the part of the string that is similar to our deleted module
+	_to_delete  = current_screen[ _m ]->dataType;
+	_to_delete += " ";
+	_to_delete += std::to_string(current_screen[ _m ]->x);
+	_to_delete += " ";
+	_to_delete += std::to_string(current_screen[ _m ]->y);
+	_to_delete += " ";
+	_to_delete += std::to_string(current_screen[ _m ]->width);
+	_to_delete += " ";
+	_to_delete += std::to_string(current_screen[ _m ]->height);
+	_to_delete += " ";
+	_to_delete += current_screen[ _m ]->dataFile;
+
+	int _pos = _file_contents.find( _to_delete );
+	_out = _file_contents.replace( _pos, _to_delete.size() + 1, "" );
+
+	_file.open( currentScreenPath, std::ios::out | std::ios::ate );
+	_file << _out;
+	_file.close();
+
+	updateScreen();
 }
 
 void ScreenManager::updateScreen(){
