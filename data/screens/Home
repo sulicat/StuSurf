@@ -1,1 +1,3 @@
-PinkModule 40 40 160 160 data/module_data/PinkModule_1519838003
+PinkModule 20 20 20 20 data/module_data/PinkModule_1520620093
+MultiMeter1 40 80 80 80 data/module_data/MultiMeter1_1520620096
+TextModule 100 40 180 80 data/module_data/TextModule_1520620102

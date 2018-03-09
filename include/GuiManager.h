@@ -6,9 +6,10 @@
 
 class GuiManager{
  public:
-	std::vector <Menu*> 	menus;
-	std::vector <Menu*> 	menus_hidden;
+	std::vector <Menu*> 		menus;
+	std::vector <Menu*> 		menus_hidden;
 	std::vector <CommandBox*> 	textBoxes;
+	std::vector	<OptionInput*>	optionInputs;
 
 	GuiManager();
 	void enable						( Menu* _m );
@@ -16,6 +17,10 @@ class GuiManager{
 	void hide						( Menu* _m );
 	void enable						( CommandBox* _m );
 	void disable					( CommandBox* _m );
+
+	void enable						( OptionInput* _m );
+	void disable					( OptionInput* _m );
+
 	void clear						();
 	bool is_intercepting_input		();
 	void input						( sf::Event e );

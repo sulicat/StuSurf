@@ -61,6 +61,10 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	textbox_commands = CommandBox( );
 	textbox_commands.set( &Main_Commands );
 
+	// text input
+	option_standard_text = OptionInput();
+	option_standard_text.enable();
+
 	// VISUALS
 	border = sf::RectangleShape( sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));
 	border.setPosition( 7, 7 );
@@ -131,11 +135,19 @@ void ScreenManager::changeState( enum PROGRAM_STATE _s ){
 }
 
 void ScreenManager::resize(){
+
+	// resizeing screen variables
 	border.setSize(sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));
 	state_text.setPosition(  window.getSize().x - state_text.getGlobalBounds().width - 20, 8);
 	cursor_vert.setSize(  sf::Vector2f(window.getSize().x, 0) );
 	cursor_horiz.setSize( sf::Vector2f(0, window.getSize().y) );
 
+	// resize all the modules
+	for( int i = 0; i < current_screen.size(); i++ ){
+		current_screen[i]->resize();
+	}
+
+	option_standard_text.resize();
 }
 
 void ScreenManager::move_cursor( sf::Event _e){
@@ -444,7 +456,6 @@ void ScreenManager::input( sf::Event _event ){
 		default:
 			break;
 	}
-
 }
 
 void ScreenManager::test(){

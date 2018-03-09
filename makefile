@@ -10,4 +10,6 @@ main: src/main.cpp
 
 headers: include/headers.h
 	./src/linux/update_headers.sh
-	echo "PRECOMPILE: updated headers in LINUX....\n"
+	echo "PRECOMPILE: updated headers in LINUX...."
+	./src/linux/update_createModule.sh
+	echo "PRECOMPILE: update module factory in LINUX...."

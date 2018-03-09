@@ -65,7 +65,31 @@ void GuiManager::disable( CommandBox* _m ){
 	}
 }
 
+// Option INputs
 //**************************************************************
+
+void GuiManager::enable( OptionInput* _m ){
+	for( int i = 0; i < optionInputs.size(); i++ ){
+		if( optionInputs[i] == _m ){
+			optionInputs.erase( optionInputs.begin() + i );
+		}
+	}
+	optionInputs.push_back( _m );
+}
+
+
+void GuiManager::disable( OptionInput* _m ){
+	for( int i = 0; i < optionInputs.size(); i++ ){
+		if( optionInputs[i] == _m ){
+			optionInputs.erase( optionInputs.begin() + i );
+		}
+	}
+}
+
+//**************************************************************
+
+
+
 
 void GuiManager::clear(){
 	for( int i = 0; i < menus.size(); i++ )
@@ -86,6 +110,11 @@ bool GuiManager::is_intercepting_input(){
 	if( textBoxes.size() > 0 )
 		return true;
 
+	// OptionBoxes can optionaly intercept input. By default they do.
+	for( int i = 0; i < optionInputs.size(); i++ ){
+		if( optionInputs[i]->check_intercept() == true ){ return true; }
+	}
+
 	return false;
 }
 
@@ -94,9 +123,15 @@ void GuiManager::input( sf::Event _e ){
 	for( int i = 0; i < menus.size(); i++ ){
 		menus[i]->event( _e );
 	}
+
 	// textBoxes
 	for( int i = 0; i < textBoxes.size(); i++ ){
 		textBoxes[i]->event( _e );
+	}
+
+	// optionInputs
+	for( int i = 0; i < optionInputs.size(); i++ ){
+		optionInputs[i]->event( _e );
 	}
 }
 
@@ -129,5 +164,9 @@ void GuiManager::render(){
 
 	for( int i = 0; i < textBoxes.size(); i++ ){
 		textBoxes[i]->render();
+	}
+
+	for( int i = 0; i < optionInputs.size(); i++ ){
+		optionInputs[i]->render();
 	}
 }

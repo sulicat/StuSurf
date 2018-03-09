@@ -115,6 +115,7 @@ public:
 	virtual void onMouseDown	( int button, int x, int y )	{ std::cout << "mouse DOWN function UNDEFINED in module\n";	}
 	virtual void onMouseUp		( int button, int x, int y )	{ std::cout << "mouse UP function UNDEFINED in module\n";	}
 	virtual void render			()								{};
+	virtual void resize			()								{ std::cout << "resize function UNDEFINED in module\n";};
 };
 
 
@@ -321,15 +322,44 @@ class CommandBox{
 
 
 /*******************************************************************************************/
-// Prompt
-class Prompt{
+// OptionInputx
+class OptionInput{
  public:
 	std::string title;
 	std::vector< Label > names;
-	int num_shown;
+	int 	num_shown;
+	int 	scroll;
+	int 	current_selected;
+	bool 	isIntercept;
+	bool	isCustomSize;
+	int		x;
+	int		y;
+	int		width;
+	int		height;
 
-	Prompt();
-	
+	// this is a collection of different types of inputs:
+	//	text boxes and number boxes
+	//	drop downs ****
+	//	sliders
+	//	--- others if time permits
+
+	// visuals
+	sf::RectangleShape		backdrop;
+
+
+	OptionInput				();
+	OptionInput				( int _x, int _y, int _w, int _h );
+
+	void setSize			( int _w, int _h );
+	void setPosition		( int _x, int _y );
+	void render				();
+	void enable				();
+	void disable			();
+	void setIntercept		( bool _b );
+	bool check_intercept	(){ return isIntercept; }
+	void resize				();
+	void updateVisuals		();
+	void event				( sf::Event _e );
 
 };
 

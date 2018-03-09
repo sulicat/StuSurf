@@ -83,7 +83,7 @@ int main( int argc, char * * argv ){
 	// new folder command
 	Main_Commands.push_back( Command( []( void* a){ std::cout << "\n -------\nCreating a new folder \n --------- \n"; }, "create folder" ) );
 	// new screen
-	Main_Commands.push_back( Command( []( void* a){ std::cout << "\n -------\nCreating a new screen \n --------- \n"; }, "create screen" ) );
+	Main_Commands.push_back( Command( []( void* a){ std::cout << "\n -------\nCreating a new screen \n --------- \n"; screenManager.option_standard_text.enable(); }, "create screen" ) );
 	// mode edit
 	Main_Commands.push_back( Command( []( void* a){ screenManager.changeState(EDIT); }, "mode add module" ) );
 	// mode delete

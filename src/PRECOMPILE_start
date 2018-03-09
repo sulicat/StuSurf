@@ -1,0 +1,6 @@
+#include "../include/common.h"
+#include "../include/headers.h"
+
+std::map<std::string, std::function<ModuleBase*( int, int, int, int, std::string)> > MODULE_FACTORY;
+
+void common::PRECOMPILE_populate_module_factory(){

@@ -26,6 +26,7 @@ class ScreenManager{
 	Menu										menu_screens;
 	Menu										add_items;
 	CommandBox									textbox_commands;
+	OptionInput									option_standard_text;
 
 
 	// VISUALS
