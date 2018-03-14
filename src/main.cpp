@@ -51,10 +51,11 @@ sf::Texture	ICON_FOLDER;
 sf::Font 	MAIN_FONT;
 
 
-// will handle controlled input and hold a list of modules.
-ScreenManager screenManager 		= ScreenManager( "/home/suli/stusurf" );
 // will handle Gui elements.
 GuiManager guiManager 				= GuiManager();
+// will handle controlled input and hold a list of modules.
+ScreenManager screenManager 		= ScreenManager( "/home/suli/stusurf" );
+
 
 
 

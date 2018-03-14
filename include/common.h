@@ -97,7 +97,7 @@ class common{
 	static void							PRECOMPILE_populate_module_factory();
 };
 
-class ModuleBase{
+class ModuleBase{	// abstract
 public:
 	int 	x;
 	int 	y;
@@ -320,18 +320,42 @@ class CommandBox{
 
 };
 
+/*******************************************************************************************/
+// inputs
+class Input_Base{ 	// abstract
+ public:
+	std::string value;
+	bool selected;
+	int  x;
+	int  y;
+	int  width;
+	int  height;
+
+	virtual void render();
+	virtual void input( sf::Event _e );
+};
+
+
+// custom inputs
+class Text_Input : public Input_Base{
+	// visuals
+	sf::Text text;
+
+	Text_Input();
+};
+
 
 /*******************************************************************************************/
-// OptionInputx
+// OptionInput
 class OptionInput{
  public:
 	std::string title;
-	std::vector< Label > names;
 	int 	num_shown;
 	int 	scroll;
 	int 	current_selected;
 	bool 	isIntercept;
 	bool	isCustomSize;
+	bool 	isPermenant;
 	int		x;
 	int		y;
 	int		width;
@@ -354,8 +378,10 @@ class OptionInput{
 	void setPosition		( int _x, int _y );
 	void render				();
 	void enable				();
+	void hide				();
 	void disable			();
 	void setIntercept		( bool _b );
+	void defaultSettings	();
 	bool check_intercept	(){ return isIntercept; }
 	void resize				();
 	void updateVisuals		();

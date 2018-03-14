@@ -64,6 +64,8 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	// text input
 	option_standard_text = OptionInput();
 	option_standard_text.enable();
+	option_standard_text.setIntercept(true);
+	option_standard_text.isPermenant = false;
 
 	// VISUALS
 	border = sf::RectangleShape( sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));

@@ -9,7 +9,8 @@ main: src/main.cpp
 	g++ src/*.cpp -o bin/run $(sfml) $(cpp)
 
 headers: include/headers.h
-	./src/linux/update_headers.sh
-	echo "PRECOMPILE: updated headers in LINUX...."
-	./src/linux/update_createModule.sh
-	echo "PRECOMPILE: update module factory in LINUX...."
+	@./src/linux/update_headers.sh
+	@echo "\tPRECOMPILE: updated headers in LINUX...."
+	@./src/linux/update_createModule.sh
+	@echo "\tPRECOMPILE: update module factory in LINUX...."
+	@echo ""

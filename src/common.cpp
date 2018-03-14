@@ -36,7 +36,13 @@ void Label::render(){
 }
 
 /*************************************************************************/
+// INPUTS
 
+/// WORK ON THISSSSSSS
+
+
+/*************************************************************************/
+// useful functions
 
 // return the lower case version of a string
 std::string common::toLower( std::string _in ){

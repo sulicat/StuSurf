@@ -1,9 +1,9 @@
 #include "../include/common.h"
 #include "../include/Managers.h"
 
+
 OptionInput::OptionInput(){
-	isIntercept 	= false;
-	isCustomSize	= false;
+	defaultSettings();
 
 	x 		= 2 * window.getSize().x / 3;
 	width 	= window.getSize().x / 3;
@@ -15,14 +15,20 @@ OptionInput::OptionInput(){
 
 
 OptionInput::OptionInput( int _x, int _y, int _w, int _h ){
+	defaultSettings();
 	x = _x;
 	y = _y;
 	width = _w;
 	height = _h;
 }
 
-void OptionInput::updateVisuals(){
+void OptionInput::defaultSettings(){
+	isIntercept 	= true;
+	isCustomSize	= false;
+	isPermenant		= false;
+}
 
+void OptionInput::updateVisuals(){
 	backdrop.setSize( sf::Vector2f(width, height));
 	backdrop.setPosition( x, y );
 }
@@ -37,6 +43,10 @@ void OptionInput::render(){
 
 void OptionInput::enable(){
 	guiManager.enable( this );
+}
+
+void OptionInput::hide(){
+	guiManager.hide(this);
 }
 
 void OptionInput::disable(){
@@ -62,7 +72,11 @@ void OptionInput::event( sf::Event _e ){
 	if( _e.type == sf::Event::KeyPressed ){
 		// ESCAPE
 		if( _e.key.code == sf::Keyboard::Escape ){
-			this->disable();
+			if( isPermenant == false )
+				this->disable();
+			else
+				this->hide();
 		}
 	}
+
 }
