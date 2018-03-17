@@ -57,6 +57,7 @@ extern sf::Color COLOR_CommandBox_3;
 extern sf::Font MAIN_FONT;
 // images
 extern sf::Texture ICON_FOLDER;
+extern sf::Texture TEXTURE_BOX_OUTLINE;
 // input buffer
 extern std::vector<int> input_buffer;
 // map to store module types
@@ -325,50 +326,68 @@ class CommandBox{
 class Input_Base{ 	// abstract
  public:
 	std::string value;
+	std::string name;
 	bool selected;
 	int  x;
 	int  y;
 	int  width;
 	int  height;
 
-	virtual void render();
-	virtual void input( sf::Event _e );
+	Input_Base( std::string _name)				{name = _name;}
+	virtual void render() 						= 0;
+	virtual void input( sf::Event _e ) 			= 0;
+	virtual void move( int _x, int _y )			{ x = _x; y = _y; }
+	virtual void setSize( int _w, int _h )		{ width = _w; height = _h; }
+	virtual std::string output()				{ return value; }
+	virtual std::string getName()				{ return name; }
 };
 
 
 // custom inputs
 class Text_Input : public Input_Base{
+ public:
 	// visuals
 	sf::Text text;
+	sf::Text text_name;
+	sf::RectangleShape backdrop;
 
-	Text_Input();
+	Text_Input  ( std::string _name );
+	void render ();
+	void input  ( sf::Event _e );
 };
 
+
+class Check_Box_Input : public Input_Base{
+ public:
+	Check_Box_Input( std::string _name );
+	void render();
+	void input( sf::Event _e );
+};
 
 /*******************************************************************************************/
 // OptionInput
 class OptionInput{
  public:
 	std::string title;
+	std::vector< std::unique_ptr<Input_Base> > 				inputs;				// inputs
+	std::function<void(int* _x, int* _y, int* _w, int* _h)>	resize_optional;	// optional resize func
 	int 	num_shown;
 	int 	scroll;
 	int 	current_selected;
 	bool 	isIntercept;
-	bool	isCustomSize;
 	bool 	isPermenant;
+	bool	retainState;
 	int		x;
 	int		y;
 	int		width;
 	int		height;
-
-	// this is a collection of different types of inputs:
-	//	text boxes and number boxes
-	//	drop downs ****
-	//	sliders
-	//	--- others if time permits
+	int		number_of_items_shown;
 
 	// visuals
 	sf::RectangleShape		backdrop;
+	//sf::Sprite				selected_outline;		// THIS MUST BE FIXED ... IM PROB BEING AN IDIOT AND MISSING SOMETHING
+													// FIX ME
+	sf::RectangleShape		selected_outline;
 
 
 	OptionInput				();
@@ -376,6 +395,7 @@ class OptionInput{
 
 	void setSize			( int _w, int _h );
 	void setPosition		( int _x, int _y );
+	void add				( Input_Base* _t );
 	void render				();
 	void enable				();
 	void hide				();
@@ -384,6 +404,7 @@ class OptionInput{
 	void defaultSettings	();
 	bool check_intercept	(){ return isIntercept; }
 	void resize				();
+	void setResize			( std::function<void(int* _x, int* _y, int* _w, int* _h)> _f );
 	void updateVisuals		();
 	void event				( sf::Event _e );
 

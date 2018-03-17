@@ -5,6 +5,7 @@
 OptionInput::OptionInput(){
 	defaultSettings();
 
+	// start at center of screen? eh why not
 	x 		= 2 * window.getSize().x / 3;
 	width 	= window.getSize().x / 3;
 	y 		= window.getSize().y / 4;
@@ -24,21 +25,50 @@ OptionInput::OptionInput( int _x, int _y, int _w, int _h ){
 
 void OptionInput::defaultSettings(){
 	isIntercept 	= true;
-	isCustomSize	= false;
 	isPermenant		= false;
+	retainState		= false;
+	number_of_items_shown = 10;
+	scroll			= 0;
+	current_selected = 0;
+	resize_optional = [](int* _x, int* _y, int* _w, int* _h){};
+
+	// visuals
+	selected_outline.setFillColor( sf::Color(255, 0, 255, 0) );		// color
+	selected_outline.setOutlineColor( sf::Color(255, 0, 255) );		// color
+	selected_outline.setOutlineThickness( 2 );
 }
 
 void OptionInput::updateVisuals(){
 	backdrop.setSize( sf::Vector2f(width, height));
 	backdrop.setPosition( x, y );
+
+	for( int i = scroll; i < inputs.size() && i < scroll + number_of_items_shown; i++ ){
+		inputs[i]->x = x;
+		inputs[i]->y = y + (height/number_of_items_shown)*i;
+		inputs[i]->width = width;
+		inputs[i]->height = height / number_of_items_shown;
+	}
+
+	selected_outline.setPosition( x, y + current_selected * (height/number_of_items_shown) );
+	selected_outline.setSize( sf::Vector2f(width, height/number_of_items_shown) );
 }
 
 void OptionInput::setIntercept( bool _b ){
 	isIntercept = _b;
 }
 
+void OptionInput::add( Input_Base* _t ){
+	inputs.push_back( std::unique_ptr<Input_Base>( _t ) );
+}
+
 void OptionInput::render(){
 	window.draw( backdrop );
+
+	for( int i = 0; i < inputs.size(); i++ ){
+		inputs[i]->render();
+	}
+
+	window.draw( selected_outline );
 }
 
 void OptionInput::enable(){
@@ -55,16 +85,16 @@ void OptionInput::disable(){
 
 
 void OptionInput::resize(){
-	if( isCustomSize == false ){
-		x 		= 1 * window.getSize().x / 3;
-		width 	= window.getSize().x / 3;
-		y 		= window.getSize().y / 4;
-		height	= window.getSize().y / 2;
+	resize_optional( &x, &y, &width, &height );
+	// visuals
+	backdrop.setSize( sf::Vector2f( width, height ) );
+	backdrop.setPosition( x, y );
 
-		// visuals
-		backdrop.setSize( sf::Vector2f( width, height ) );
-		backdrop.setPosition( x, y );
-	}
+	updateVisuals();
+}
+
+void OptionInput::setResize( std::function<void(int* _x, int* _y, int* _w, int* _h)> _f){
+	resize_optional = _f;
 }
 
 void OptionInput::event( sf::Event _e ){
@@ -76,7 +106,29 @@ void OptionInput::event( sf::Event _e ){
 				this->disable();
 			else
 				this->hide();
+		// down
+		}else if( _e.key.code == sf::Keyboard::Down ){
+				current_selected += 1;
+				current_selected = current_selected % inputs.size();
+
+				scroll += 1;
+				scroll = scroll % inputs.size();
+
+		// Up
+		}else if( _e.key.code == sf::Keyboard::Up ){
+				current_selected -= 1;
+				if( current_selected < 0 ){ current_selected = inputs.size() - 1; }
+
+				scroll += 1;
+				scroll = scroll % inputs.size();
+
+		}else{
+			if( current_selected >= 0 && current_selected < inputs.size() ){ 
+				inputs[current_selected]->input( _e );
+			}
 		}
 	}
+
+	updateVisuals();
 
 }

@@ -66,6 +66,36 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	option_standard_text.enable();
 	option_standard_text.setIntercept(true);
 	option_standard_text.isPermenant = false;
+	option_standard_text.setResize( []( int* _x, int* _y, int* _w, int* _h ){
+																				*_x = 0;
+																				*_y = window.getSize().y -  *_h;
+																			} );
+	option_standard_text.add( new Text_Input( "title") );
+	//option_standard_text.add( new Check_Box_Input( "checkBox1" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	/*option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );*/
 
 	// VISUALS
 	border = sf::RectangleShape( sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));

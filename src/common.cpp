@@ -38,7 +38,85 @@ void Label::render(){
 /*************************************************************************/
 // INPUTS
 
-/// WORK ON THISSSSSSS
+/*********************************/
+// text input
+Text_Input::Text_Input( std::string _name ) : Input_Base( _name ){
+	name = _name;
+
+	text.setPosition( 0, 0 );
+	text.setFont( MAIN_FONT );
+	text.setColor( sf::Color(0, 0, 0) );				// color
+
+	backdrop.setFillColor( sf::Color(255, 0, 0, 0) ); 	// color
+	backdrop.setOutlineColor( sf::Color(0, 0, 0) ); 	// color
+	backdrop.setOutlineThickness( 2 );
+
+	text_name.setString(name);
+	text_name.setFont(MAIN_FONT);
+	text_name.setColor( sf::Color(0, 0, 0) );			// color
+}
+
+void Text_Input::render(){
+	backdrop.setPosition( (x + width*0.4) + 2, y + 2);
+	backdrop.setSize( sf::Vector2f( (width*0.6) - 4, height - 4) );
+	window.draw( backdrop );
+
+	text_name.setPosition( x + 2, y );
+	text_name.setStyle(sf::Text::Bold);
+	window.draw( text_name );
+
+	text.setPosition( x + width*0.4 + 2, y );
+	text.setStyle(sf::Text::Bold);
+	window.draw( text );
+}
+
+
+void Text_Input::input( sf::Event e ){
+	switch( e.type ){
+		case sf::Event::KeyPressed:
+			// ALPHABETS
+			if( e.key.code >= sf::Keyboard::A && e.key.code <= sf::Keyboard::Z ){
+				value += (char)(e.key.code - sf::Keyboard::A + 'a');
+
+			// NUMBERS 0 - 9
+			}else if( e.key.code >= sf::Keyboard::Num0 && e.key.code <= sf::Keyboard::Num9 ){
+				value += (char)(e.key.code - sf::Keyboard::Num0 + '0');
+
+			// NUMPAD 0 - 9
+			}else if( e.key.code >= sf::Keyboard::Numpad0 && e.key.code <= sf::Keyboard::Numpad9 ){
+				value += (char)( e.key.code - sf::Keyboard::Numpad0 + '0');
+
+			// SPACE
+			}else if( e.key.code == sf::Keyboard::Space ){
+				value += " ";
+
+			// BACKSPACE
+			}else if( e.key.code == sf::Keyboard::BackSpace ){
+				if( value.length() > 0 ){
+					value.pop_back();
+				}
+
+			}
+		default:
+			break;
+	}
+
+	text.setString( value );
+}
+
+/*********************************/
+// check box input
+Check_Box_Input::Check_Box_Input( std::string _name ) : Input_Base(_name){
+	
+}
+
+void Check_Box_Input::render(){
+	
+}
+
+void Check_Box_Input::input( sf::Event _e ){
+
+}
 
 
 /*************************************************************************/

@@ -47,6 +47,7 @@ sf::Color COLOR_CommandBox_3			= sf::Color( 255,  100,  100 );
 
 // textures
 sf::Texture	ICON_FOLDER;
+sf::Texture TEXTURE_BOX_OUTLINE;
 // fonts
 sf::Font 	MAIN_FONT;
 
@@ -67,6 +68,7 @@ int main( int argc, char * * argv ){
 	}
 	// load the images
 	ICON_FOLDER.loadFromFile( "images/icon_folder.png");
+	TEXTURE_BOX_OUTLINE.loadFromFile( "images/test_naruto.png");
 
 	window.setKeyRepeatEnabled( KEY_REPEAT );
 
