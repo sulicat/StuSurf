@@ -45,7 +45,7 @@ Text_Input::Text_Input( std::string _name ) : Input_Base( _name ){
 
 	text.setPosition( 0, 0 );
 	text.setFont( MAIN_FONT );
-	text.setColor( sf::Color(0, 0, 0) );				// color
+	text.setColor( COLOR_WHITE );						// color
 
 	backdrop.setFillColor( sf::Color(255, 0, 0, 0) ); 	// color
 	backdrop.setOutlineColor( sf::Color(0, 0, 0) ); 	// color
@@ -53,7 +53,8 @@ Text_Input::Text_Input( std::string _name ) : Input_Base( _name ){
 
 	text_name.setString(name);
 	text_name.setFont(MAIN_FONT);
-	text_name.setColor( sf::Color(0, 0, 0) );			// color
+	text_name.setColor( COLOR_BLACK );					// color
+	text_name.setCharacterSize( 20 );
 }
 
 void Text_Input::render(){
@@ -66,7 +67,7 @@ void Text_Input::render(){
 	window.draw( text_name );
 
 	text.setPosition( x + width*0.4 + 2, y );
-	text.setStyle(sf::Text::Bold);
+	//	text.setStyle(sf::Text::Bold);
 	window.draw( text );
 }
 
@@ -106,15 +107,84 @@ void Text_Input::input( sf::Event e ){
 
 /*********************************/
 // check box input
-Check_Box_Input::Check_Box_Input( std::string _name ) : Input_Base(_name){
-	
+Check_Box_Input::Check_Box_Input( std::string _name, std::vector<std::string> _contents ) : Input_Base(_name){
+	contents = _contents;
+	number_of_boxes = 3;
+	scroll = 0;
+	selected_index = 0;
+
+	for( int i = 0; i < _contents.size(); i++ ){
+		content_values.push_back( false );
+	}
+
+	text_name.setFont( MAIN_FONT );
+	text_name.setString( _name );
+	text_name.setColor( sf::Color(0,0,0) );		// color
+	text_name.setCharacterSize( 20 );
+
+	box_name.setFont( MAIN_FONT );
+	box_name.setCharacterSize( 15 );
+	box_name.setStyle( sf::Text::Bold );
+	box_name.setColor( sf::Color(0,0,0) );		// color
+
+	temp_texture.loadFromFile( "images/icon_checkmark.png" );
+	checkmark.setTexture( temp_texture );
 }
 
 void Check_Box_Input::render(){
-	
+	box.setOutlineColor( sf::Color(0,0,0) );
+	box.setOutlineThickness( 2 );
+	box.setFillColor( sf::Color(0,0,0,0) );
+
+	int padding_x = 50;
+	int s_x = x + width * 0.4;
+	int s_y = y + height * 0.5;
+	box.setSize( sf::Vector2f( std::min((width*0.6)/number_of_boxes, height*0.4) , std::min((width*0.6)/number_of_boxes, height*0.4) ));
+	//checkmark.setScale( 1, 1);
+
+	for( int i = scroll; i < contents.size() && i < scroll + number_of_boxes - 1; i++ ){
+		int x_offset = (i-scroll)*(width*0.6)/number_of_boxes + (padding_x/number_of_boxes)*(i-scroll);
+		int y_offset = 0;
+
+ 		box.setPosition( s_x + x_offset, s_y + y_offset);
+		box.setFillColor( sf::Color(0,0,0,0) );
+		if( i == selected_index ){ box.setFillColor( sf::Color(255, 0, 255) ); }
+		box_name.setPosition( s_x + x_offset, y );
+		box_name.setString( contents[i] );
+
+		checkmark.setPosition( s_x + x_offset, y );
+
+
+		window.draw(box);
+		window.draw(box_name);
+		window.draw(checkmark);
+	}
+
+	text_name.setPosition( x, y );
+	text_name.setStyle(sf::Text::Bold);
+	window.draw(text_name);
 }
 
 void Check_Box_Input::input( sf::Event _e ){
+	if( _e.type == sf::Event::KeyPressed ){
+
+		// right arrow
+		if( _e.key.code == sf::Keyboard::Right ){
+			if( selected_index - scroll == number_of_boxes - 2 ){ scroll += 2; }
+			selected_index += 1;
+			if( selected_index >= contents.size() ){ selected_index = contents.size() - 1; }
+
+		// left arrow
+		}else if( _e.key.code == sf::Keyboard::Left ){
+			if( selected_index - scroll == number_of_boxes - 3 && scroll != 0 ){ scroll -= 2; }
+			selected_index -= 1;
+			if( selected_index < 0){ selected_index = 0;}
+
+		// enter key
+		}else if( _e.key.code == sf::Keyboard::Return ){
+			content_values[selected_index] = !(content_values[selected_index]);
+		}
+	}
 
 }
 

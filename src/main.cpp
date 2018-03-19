@@ -45,9 +45,11 @@ sf::Color COLOR_CommandBox_1			= sf::Color( 100,  100,  100, 245 );
 sf::Color COLOR_CommandBox_2			= sf::Color( 255,  255,  255 );
 sf::Color COLOR_CommandBox_3			= sf::Color( 255,  100,  100 );
 
+
 // textures
 sf::Texture	ICON_FOLDER;
 sf::Texture TEXTURE_BOX_OUTLINE;
+sf::Texture ICON_CHECKMARK;
 // fonts
 sf::Font 	MAIN_FONT;
 
@@ -59,15 +61,16 @@ ScreenManager screenManager 		= ScreenManager( "/home/suli/stusurf" );
 
 
 
-
 /* ********************************************************************************** */
 int main( int argc, char * * argv ){
+
 	// set font
  	if (!MAIN_FONT.loadFromFile("fonts/calibri.ttf")){
 		std::cout << "FONT WAS NOT ABLE TO LOAD\n";
 	}
 	// load the images
 	ICON_FOLDER.loadFromFile( "images/icon_folder.png");
+	ICON_CHECKMARK.loadFromFile( "images/icon_checkmark.png");
 	TEXTURE_BOX_OUTLINE.loadFromFile( "images/test_naruto.png");
 
 	window.setKeyRepeatEnabled( KEY_REPEAT );

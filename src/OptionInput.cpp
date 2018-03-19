@@ -34,8 +34,10 @@ void OptionInput::defaultSettings(){
 
 	// visuals
 	selected_outline.setFillColor( sf::Color(255, 0, 255, 0) );		// color
-	selected_outline.setOutlineColor( sf::Color(255, 0, 255) );		// color
+	selected_outline.setOutlineColor( COLOR_Menu_3 );				// color
 	selected_outline.setOutlineThickness( 2 );
+	backdrop.setFillColor( COLOR_Menu_1 );
+	
 }
 
 void OptionInput::updateVisuals(){
@@ -44,12 +46,12 @@ void OptionInput::updateVisuals(){
 
 	for( int i = scroll; i < inputs.size() && i < scroll + number_of_items_shown; i++ ){
 		inputs[i]->x = x;
-		inputs[i]->y = y + (height/number_of_items_shown)*i;
+		inputs[i]->y = y + (height/number_of_items_shown)*(i - scroll);
 		inputs[i]->width = width;
 		inputs[i]->height = height / number_of_items_shown;
 	}
 
-	selected_outline.setPosition( x, y + current_selected * (height/number_of_items_shown) );
+	selected_outline.setPosition( x, y + (current_selected - scroll) * (height/number_of_items_shown) );
 	selected_outline.setSize( sf::Vector2f(width, height/number_of_items_shown) );
 }
 
@@ -64,7 +66,7 @@ void OptionInput::add( Input_Base* _t ){
 void OptionInput::render(){
 	window.draw( backdrop );
 
-	for( int i = 0; i < inputs.size(); i++ ){
+	for( int i = scroll; i < inputs.size() && i < scroll + number_of_items_shown; i++ ){
 		inputs[i]->render();
 	}
 
@@ -109,18 +111,14 @@ void OptionInput::event( sf::Event _e ){
 		// down
 		}else if( _e.key.code == sf::Keyboard::Down ){
 				current_selected += 1;
-				current_selected = current_selected % inputs.size();
-
-				scroll += 1;
-				scroll = scroll % inputs.size();
+				if( current_selected > inputs.size() - 1 ){ current_selected = 0; scroll = 0;}
+				if( current_selected > number_of_items_shown + scroll - 1 ){ scroll += 1; }
 
 		// Up
 		}else if( _e.key.code == sf::Keyboard::Up ){
 				current_selected -= 1;
-				if( current_selected < 0 ){ current_selected = inputs.size() - 1; }
-
-				scroll += 1;
-				scroll = scroll % inputs.size();
+				if( current_selected < 0 ){ current_selected = inputs.size() - 1; scroll = inputs.size() - number_of_items_shown;}
+				if( current_selected < scroll ){ scroll -= 1; }
 
 		}else{
 			if( current_selected >= 0 && current_selected < inputs.size() ){ 

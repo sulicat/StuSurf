@@ -58,6 +58,7 @@ extern sf::Font MAIN_FONT;
 // images
 extern sf::Texture ICON_FOLDER;
 extern sf::Texture TEXTURE_BOX_OUTLINE;
+extern sf::Texture ICON_CHECKMARK;
 // input buffer
 extern std::vector<int> input_buffer;
 // map to store module types
@@ -359,7 +360,19 @@ class Text_Input : public Input_Base{
 
 class Check_Box_Input : public Input_Base{
  public:
-	Check_Box_Input( std::string _name );
+	std::vector<std::string> contents;
+	std::vector<bool> content_values;
+	// visuals
+	sf::RectangleShape box;
+	sf::Text text_name;
+	sf::Text box_name;
+	sf::Texture temp_texture;
+	sf::Sprite checkmark;
+	int number_of_boxes;
+	int scroll;
+	int selected_index;
+
+	Check_Box_Input( std::string _name, std::vector<std::string> _contents );
 	void render();
 	void input( sf::Event _e );
 };

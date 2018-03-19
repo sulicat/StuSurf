@@ -70,8 +70,20 @@ ScreenManager::ScreenManager( std::string _topDir ){
 																				*_x = 0;
 																				*_y = window.getSize().y -  *_h;
 																			} );
+
+
+
 	option_standard_text.add( new Text_Input( "title") );
-	//option_standard_text.add( new Check_Box_Input( "checkBox1" ) );
+	// checkbox contents
+	std::vector<std::string> temp; 
+	temp.push_back( "hello" );
+	temp.push_back( "not hello" );
+	temp.push_back( "something" );
+	temp.push_back( "something else" );
+	temp.push_back( "lastThing" );
+	temp.push_back( "oops" );
+	temp.push_back( "a little more" );
+	option_standard_text.add( new Check_Box_Input( "checkBox1", temp ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
@@ -79,8 +91,6 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
-	/*option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
@@ -95,7 +105,9 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );*/
+	option_standard_text.add( new Text_Input( "test2" ) );
+	option_standard_text.add( new Text_Input( "test1" ) );
+	option_standard_text.add( new Text_Input( "test2" ) );
 
 	// VISUALS
 	border = sf::RectangleShape( sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));
