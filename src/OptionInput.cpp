@@ -37,12 +37,12 @@ void OptionInput::defaultSettings(){
 	selected_outline.setOutlineColor( COLOR_Menu_3 );				// color
 	selected_outline.setOutlineThickness( 2 );
 	backdrop.setFillColor( COLOR_Menu_1 );
-	
+
 }
 
 void OptionInput::updateVisuals(){
-	backdrop.setSize( sf::Vector2f(width, height));
-	backdrop.setPosition( x, y );
+	backdrop.setSize( sf::Vector2f(width + 20, height + 20));
+	backdrop.setPosition( x - 10, y - 10 );
 
 	for( int i = scroll; i < inputs.size() && i < scroll + number_of_items_shown; i++ ){
 		inputs[i]->x = x;
@@ -117,11 +117,12 @@ void OptionInput::event( sf::Event _e ){
 		// Up
 		}else if( _e.key.code == sf::Keyboard::Up ){
 				current_selected -= 1;
-				if( current_selected < 0 ){ current_selected = inputs.size() - 1; scroll = inputs.size() - number_of_items_shown;}
+				if( current_selected < 0 && inputs.size() > number_of_items_shown){ current_selected = inputs.size() - 1; scroll = inputs.size() - number_of_items_shown;}
+				else if( current_selected < 0 ){ current_selected = inputs.size() - 1; }
 				if( current_selected < scroll ){ scroll -= 1; }
 
 		}else{
-			if( current_selected >= 0 && current_selected < inputs.size() ){ 
+			if( current_selected >= 0 && current_selected < inputs.size() ){
 				inputs[current_selected]->input( _e );
 			}
 		}

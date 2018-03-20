@@ -377,6 +377,25 @@ class Check_Box_Input : public Input_Base{
 	void input( sf::Event _e );
 };
 
+
+class Slider_Input : public Input_Base{
+ public:
+
+	int number;
+	int min;
+	int max;
+	// visuals
+	sf::RectangleShape bar;
+	sf::RectangleShape slider;
+	sf::Text text_name;
+	sf::Text text_value;
+
+	Slider_Input( std::string _name, int _min, int _max, int _start );
+	void render();
+	void input( sf::Event _e );
+
+};
+
 /*******************************************************************************************/
 // OptionInput
 class OptionInput{

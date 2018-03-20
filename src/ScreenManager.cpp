@@ -84,30 +84,32 @@ ScreenManager::ScreenManager( std::string _topDir ){
 	temp.push_back( "oops" );
 	temp.push_back( "a little more" );
 	option_standard_text.add( new Check_Box_Input( "checkBox1", temp ) );
+
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
+
+	option_standard_text.add( new Slider_Input( "slider one", 0, 100, 50 ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
+
+	option_standard_text.add( new Slider_Input( "slider one", 0, 100, 50 ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
+
+	option_standard_text.add( new Slider_Input( "slider one", 0, 100, 50 ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
+
+	option_standard_text.add( new Slider_Input( "slider one", 0, 100, 50 ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
+
+	option_standard_text.add( new Slider_Input( "slider one", 0, 100, 50 ) );
 	option_standard_text.add( new Text_Input( "test1" ) );
 	option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );
-	option_standard_text.add( new Text_Input( "test1" ) );
-	option_standard_text.add( new Text_Input( "test2" ) );
+
+	option_standard_text.add( new Slider_Input( "slider one", 0, 100, 50 ) );
+
 
 	// VISUALS
 	border = sf::RectangleShape( sf::Vector2f( window.getSize().x - 14, window.getSize().y - 14 ));
