@@ -17,6 +17,7 @@
 #include <math.h>
 #include <chrono>
 #include <ctime>
+#include "JSON.h"
 
 // prototypes
 class Menu;
