@@ -23,4 +23,13 @@
         "alignment": "center",
         "onMouseUp": "sun1.opacity = (sun1.opacity / 100) * 90;"
     }
-}}
+},
+
+"widget":{
+		"test1":"test1"
+	},
+
+"letter1":"1",
+"letter2":"2"
+
+}

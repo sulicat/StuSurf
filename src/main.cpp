@@ -96,6 +96,17 @@ int main( int argc, char * * argv ){
 	Main_Commands.push_back( Command( []( void* a){ screenManager.changeState(DELETE_MODULE); }, "mode delete module" ) );
 
 
+	// testing the JSON parser
+	JSON_DATA test_data;
+	//	test_data.insert( "hello", "test1" );
+	std::vector<std::string> test_arr_data;
+		test_arr_data.push_back( "1" );
+		test_arr_data.push_back( "2" );
+		test_arr_data.push_back( "3" );
+	test_data.insert( "hello2", test_arr_data );
+	std::cout << test_data["hello2"].get() << "\n";
+
+
 	sf::Event event;
 	while( window.isOpen() ){
 

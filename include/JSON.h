@@ -25,10 +25,23 @@
 
 class JSON_DATA{
  public:
-	union data{
-		std::map< std::string, std::string > map;
-		std::vector< std::string > values;
-	};
+	std::map< std::string, JSON_DATA > map;
+	std::vector< std::string > values;
+
+	JSON_DATA();
+	JSON_DATA( std::string _i );
+
+	void insert( std::string _key, std::vector<std::string> _arr );
+	void set( std::vector<std::string> _arr );
+	void insert( std::string _key, std::string _val);
+	void insert( std::string _val );
+	void insert( std::string _key, JSON_DATA _map );
+	std::string get();
+	std::vector<std::string> get_vector();
+
+	// operators
+	JSON_DATA operator[]( std::string _in);
+	JSON_DATA operator[]( int _in );
 };
 
 
@@ -37,10 +50,10 @@ class JSON{
  public:
 	static void test();
 
-	static JSON_DATA load_from_file( std::string _file );
-	static std::string make_all_string( std::string _in );
-	static JSON_DATA load_from_string( std::string _in );
-
+	static JSON_DATA load_from_file			( std::string _file );
+	static std::string make_all_string		( std::string _in );
+	static JSON_DATA load_from_string		( std::string _in );
+	static JSON_DATA map_from_string		( std::string _in );
 };
 
 

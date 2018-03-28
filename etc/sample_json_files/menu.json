@@ -1,4 +1,7 @@
-{"menu": {
+{
+"test1":"letterasd",
+"test2":"2222222",
+"menu": {
   "id": "file",
   "value": "File",
   "popup": {
@@ -8,4 +11,20 @@
       {"value": "Close", "onclick": "CloseDoc()"}
     ]
   }
-}}
+},
+
+"menu2": {
+  "id2": "file123",
+  "value2": "File123",
+  "popup2": {
+    "menuitem2": [
+      {"value2": "New123", "oncli123ck": "C123reateNewDoc()"},
+      {"value2": "Open1233", "123onclick": "OpenDoc123()"},
+      {"value2": "Cl12ose", "onc123lick": "CloseD123oc()"}
+    ]
+  }
+},
+"Cat":"meow",
+"dog":"woof"
+
+}
