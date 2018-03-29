@@ -54,12 +54,13 @@ class JSON_DATA{
 };
 
 
+
 class JSON{
  public:
 
 	static JSON_DATA load_from_file			( std::string _file );
 	static std::string make_all_string		( std::string _in );
-	static JSON_DATA load_from_string		( std::string _in, int num );
+	static JSON_DATA load_from_string		( std::string _in );
 	static JSON_DATA map_from_string		( std::string _in );
 };
 

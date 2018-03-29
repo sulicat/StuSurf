@@ -3,5 +3,13 @@
 "name": "sun1",
 "hOffset": 250,
 "vOffset": 250,
-"alignment": "center"
+"alignment": "center",
+"JSON1":{	"Hello":"_hey_",
+			"hows it goind":"good",
+			"JSON2":{	"123":456,
+						"000":111,
+						"true":false,
+						"testarr":[ "helloworld", "cat", "dog", {"JS2.1":"it works?"}, {"JS2.2":"Yeah it works", "Really?":"yea dude"} ]
+					}
+		}
 }

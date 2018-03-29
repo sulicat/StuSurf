@@ -97,14 +97,7 @@ int main( int argc, char * * argv ){
 
 
 	// testing the JSON parser
-	JSON_DATA test_data;
-	//	test_data.insert( "hello", "test1" );
-	std::vector<std::string> test_arr_data;
-		test_arr_data.push_back( "1" );
-		test_arr_data.push_back( "2" );
-		test_arr_data.push_back( "3" );
-	test_data.insert( "hello2", test_arr_data );
-	std::cout << test_data["hello2"].get() << "\n";
+	JSON_DATA test_data = JSON::load_from_file("etc/sample_json_files/test_list.json");
 
 
 	sf::Event event;

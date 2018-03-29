@@ -490,7 +490,6 @@ void ScreenManager::input( sf::Event _event ){
 			for( int i = 0; i < current_screen.size(); i++ ){
 					current_screen[i]->onMouseDown( _event.mouseButton.button, _event.mouseButton.x, _event.mouseButton.y );
 			}
-			//JSON::load_from_file( "etc/sample_json_files/menu.json" );
 			break;
 
 		case sf::Event::MouseButtonReleased:		// mouse press

@@ -2,6 +2,10 @@
 #include <iostream>
 #include <fstream>
 
+void JSON::test(){
+	std::cout << "sdasdasd\n";
+}
+
 /* MOTE suli:
 There is a bug with make_all_string, it strips spaces from inputs. Fix when in good mindset:/
 Oh god. you idiot.
@@ -19,6 +23,7 @@ JSON_DATA::JSON_DATA( std::string _in ){
 }
 
 JSON_DATA::JSON_DATA(){
+	std::cout << "created an empty json object\n\n";
 }
 
 // functions
@@ -121,7 +126,7 @@ JSON Object
 	-> array of strings
 */
 
-JSON_DATA JSON::load_from_string( std::string _in, int num){
+JSON_DATA JSON::load_from_string( std::string _in){
 	JSON_DATA out;
 
 	bool reached_closing 	= false;
@@ -138,7 +143,7 @@ JSON_DATA JSON::load_from_string( std::string _in, int num){
 	// the json will start with "{" 
 		// we want to create a JSON_DATA object. The initial object will be hashmap, with keys that are any top level json items
 
-	if( _in.size() > 0 && _in[0] == '{' ){		// initial start of hasmap
+	if( _in[0] == '{' ){		// initial start of hasmap
 		// we want to find the top level keys and link them to json objects/arrays/values
 		int i = 0;
 		while( _in.size() > 0 ){
@@ -160,9 +165,7 @@ JSON_DATA JSON::load_from_string( std::string _in, int num){
 				pos_end = (_in.substr(1, _in.size()).find('"')) + 1;	// +1 because we took one out by starting at 1
 				temp_string = _in.substr( pos_start, pos_end + 1);
 
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
 				std::cout << "________single______\n";
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
 				std::cout << temp_key << " -> " << temp_string << "\n\n";
 
 				_in.erase( pos_start, pos_end + 1 );
@@ -183,11 +186,9 @@ JSON_DATA JSON::load_from_string( std::string _in, int num){
 					if( _in[i] == brace_type_close ){ depth -= 1;}else if( _in[i] == brace_type_open ){ depth += 1; }
 				}
 
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
 				std::cout << "________JSON_______\n";
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
-				std::cout << "Key: "<< temp_key << " == " << _in.substr( 0, i+1 ) << "\n\n";
-				load_from_string( _in.substr( 0, i+1 ), num + 1 );
+				std::cout << "Key: \t" << temp_key << "\n";
+				std::cout << "JSON: \t" << _in.substr( 0, i+1 ) << "\n";
 
 				_in.erase(0, i + 2);
 
@@ -195,60 +196,13 @@ JSON_DATA JSON::load_from_string( std::string _in, int num){
 				std::cout << "\n\nERROR: \n";
 				break;
 			}
-		}
-
-	// dealing with an array
-	}else if( _in.size() > 0 && _in[0] == '[' ){
-		int i = 0;
-		// we want to get rid of the opening and closing brace
-		_in.erase( 0, 1);
-		_in.erase( _in.size() - 1, 1);
-
-		// we know we are dealing with an array. we can treat it very similar to how we did with the JSON object,
-		//	however this time we do not have a key, instead we will be creating an array
-		pos_start = 0;
-		int current_index_out = 0;
-		// we want to split the elements that are delimeted by a comma,
-		//	however we want to ignore commas that are included in another array or another string
-		while( _in.size() > 0 ){
-			if( _in[0] == '"' ){
-				_in.erase( 0, 1 );
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
-				std::cout << "i: " << current_index_out << " == " << _in.substr( 0, _in.find('"') ) << "\n";
-				current_index_out += 1;
-				_in.erase( 0, _in.find('"') );
-				if( _in[0] == '"' ){ _in.erase( 0,1 ); }
-				if( _in[0] == ',' ){ _in.erase( 0,1 ); }
-
-			}else if( _in.size() > 0 && (_in[0] == '{' || _in[0] == '[') ){	// at this poit, we want to find the closing brace
-				// set brace type, either {,} or [,]
-				if( _in[0] == '{' ){ brace_type_open = '{'; brace_type_close = '}'; }
-				else if( _in[0] == '[' ){ brace_type_open = '['; brace_type_close = ']'; }
-
-				// we found the opening brace, now we want to loop to find the closing brace
-				depth = 1;
-				i = 0;
-				while( depth > 0 ){
-					i += 1;
-					if( _in[i] == brace_type_close ){ depth -= 1;}else if( _in[i] == brace_type_open ){ depth += 1; }
-				}
-
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
-				std::cout << "i: " << current_index_out << " num: " << num << "\n";
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
-				std::cout << "________JSON_______\n";
-				for( int  f = 0; f < num; f++ ){ std::cout << "\t"; }
-				std::cout << "Key: "<< temp_key << " == " << _in.substr( 0, i+1 ) << "\n\n";
-				load_from_string( _in.substr( 0, i+1 ), num + 1 );
-
-				current_index_out += 1;
-				_in.erase(0, i + 2);
-
-			}
 
 		}
-
 	}
+
+
+	std::cout << "\n->->->->->->->->->->\n" << _in << "\n\n";
+
 
 	return out;
 }
@@ -283,7 +237,7 @@ JSON_DATA JSON::load_from_file( std::string _file ){
 	// now the json file is full of strings.
 	// we want ot generate a JSON_CONTAINER from this json string
 
-	JSON_DATA temp = load_from_string( json_string, 0 );
+	JSON_DATA temp = load_from_string( json_string );
 
 	return _out;
 }
