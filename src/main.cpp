@@ -98,6 +98,8 @@ int main( int argc, char * * argv ){
 
 	// testing the JSON parser
 	JSON_DATA test_data = JSON::load_from_file("etc/sample_json_files/test_list.json");
+	JSON::pretty_print_JSON_DATA( test_data, 0 );
+	//std::cout << "\n\n" << test_data["JSON1"]["howsitgoing"].value << "\n";
 
 
 	sf::Event event;
